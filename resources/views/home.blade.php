@@ -9,7 +9,6 @@
                 <div class="panel-body">
                   <div class="dashboard-notice js-notice">
                   <h2>Welcome to the <strong>Gonzaga</strong> Records Manager!</h2>
-
                   <p>Here are some quick tips for a first-time teacher member.</p>
                   <ul>
                     <li>
