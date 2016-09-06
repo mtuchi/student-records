@@ -16,19 +16,19 @@ A platform for managing student records designed for Gonzaga Primary School.
 
 - Install composer dependencies
 
-	$ composer install
+		$ composer install
 
 - Install nodejs dependencies
 
-	$ npm install
+		$ npm install
 
 - Run gulp (or gulp watch)
 
-	$ gulp (or watch)
+		$ gulp (or watch)
 
 - Use artisan command or apache to serve the app.
 
-	$ php artisan serve
+		$ php artisan serve
 
 ## Who you go' call...
 
