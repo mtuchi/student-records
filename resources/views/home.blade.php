@@ -6,7 +6,6 @@
         <div class="col-xs-12 col-sm-6 col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
-
                 <div class="panel-body">
                   <div class="dashboard-notice js-notice">
                   <h2>Welcome to the <strong>Gonzaga</strong> Records Manager!</h2>
