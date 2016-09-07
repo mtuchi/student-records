@@ -27,4 +27,14 @@ class HomeController extends Controller
         $subjects = Auth::user()->subjects()->get();
         return view('home', compact('subjects'));
     }
+
+	/**
+     * Show the upload view.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function upload()
+    {
+		return view('upload');
+    }
 }
