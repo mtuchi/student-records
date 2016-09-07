@@ -3,13 +3,8 @@
 use Illuminate\Database\Seeder;
 use App\Models\Subject;
 
-class SubjectsSeeder extends Seeder
+class SubjectsTableSeeder extends Seeder
 {
-    protected $subject;
-    public function __construct(Subject $subject)
-    {
-      $this->subject = $subject;
-    }
     /**
      * Run the database seeds.
      *
@@ -17,7 +12,7 @@ class SubjectsSeeder extends Seeder
      */
     public function run()
     {
-        $arr = [
+        $subjects = [
           'English',
           'Mathematics',
           'Kiswahili',
@@ -32,11 +27,11 @@ class SubjectsSeeder extends Seeder
           'Social Studies',
           'French',
         ];
-        foreach ($arr as $key => $value) {
-          $this->subject->firstOrCreate([
-            'subject'=> $value
-          ]);
-        }
 
+        foreach($subjects as $subject) {
+            factory(Subject::class)->create([
+                'name' => $subject
+            ]);
+        }
     }
 }
