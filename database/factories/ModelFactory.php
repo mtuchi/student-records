@@ -22,16 +22,10 @@ $factory->define(\App\Models\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(\App\Models\Teacher::class, function (Faker\Generator $faker) {
-
-    return [
-        'assigned_subjects' => json_encode([1, 2])
-    ];
-});
-
 $factory->define(\App\Models\Subject::class, function (Faker\Generator $faker) {
 
     return [
-        'name' => $faker->word
+        'name' => 'Mathematics',
+        'user_id' => 1
     ];
 });

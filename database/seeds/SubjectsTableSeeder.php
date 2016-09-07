@@ -12,26 +12,10 @@ class SubjectsTableSeeder extends Seeder
      */
     public function run()
     {
-        $subjects = [
-          'English',
-          'Mathematics',
-          'Kiswahili',
-          'Science',
-          'Arts',
-          'Sport',
-          'General Manner',
-          'Vocational Skills',
-          'Civics',
-          'Geography',
-          'History',
-          'Social Studies',
-          'French',
-        ];
+        $subjects = ['English', 'Mathematics'];
 
         foreach($subjects as $subject) {
-            factory(Subject::class)->create([
-                'name' => $subject
-            ]);
+            factory(Subject::class)->create(['name' => $subject]);
         }
     }
 }

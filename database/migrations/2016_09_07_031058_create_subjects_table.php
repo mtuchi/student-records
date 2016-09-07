@@ -15,10 +15,11 @@ class CreateSubjectsTable extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('teacher_id')->unsigned();
+            $table->string('name');
+            $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();
 
-            $table->foreign('teacher_id')->references('id')->on('teachers');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
