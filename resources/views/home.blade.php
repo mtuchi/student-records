@@ -34,20 +34,15 @@
                 <div class="panel-body">
                   <div class="boxed-group-inner">
                     <ul class="mini-subject-list js-subject-list">
-                      <li class="public source ">
-                        <a href="/Happyr/LinkedIn-API-client" class="mini-subject-list-item css-truncate">
-                          <span class="subject-and-owner css-truncate-target">
-                            <span class="subject" title="LinkedIn-API-client">Biology</span>
-                        </span>
-                        </a>
-                      </li>
-                      <li class="public source ">
-                        <a href="/pagekit/docs" class="mini-subject-list-item css-truncate">
-                          <span class="subject-and-owner css-truncate-target">
-                            <span class="subject" title="docs">English</span>
-                          </span>
-                        </a>
-                      </li>
+                        @foreach($subjects as $subject)
+                            <li class="public source ">
+                              <a href="{{$subject->name}}" class="mini-subject-list-item css-truncate">
+                                <span class="subject-and-owner css-truncate-target">
+                                  <span class="subject" title="{{$subject->name}}">{{$subject->name}}</span>
+                              </span>
+                              </a>
+                            </li>
+                        @endforeach
                     </ul>
                   </div>
                 </div>
