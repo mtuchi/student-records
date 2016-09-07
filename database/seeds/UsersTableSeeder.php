@@ -12,8 +12,10 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+        User::truncate();
         factory(User::class)->create([
-			'email' => 'teacher@gonzaga.ac.tz'
-		]);
+			       'email' => 'teacher@gonzaga.ac.tz',
+             'fruits' => json_encode(['oranges', 'banana'])
+	         ]);
     }
 }
