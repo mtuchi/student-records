@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Subject;
 
 class HomeController extends Controller
@@ -48,7 +49,8 @@ class HomeController extends Controller
     {
 		$file = $request->file('sheet');
 
-		dd($file->path());
+		$rowCollection = Excel::load($file)->get();
+		dd($rowCollection);
 
 		return redirect('/home');
     }
