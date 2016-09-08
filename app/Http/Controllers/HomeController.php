@@ -37,4 +37,18 @@ class HomeController extends Controller
     {
 		return view('upload');
     }
+
+	/**
+     * Store uploaded test scores and redirect to home.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+		$file = $request->file('sheet');
+
+		dd($file->path());
+
+		return redirect('/home');
+    }
 }
