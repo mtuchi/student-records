@@ -49,8 +49,15 @@ class HomeController extends Controller
     {
 		$file = $request->file('sheet');
 
-		$rowCollection = Excel::load($file)->get();
-		dd($rowCollection);
+		$rowCollection = Excel::load($file)->all();
+		dump("Month of the Quarter: " . $rowCollection->getTitle());
+		dump($cellCollection = $rowCollection->all());
+		foreach($cellCollection as $cell) {
+			if(!empty($cell->name))
+				dump("Name: " . $cell->name . " | Score: " . $cell->score);
+		}
+
+		die("It works!");
 
 		return redirect('/home');
     }
