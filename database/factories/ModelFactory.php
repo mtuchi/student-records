@@ -29,3 +29,19 @@ $factory->define(\App\Models\Subject::class, function (Faker\Generator $faker) {
         'user_id' => 1
     ];
 });
+
+$factory->define(\App\Models\Student::class, function (Faker\Generator $faker) {
+	$gender = $faker->boolean ? 'f':'m';
+
+	if($gender == 'f') {
+		return [
+			'name' =>  $faker->firstNameFemale . " " . $faker->lastName,
+			'gender' => $gender
+		];	
+	}
+
+	return [
+		'name' => $faker->firstNameMale . " " . $faker->lastName,
+		'gender' => $gender
+	];
+});
