@@ -12,9 +12,7 @@ class Student extends Model
 	 *
 	 * @var array
 	 */
-	protected $fillable = [
-        'name', 'gender',
-    ];
+	protected $fillable = ['name', 'gender'];
 
     public function subjects() {
         return $this->belongsToMany(Subject::class);
