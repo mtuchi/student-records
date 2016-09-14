@@ -19,5 +19,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::get('/subject/{name}',function () {
+    return view('subjects.subject');
+});
+
 Route::get('/records/upload', 'HomeController@upload');
 Route::post('/records', 'HomeController@store');

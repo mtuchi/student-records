@@ -22,7 +22,6 @@
                       To upload students scores, First download the spreedsheet schema,
                       i.e The schema will contain student names and quarter fieldset that you will have to fill
                     </li>
-
                   </ul>
                   </div>
                 </div>
@@ -36,7 +35,7 @@
                     <ul class="mini-subject-list js-subject-list">
                         @foreach($subjects as $subject)
                             <li class="public source ">
-                              <a href="{{$subject->name}}" class="mini-subject-list-item css-truncate">
+                              <a href="subject/{{$subject->name}}" class="mini-subject-list-item css-truncate">
                                 <span class="subject-and-owner css-truncate-target">
                                   <span class="subject" title="{{$subject->name}}">{{$subject->name}}</span>
                               </span>
