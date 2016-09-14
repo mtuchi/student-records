@@ -17,11 +17,20 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/',[
+  'as' => 'home',
+  'uses'=>'HomeController@index'
+]);
 
-Route::get('/subject/{name}',function () {
-    return view('subjects.subject');
-});
+Route::get('/user/{user}',[
+  'as' => 'user.profile',
+  'uses' => 'HomeController@user',
+]);
+
+Route::get('/subject/{subject}',[
+  'as' => 'user.subject',
+  'uses' => 'HomeController@quater'
+]);
 
 Route::get('/records/upload', 'HomeController@upload');
 Route::post('/records', 'HomeController@store');
