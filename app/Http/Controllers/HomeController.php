@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Subject;
+use App\Models\Quater;
 
 class HomeController extends Controller
 {
@@ -27,13 +28,13 @@ class HomeController extends Controller
 
     public function index()
     {
-      $user = Auth::user()->username;
-      return view('subjects.subject',['user'=> $user]);
+      return view('subjects.subject');
     }
 
 
     public function quater(Subject $subject)
     {
+      $quaters = Quater::all();
       $user = Auth::user()->username;
 
       return view('quaters.quater', [
