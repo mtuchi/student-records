@@ -33,6 +33,15 @@ $factory->define(\App\Models\Subject::class, function (Faker\Generator $faker) {
     ];
 });
 
+
+$factory->define(\App\Models\Quater::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => 'First Quater',
+        'live' => true,
+    ];
+});
+
 $factory->define(\App\Models\Student::class, function (Faker\Generator $faker) {
 	$gender = $faker->boolean ? 'f':'m';
 
