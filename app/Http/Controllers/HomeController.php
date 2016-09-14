@@ -24,11 +24,24 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $subjects = Auth::user()->subjects()->get();
-        return view('home', compact('subjects'));
+      $user = Auth::user()->username;
+      return view('subjects.subject',['user'=> $user]);
     }
+
+
+    public function quater(Subject $subject)
+    {
+      $user = Auth::user()->username;
+
+      return view('quaters.quater', [
+        'user' => $user,
+        'subject' => $subject,
+      ]);
+    }
+
 
 	/**
      * Show the upload view.
@@ -61,4 +74,5 @@ class HomeController extends Controller
 
 		return redirect('/home');
     }
+
 }
