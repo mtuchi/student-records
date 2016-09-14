@@ -16,54 +16,53 @@
       </strong>
     </h4>
     <ul class="nav nav-tabs col-xs-12 col-sm-8" role="tablist" style="margin-bottom:-2px;">
-      <li role="presentation" class="active"><a href="#first_quater" aria-controls="first_quater" role="tab" data-toggle="tab">First Quater</a></li>
-      <li role="presentation"><a href="#second_quater" aria-controls="second_quater" role="tab" data-toggle="tab">Second Quater</a></li>
-      <li role="presentation"><a href="#third_quater" aria-controls="third_quater" role="tab" data-toggle="tab">Third Quater</a></li>
-      <li role="presentation"><a href="#fourth_quater" aria-controls="fourth_quater" role="tab" data-toggle="tab">Fourth Quater</a></li>
+      @if($quaters->count())
+        @foreach($quaters as $quater)
+          @if($loop->first)
+            <li role="presentation" class="active"><a href="#{{ $quater->slug }}" aria-controls="{{ $quater->slug }}" role="tab" data-toggle="tab">{{ $quater->name }}</a></li>
+          @else
+            <li role="presentation"><a href="#{{ $quater->slug }}" aria-controls="{{ $quater->slug }}" role="tab" data-toggle="tab">{{ $quater->name }}</a></li>
+          @endif
+        @endforeach
+      @endif
     </ul>
   </div>
 </div>
 <!-- Tab panes -->
 <div class="tab-content">
-  <div role="tabpanel" class="tab-pane active" id="first_quater">
-    <div class="panel panel-default">
-      <div class="panel-heading">Dashboard
-        <div class="row container">
-          <p>Worksheet</p>
-          <button type="button" name="button" class="btn btn-success">Download Sheet</button>
-          <a href="#" class="btn btn-primary">Upload Worksheet <i class="glyphicon glyphicon-download"></i></a>
+
+@foreach($quaters as $quater)
+  @if($loop->first)
+    <div role="tabpanel" class="tab-pane active" id="{{ $quater->slug}}">
+      <div class="panel panel-default">
+        <div class="panel-heading">Dashboard
+          <div class="row container">
+            <p>Worksheet</p>
+            <button type="button" name="button" class="btn btn-success">Download Sheet</button>
+            <a href="#" class="btn btn-primary">Upload Worksheet <i class="glyphicon glyphicon-download"></i></a>
+          </div>
+        </div>
+          <div class="panel-body">
+            {{ $quater->name }}
         </div>
       </div>
-        <div class="panel-body">
-        First Quater
+    </div>
+  @else
+    <div role="tabpanel" class="tab-pane" id="{{ $quater->slug }}">
+      <div class="panel panel-default">
+        <div class="panel-heading">Dashboard
+          <div class="row container">
+            <p>Worksheet</p>
+            <button type="button" name="button" class="btn btn-success">Download Sheet</button>
+            <a href="#" class="btn btn-primary">Upload Worksheet <i class="glyphicon glyphicon-download"></i></a>
+          </div>
+        </div>
+          <div class="panel-body">
+            {{ $quater->name }}
+        </div>
       </div>
     </div>
-  </div>
-  <div role="tabpanel" class="tab-pane" id="second_quater">
-    <div class="panel panel-default">
-      <div class="panel-heading">Dashboard and Filters</div>
-        <div class="panel-body">
-        Second Quater
-      </div>
-    </div>
-  </div>
-  <div role="tabpanel" class="tab-pane" id="third_quater">
-    <div class="panel panel-default">
-      <div class="panel-heading">Dashboard</div>
-        <div class="panel-body">
-        Third Quater
-
-      </div>
-    </div>
-  </div>
-  <div role="tabpanel" class="tab-pane" id="fourth_quater">
-    <div class="panel panel-default">
-      <div class="panel-heading">Dashboard</div>
-        <div class="panel-body">
-        Fourth Quater
-
-      </div>
-    </div>
-  </div>
+  @endif
+@endforeach
 </div>
 @endsection
