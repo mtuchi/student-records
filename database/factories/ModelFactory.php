@@ -39,6 +39,7 @@ $factory->define(\App\Models\Quater::class, function (Faker\Generator $faker) {
     return [
         'name' => 'First Quater',
         'live' => true,
+        'slug' => 'first_quater'
     ];
 });
 
