@@ -26,6 +26,8 @@ $factory->define(\App\Models\Subject::class, function (Faker\Generator $faker) {
 
     return [
         'name' => 'Mathematics',
+        'class' => 'IV A',
+        'slug' => 'Mathematics-IVA',
         'user_id' => 1
     ];
 });
@@ -37,7 +39,7 @@ $factory->define(\App\Models\Student::class, function (Faker\Generator $faker) {
 		return [
 			'name' =>  $faker->firstNameFemale . " " . $faker->lastName,
 			'gender' => $gender
-		];	
+		];
 	}
 
 	return [
