@@ -58,3 +58,14 @@ $factory->define(\App\Models\Student::class, function (Faker\Generator $faker) {
 		'gender' => $gender
 	];
 });
+
+$factory->define(\App\Models\Score::class, function (Faker\Generator $faker) {
+
+  return [
+    'student_id' => 1,
+    'quarter' => 1,
+    'first_month'=> $faker->randomNumber($nbDigits = 2),
+    'second_month' => $faker->randomNumber($nbDigits = 2),
+    'third_month' => $faker->randomNumber($nbDigits = 2),
+  ];
+});
