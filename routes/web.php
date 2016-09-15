@@ -29,7 +29,7 @@ Route::get('/user/{user}',[
 
 Route::get('/subject/{subject}',[
   'as' => 'user.subject',
-  'uses' => 'HomeController@quater'
+  'uses' => 'HomeController@quarter'
 ]);
 
 Route::get('/records/upload', 'HomeController@upload');

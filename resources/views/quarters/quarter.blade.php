@@ -2,7 +2,7 @@
 
 @section('stdsubject.content')
 
-<div class="panel" style="background:transparent; padding-left:1em;">
+<div class="panel" style="padding-left:1em;">
   <div class="row">
     <h4 class="col-xs-12 col-sm-8 col-md-8">
       <svg aria-hidden="true" class="octicon octicon-repo" height="16" version="1.1" viewBox="0 0 12 16" width="12">
@@ -16,12 +16,12 @@
       </strong>
     </h4>
     <ul class="nav nav-tabs col-xs-12 col-sm-8" role="tablist" style="margin-bottom:-2px;">
-      @if($quaters->count())
-        @foreach($quaters as $quater)
+      @if($quarters->count())
+        @foreach($quarters as $quarter)
           @if($loop->first)
-            <li role="presentation" class="active"><a href="#{{ $quater->slug }}" aria-controls="{{ $quater->slug }}" role="tab" data-toggle="tab">{{ $quater->name }}</a></li>
+            <li role="presentation" class="active"><a style="border-left:none;" href="#{{ $quarter->slug }}" aria-controls="{{ $quarter->slug }}" role="tab" data-toggle="tab">{{ $quarter->name }}</a></li>
           @else
-            <li role="presentation"><a href="#{{ $quater->slug }}" aria-controls="{{ $quater->slug }}" role="tab" data-toggle="tab">{{ $quater->name }}</a></li>
+            <li role="presentation"><a href="#{{ $quarter->slug }}" aria-controls="{{ $quarter->slug }}" role="tab" data-toggle="tab">{{ $quarter->name }}</a></li>
           @endif
         @endforeach
       @endif
@@ -31,34 +31,32 @@
 <!-- Tab panes -->
 <div class="tab-content">
 
-@foreach($quaters as $quater)
+@foreach($quarters as $quarter)
   @if($loop->first)
-    <div role="tabpanel" class="tab-pane active" id="{{ $quater->slug}}">
+    <div role="tabpanel" class="tab-pane active" id="{{ $quarter->slug}}">
       <div class="panel panel-default">
         <div class="panel-heading">Dashboard
-          <div class="row container">
-            <p>Worksheet</p>
+          <div class="pull-right" style="margin-top:-7.5px;">
             <button type="button" name="button" class="btn btn-success">Download Sheet</button>
             <a href="#" class="btn btn-primary">Upload Worksheet <i class="glyphicon glyphicon-download"></i></a>
           </div>
         </div>
           <div class="panel-body">
-            {{ $quater->name }}
+            {{ $quarter->name }}
         </div>
       </div>
     </div>
   @else
-    <div role="tabpanel" class="tab-pane" id="{{ $quater->slug }}">
+    <div role="tabpanel" class="tab-pane" id="{{ $quarter->slug }}">
       <div class="panel panel-default">
         <div class="panel-heading">Dashboard
-          <div class="row container">
-            <p>Worksheet</p>
+          <div class="pull-right" style="margin-top:-7.5px;">
             <button type="button" name="button" class="btn btn-success">Download Sheet</button>
             <a href="#" class="btn btn-primary">Upload Worksheet <i class="glyphicon glyphicon-download"></i></a>
           </div>
         </div>
           <div class="panel-body">
-            {{ $quater->name }}
+            {{ $quarter->name }}
         </div>
       </div>
     </div>

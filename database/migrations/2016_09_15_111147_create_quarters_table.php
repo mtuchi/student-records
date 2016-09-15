@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSlugColumnInQuaterstable extends Migration
+class CreateQuartersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class CreateSlugColumnInQuaterstable extends Migration
      */
     public function up()
     {
-        Schema::table('quaters', function (Blueprint $table) {
+        Schema::create('quarters', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->boolean('live')->default(0);
             $table->string('slug');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class CreateSlugColumnInQuaterstable extends Migration
      */
     public function down()
     {
-        Schema::table('quaters', function (Blueprint $table) {
-            $table->dropColumn('slug');
-        });
+        Schema::dropIfExists('quarters');
     }
 }

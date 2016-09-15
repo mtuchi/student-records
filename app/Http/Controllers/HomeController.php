@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Subject;
-use App\Models\Quater;
+use App\Models\Quarter;
 
 class HomeController extends Controller
 {
@@ -32,12 +32,12 @@ class HomeController extends Controller
     }
 
 
-    public function quater(Subject $subject)
+    public function quarter(Subject $subject)
     {
-      $quaters = Quater::all();
+      $quarters = Quarter::all();
       $user = Auth::user()->username;
 
-      return view('quaters.quater', [
+      return view('quarters.quarter', [
         'user' => $user,
         'subject' => $subject,
       ]);

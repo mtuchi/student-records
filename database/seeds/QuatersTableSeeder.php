@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Quater;
-class QuatersTableSeeder extends Seeder
+use App\Models\Quarter;
+class QuartersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,29 +13,29 @@ class QuatersTableSeeder extends Seeder
     {
       $arr = [
         [
-          'name' => 'First Quater',
+          'name' => 'First Quarter',
           'live' => true,
-          'slug' =>'first_quater'
+          'slug' =>'first_quarter'
         ],
         [
-          'name' => 'Second Quater',
+          'name' => 'Second Quarter',
           'live' => true,
-          'slug' =>'second_quater'
+          'slug' =>'second_quarter'
         ],
         [
-          'name' => 'Third Quater',
+          'name' => 'Third Quarter',
           'live' => true,
-          'slug' =>'third_quater'
+          'slug' =>'third_quarter'
 
         ],
         [
-          'name' => 'Fourth Quater',
+          'name' => 'Fourth Quarter',
           'live' => false,
-          'slug' =>'fourth_quater'
+          'slug' =>'fourth_quarter'
         ],
       ];
       foreach ($arr as $k => $v) {
-        factory(Quater::class)->create(['name' => $v['name'], 'live'=>$v['live'], 'slug'=>$v['slug']]);
+        factory(Quarter::class)->create(['name' => $v['name'], 'live'=>$v['live'], 'slug'=>$v['slug']]);
       }
     }
 }

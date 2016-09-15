@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
-use App\Models\Quater;
+use App\Models\Quarter;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -19,8 +19,8 @@ class ComposerServiceProvider extends ServiceProvider
         return $view->with('subjects', Auth::user()->subjects()->get());
       });
 
-      view()->composer('quaters.quater', function($view){
-        return $view->with('quaters', Quater::isLive()->get());
+      view()->composer('quarters.quarter', function($view){
+        return $view->with('quarters', Quarter::isLive()->get());
       });
     }
 

@@ -34,12 +34,12 @@ $factory->define(\App\Models\Subject::class, function (Faker\Generator $faker) {
 });
 
 
-$factory->define(\App\Models\Quater::class, function (Faker\Generator $faker) {
+$factory->define(\App\Models\Quarter::class, function (Faker\Generator $faker) {
 
     return [
-        'name' => 'First Quater',
+        'name' => 'First quarter',
         'live' => true,
-        'slug' => 'first_quater'
+        'slug' => 'first_quarter'
     ];
 });
 
