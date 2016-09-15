@@ -17,7 +17,7 @@ class CreateSubjectsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('user_id')->unsigned()->nullable();
-			$table->foreign('user_id')->references('id')->on('users');
+			      $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
