@@ -32,4 +32,4 @@ A platform for managing student records designed for Gonzaga Primary School.
 
 ## Who you go' call...
 
-Built with lots of coffee and code by [@mtuchi](https://github.com/mtuchi) and [@iamjoshuamabina](https://github.com/mtuchi)
+Built with lots of coffee and code by [@mtuchi](https://github.com/mtuchi) and [@joshuamabina](https://github.com/joshuamabina)
