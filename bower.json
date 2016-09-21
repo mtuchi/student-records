@@ -16,5 +16,8 @@
     "resources/assets/bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "datatables.net-bs": "^1.10.12"
+  }
 }
