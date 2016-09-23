@@ -1,7 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 use App\Models\Score;
+use App\Models\Student;
+use App\Models\Quarter;
+use App\Models\Subject;
+use App\Models\Grade;
 
 class ScoreTableSeeder extends Seeder
 {
@@ -12,25 +17,36 @@ class ScoreTableSeeder extends Seeder
      */
     public function run()
     {
-      $arr = [
-        [
-          'first_month'=> 49,
-          'second_month' => 45,
-          'third_month' => 95,
-        ],
-        [
-          'first_month'=> 56,
-          'second_month' => 49,
-          'third_month' => 80,
-        ]
-      ];
+      $students = Grade::pluck('students');
+      // dd($students);
+      $quarters = Quarter::isLive()->get();
+      $subjects = Subject::all();
+      $faker = Faker::create();
 
-      foreach ($arr as $k => $v) {
-        factory(Score::class)->create([
-          'first_month' => $v['first_month'],
-          'second_month'=> $v['second_month'],
-          'third_month' => $v['third_month']
-        ]);
+      foreach ($quarters as $key => $value)
+      {
+        foreach (json_decode($students[0]) as $first)
+         {
+          factory(Score::class)->create([
+            'student_id' => $first,
+            'subject_id' => $subjects[0]['id'],
+            'quarter_id' => $value['id'],
+            'first_month'=> $faker->randomNumber($nbDigits = 2),
+            'second_month' => $faker->randomNumber($nbDigits = 2),
+            'third_month' => $faker->randomNumber($nbDigits = 2),
+          ]);
+        }
+        foreach (json_decode($students[1]) as $second)
+         {
+          factory(Score::class)->create([
+            'student_id' => $second,
+            'subject_id' => $subjects[1]['id'],
+            'quarter_id' => $value['id'],
+            'first_month'=> $faker->randomNumber($nbDigits = 2),
+            'second_month' => $faker->randomNumber($nbDigits = 2),
+            'third_month' => $faker->randomNumber($nbDigits = 2),
+          ]);
+        }
       }
     }
 }

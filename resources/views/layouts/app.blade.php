@@ -11,7 +11,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('/bower_components/datatables.net-bs/css/dataTables.bootstrap.css') }}" rel="stylesheet"> --}}
 
     <!-- Scripts -->
     <script>
@@ -83,6 +84,12 @@
     @yield('content')
 
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
+    <script src="{{ asset('/js/app.js')}}"></script>
+    {{-- <script src="{{ asset('/bower_components/datatables.net.bs/js/jquery.dataTables.js')}}"></script> --}}
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#example').DataTable();
+      } );
+    </script>
 </body>
 </html>

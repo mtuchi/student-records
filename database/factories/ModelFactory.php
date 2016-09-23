@@ -63,9 +63,19 @@ $factory->define(\App\Models\Score::class, function (Faker\Generator $faker) {
 
   return [
     'student_id' => 1,
-    'quarter' => 1,
+    'quarter_id' => 1,
+    'subject_id' => 1,
     'first_month'=> $faker->randomNumber($nbDigits = 2),
     'second_month' => $faker->randomNumber($nbDigits = 2),
     'third_month' => $faker->randomNumber($nbDigits = 2),
+  ];
+});
+
+$factory->define(\App\Models\Grade::class, function (Faker\Generator $faker) {
+
+  return [
+    'name' => 'IV A',
+    'subjects' => json_encode(['1','2']),
+    'students' => json_encode(['1','2','3','4','5']),
   ];
 });

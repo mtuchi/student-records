@@ -15,8 +15,10 @@ class CreateScoreTable extends Migration
     {
         Schema::create('scores', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('quarter')->unsigned();
-            $table->foreign('quarter')->references('id')->on('quarters');
+            $table->integer('quarter_id')->unsigned();
+            $table->foreign('quarter_id')->references('id')->on('quarters');
+            $table->integer('subject_id')->unsigned();
+            $table->foreign('subject_id')->references('id')->on('subjects');
             $table->integer('student_id')->unsigned();
             $table->foreign('student_id')->references('id')->on('students');
             $table->integer('first_month')->nullable();

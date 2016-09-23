@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Subject;
 use App\Models\Quarter;
+use App\Models\Grade;
+use App\Models\Score;
+use App\Models\Student;
+use App\Transformers\ScoreTransformer;
+use App\Transformers\QuarterTransformer;
+use App\Transformers\SubjectTransformer;
 
 class HomeController extends Controller
 {
@@ -34,12 +40,17 @@ class HomeController extends Controller
 
     public function quarter(Subject $subject)
     {
-      $quarters = Quarter::all();
+      $quarters = fractal()
+      ->collection(Subject::get())
+      ->transformWith(new SubjectTransformer)
+      ->toArray();
+
       $user = Auth::user()->username;
 
       return view('quarters.quarter', [
         'user' => $user,
         'subject' => $subject,
+        'quarters' => $quarters
       ]);
     }
 
@@ -74,6 +85,17 @@ class HomeController extends Controller
 		die("It works!");
 
 		return redirect('/home');
+    }
+
+    public function tinker()
+    {
+      $subjects = fractal()
+      ->collection(Subject::get())
+      ->transformWith(new SubjectTransformer)
+      ->toArray();
+
+      dd($subjects);
+
     }
 
 }

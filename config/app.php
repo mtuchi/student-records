@@ -166,7 +166,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Spatie\Fractal\FractalServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
@@ -178,7 +178,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
-        
+
 
     ],
 
@@ -226,7 +226,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-		'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+		    'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Fractal' => Spatie\Fractal\FractalFacade::class,
 
     ],
 

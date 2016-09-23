@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Quarter;
+use App\Models\Subject;
 
 class ComposerServiceProvider extends ServiceProvider
 {

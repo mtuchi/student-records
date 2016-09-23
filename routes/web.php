@@ -34,3 +34,5 @@ Route::get('/subject/{subject}',[
 
 Route::get('/records/upload', 'HomeController@upload');
 Route::post('/records', 'HomeController@store');
+
+Route::get('/tinker', 'HomeController@tinker');
