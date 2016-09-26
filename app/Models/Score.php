@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Student;
-use App\Models\Grade;
+use App\Models\Quarter;
+use App\Models\Subject;
 
 class Score extends Model
 {
@@ -12,17 +13,17 @@ class Score extends Model
 
   public function student()
   {
-    return $this->belongsTo('App\Models\Student','student_id');
+    return $this->belongsTo(Student::class, 'student_id');
   }
 
   public function quarter()
   {
-    return $this->belongsTo('App\Models\Quarter','quarter_id');
+    return $this->belongsTo(Quarter::class,'quarter_id');
   }
 
   public function subject()
   {
-    return $this->belongsTo('App\Models\Subject','subject_id');
+    return $this->belongsTo(Subject::class,'subject_id');
   }
 
 }

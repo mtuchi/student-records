@@ -19,4 +19,9 @@ class Subject extends Model
 		return 'slug';
 	}
 
+	public function score()
+	{
+		return $this->hasMany('App\Models\Score', 'subject_id')->with('subject','student');
+	}
+
 }

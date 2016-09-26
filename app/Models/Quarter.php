@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Score;
+use App\Models\Subject;
 
 class Quarter extends Model
 {
@@ -16,17 +18,7 @@ class Quarter extends Model
 
   public function score()
   {
-    return $this->hasMany('App\Models\Score','quarter_id');
-  }
-
-  public function student()
-  {
-    return $this->hasMany('App\Models\Score', 'student_id');
-  }
-
-  public function subject()
-  {
-    return $this->hasMany('App\Models\Score', 'subject_id');
+    return $this->hasMany('App\Models\Score', 'quarter_id');
   }
 
 }

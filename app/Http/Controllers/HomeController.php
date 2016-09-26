@@ -10,9 +10,6 @@ use App\Models\Quarter;
 use App\Models\Grade;
 use App\Models\Score;
 use App\Models\Student;
-use App\Transformers\ScoreTransformer;
-use App\Transformers\QuarterTransformer;
-use App\Transformers\SubjectTransformer;
 
 class HomeController extends Controller
 {
@@ -40,17 +37,10 @@ class HomeController extends Controller
 
     public function quarter(Subject $subject)
     {
-      $quarters = fractal()
-      ->collection(Subject::get())
-      ->transformWith(new SubjectTransformer)
-      ->toArray();
-
       $user = Auth::user()->username;
-
       return view('quarters.quarter', [
         'user' => $user,
-        'subject' => $subject,
-        'quarters' => $quarters
+        'subject' => $subject
       ]);
     }
 
@@ -72,29 +62,20 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-		$file = $request->file('sheet');
+  		$file = $request->file('sheet');
 
-		$rowCollection = Excel::load($file)->all();
-		dump("Month of the Quarter: " . $rowCollection->getTitle());
-		dump($cellCollection = $rowCollection->all());
-		foreach($cellCollection as $cell) {
-			if(!empty($cell->name))
-				dump("Name: " . $cell->name . " | Score: " . $cell->score);
-		}
+  		$rowCollection = Excel::load($file)->all();
 
-		die("It works!");
-
-		return redirect('/home');
+  		return redirect('/');
     }
 
-    public function tinker()
+    public function tinker(Quarter $quarter, Subject $subject)
     {
-      $subjects = fractal()
-      ->collection(Subject::get())
-      ->transformWith(new SubjectTransformer)
-      ->toArray();
+      $data = $quarter->with('score')->isLive()->get();
+      $nugets = $subject->with('score')->get();
 
-      dd($subjects);
+      dd($nugets);
+
 
     }
 

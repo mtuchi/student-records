@@ -20,7 +20,7 @@
         @if($loop->first)
           <li role="presentation" class="active"><a style="border-left:none;" href="#{{ $quarter->slug}}" aria-controls="{{ $quarter->slug}}" role="tab" data-toggle="tab">{{ $quarter->name }}</a></li>
         @else
-          <li role="presentation"><a href="#{{ $quarter->slug}}" aria-controls="{{ $quarter->slug}}" role="tab" data-toggle="tab">{{ $quarter->name }}</a></li>
+          <li role="presentation"><a href="#{{ $quarter->slug }}" aria-controls="{{ $quarter->slug}}" role="tab" data-toggle="tab">{{ $quarter->name }}</a></li>
         @endif
       @endforeach
     </ul>
@@ -28,10 +28,11 @@
 </div>
 <!-- Tab panes -->
 <div class="tab-content">
-
 @foreach($quarters as $quarter)
+  {{-- {{ dd($quarter) }} --}}
+
   @if($loop->first)
-    <div role="tabpanel" class="tab-pane active" id="{{ $quarter->slug}}">
+    <div role="tabpanel" class="tab-pane active" id="{{ $quarter->slug }}">
       <div class="panel panel-default">
         <div class="panel-heading">Dashboard
           <div class="pull-right" style="margin-top:-7.5px;">
@@ -40,48 +41,34 @@
           </div>
         </div>
           <div class="panel-body">
-            <table id="example" class="display" cellspacing="0" width="100%">
+            <table id="data_{{ $quarter->slug }}" class="display" cellspacing="0" width="100%">
               <thead>
-                  <tr>
-                      <th>Name</th>
-                      <th>Gender</th>
-                      <th>First Month</th>
-                      <th>Second Month</th>
-                      <th>Third Month</th>
-                      <th>Average</th>
-                  </tr>
-              </thead>
-              {{-- <tfoot>
                   <tr>
                     <th>Name</th>
                     <th>Gender</th>
                     <th>First Month</th>
                     <th>Second Month</th>
                     <th>Third Month</th>
-                    <th>Average</th>
                   </tr>
-              </tfoot> --}}
+              </thead>
               <tbody>
-                {{-- @foreach($quarter['score']['data'] as $score)
-                  {{ dd($score) }}
+                @foreach($quarter->score as $score)
+                  {{-- {{ dd($score->subject) }} --}}
                   <tr>
-                    <td>
-                      <td>{{$score['name']}}</td>
-                      <td>{{ $score['gender'] }}</td>
-                      <td>{{ $score['first_month'] }}</td>
-                      <td>{{ $score['second_month'] }}</td>
-                      <td>{{ $score['third_month'] }}</td>
-                      <td>Avg</td>
-                    </td>
+                      <td>{{$score->student->name}}</td>
+                      <td>{{ $score->student->gender }}</td>
+                      <td>{{ $score->first_month }}</td>
+                      <td>{{ $score->second_month }}</td>
+                      <td>{{ $score->third_month }}</td>
                   </tr>
-                @endforeach --}}
+                @endforeach
               </tbody>
             </table>
         </div>
       </div>
     </div>
   @else
-    <div role="tabpanel" class="tab-pane" id="{{ $quarter->slug}}">
+    <div role="tabpanel" class="tab-pane" id="{{ $quarter->slug }}">
       <div class="panel panel-default">
         <div class="panel-heading">Dashboard
           <div class="pull-right" style="margin-top:-7.5px;">
@@ -90,8 +77,7 @@
           </div>
         </div>
           <div class="panel-body">
-            {{ $quarter->name }}
-            <table id="example" class="display" cellspacing="0" width="100%">
+            <table id="data_{{ $quarter->slug }}" class="display" cellspacing="0" width="100%">
               <thead>
                   <tr>
                       <th>Name</th>
@@ -99,33 +85,19 @@
                       <th>First Month</th>
                       <th>Second Month</th>
                       <th>Third Month</th>
-                      <th>Average</th>
                   </tr>
               </thead>
-              {{-- <tfoot>
-                  <tr>
-                    <th>Name</th>
-                    <th>Gender</th>
-                    <th>First Month</th>
-                    <th>Second Month</th>
-                    <th>Third Month</th>
-                    <th>Average</th>
-                  </tr>
-              </tfoot> --}}
               <tbody>
-                {{-- @foreach($quarter['score']['data'] as $score)
-                  {{ dd($score) }}
+                @foreach($quarter->score as $score)
+                  {{-- {{ dd($score) }} --}}
                   <tr>
-                    <td>
-                      <td>{{$score['name']}}</td>
-                      <td>{{ $score['gender'] }}</td>
-                      <td>{{ $score['first_month'] }}</td>
-                      <td>{{ $score['second_month'] }}</td>
-                      <td>{{ $score['third_month'] }}</td>
-                      <td>Avg</td>
-                    </td>
+                    <td>{{$score->student->name}}</td>
+                    <td>{{ $score->student->gender }}</td>
+                    <td>{{ $score->first_month }}</td>
+                    <td>{{ $score->second_month }}</td>
+                    <td>{{ $score->third_month }}</td>
                   </tr>
-                @endforeach --}}
+                @endforeach
               </tbody>
             </table>
         </div>

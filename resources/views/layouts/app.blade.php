@@ -88,7 +88,10 @@
     {{-- <script src="{{ asset('/bower_components/datatables.net.bs/js/jquery.dataTables.js')}}"></script> --}}
     <script type="text/javascript">
       $(document).ready(function() {
-        $('#example').DataTable();
+        $('#data_first_quarter').DataTable();
+        $('#data_second_quarter').DataTable();
+        $('#data_third_quarter').DataTable();
+        $('#data_fourth_quarter').DataTable();
       } );
     </script>
 </body>
