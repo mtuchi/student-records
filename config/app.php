@@ -166,7 +166,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Spatie\Fractal\FractalServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
@@ -227,7 +226,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 		    'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'Fractal' => Spatie\Fractal\FractalFacade::class,
 
     ],
 
