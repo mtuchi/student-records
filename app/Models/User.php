@@ -33,8 +33,4 @@ class User extends Authenticatable
         return $this->hasMany(Subject::class);
     }
 
-    public function quarters() {
-        return $this->hasMany('App\Models\Score', 'quarter_id')->where('subject_id', $this->subjects->pluck('id'));
-    }
-
 }
