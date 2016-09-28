@@ -32,7 +32,34 @@ Route::get('/subject/{subject}',[
   'uses' => 'HomeController@quarter'
 ]);
 
-Route::get('/records/upload', 'HomeController@upload');
-Route::post('/records', 'HomeController@store');
+Route::post('/subject/{subject}',[
+  'as' => 'go.back',
+  function () {
+    return redirect()->back();
+  }
+]);
 
-Route::get('/tinker', 'HomeController@tinker');
+Route::get('/export/{subject}',[
+  'as' => 'get.export',
+  'uses' => 'ExcelController@indexExport'
+]);
+
+Route::post('/export/{subject}',[
+  'as' => 'post.export',
+  'uses' => 'ExcelController@export'
+]);
+
+Route::get('/upload/{subject}', [
+  'as' => 'get.upload',
+  'uses' =>'ExcelController@indexUpload'
+]);
+
+Route::post('/upload/{subject}', [
+  'as' => 'post.upload',
+  'uses' => 'ExcelController@upload'
+]);
+
+Route::get('/tinker/{subject}', [
+  'as' => 'tinker',
+  'uses' => 'HomeController@tinker',
+  ]);
