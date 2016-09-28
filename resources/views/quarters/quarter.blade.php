@@ -35,8 +35,8 @@
       <div class="panel panel-default">
         <div class="panel-heading">Dashboard
           <div class="pull-right" style="margin-top:-7.5px;">
-            <button type="button" name="button" class="btn btn-success">Download Sheet</button>
-            <a href="#" class="btn btn-primary">Upload Worksheet <i class="glyphicon glyphicon-download"></i></a>
+            <a href="{{ route('get.export',$subject->slug)}}" class="btn btn-success">Download Sheet</a>
+            <a href="{{ route('get.upload',$subject->slug)}}" class="btn btn-primary">Upload Worksheet <i class="glyphicon glyphicon-download"></i></a>
           </div>
         </div>
           <div class="panel-body">
@@ -70,8 +70,8 @@
       <div class="panel panel-default">
         <div class="panel-heading">Dashboard
           <div class="pull-right" style="margin-top:-7.5px;">
-            <button type="button" name="button" class="btn btn-success">Download Sheet</button>
-            <a href="#" class="btn btn-primary">Upload Worksheet <i class="glyphicon glyphicon-download"></i></a>
+            <a href="{{ route('get.export',$subject->slug)}}" class="btn btn-success">Download Sheet</a>
+            <a href="{{ route('get.upload',$subject->slug)}}" class="btn btn-primary">Upload Worksheet <i class="glyphicon glyphicon-download"></i></a>
           </div>
         </div>
           <div class="panel-body">
