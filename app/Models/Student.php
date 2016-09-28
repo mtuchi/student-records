@@ -14,14 +14,4 @@ class Student extends Model
 	 */
 	protected $fillable = ['name', 'gender'];
 
-	public function subjects()
-	{
-		return $this->hasMany('App\Models\Subject');
-	}
-
-	public function scores()
-	{
-		return $this->hasMany('App\Models\Score','student_id');
-	}
-
 }
