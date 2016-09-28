@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 use App\Models\Subject;
 use App\Models\Quarter;
-use App\Models\Grade;
-use App\Models\Score;
-use App\Models\Student;
 
 class HomeController extends Controller
 {
@@ -34,7 +32,11 @@ class HomeController extends Controller
       return view('subjects.subject');
     }
 
-
+    /**
+     * Show the users quaters data.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function quarter(Subject $subject)
     {
       $user = Auth::user()->username;
@@ -44,22 +46,12 @@ class HomeController extends Controller
       ]);
     }
 
-
-	/**
-     * Show the upload view.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function upload()
     {
-		return view('upload');
+		  return view('upload');
     }
 
-	/**
-     * Store uploaded test scores and redirect to home.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
   		$file = $request->file('sheet');
@@ -69,14 +61,10 @@ class HomeController extends Controller
   		return redirect('/');
     }
 
-    public function tinker(Quarter $quarter, Subject $subject)
+    public function tinker()
     {
-      $data = $quarter->with('score')->isLive()->get();
-      $nugets = $subject->with('score')->get();
-
-      dd($nugets);
-
-
+      $tmp = Quarter::with('score')->isLive()->get();
+      dd($tmp);
     }
 
 }
