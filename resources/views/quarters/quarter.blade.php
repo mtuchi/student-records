@@ -16,6 +16,7 @@
       </strong>
     </h4>
     <ul class="nav nav-tabs col-xs-12 col-sm-8" role="tablist" style="margin-bottom:-2px;">
+
       @foreach($quarters as $quarter)
         @if($loop->first)
           <li role="presentation" class="active"><a style="border-left:none;" href="#{{ $quarter->slug}}" aria-controls="{{ $quarter->slug}}" role="tab" data-toggle="tab">{{ $quarter->name }}</a></li>
@@ -29,8 +30,6 @@
 <!-- Tab panes -->
 <div class="tab-content">
 @foreach($quarters as $quarter)
-  {{-- {{ dd($quarter) }} --}}
-
   @if($loop->first)
     <div role="tabpanel" class="tab-pane active" id="{{ $quarter->slug }}">
       <div class="panel panel-default">
@@ -53,7 +52,6 @@
               </thead>
               <tbody>
                 @foreach($quarter->score as $score)
-                  {{-- {{ dd($score->subject) }} --}}
                   <tr>
                       <td>{{$score->student->name}}</td>
                       <td>{{ $score->student->gender }}</td>
@@ -89,7 +87,6 @@
               </thead>
               <tbody>
                 @foreach($quarter->score as $score)
-                  {{-- {{ dd($score) }} --}}
                   <tr>
                     <td>{{$score->student->name}}</td>
                     <td>{{ $score->student->gender }}</td>
