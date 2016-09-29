@@ -21,7 +21,7 @@ class ComposerServiceProvider extends ServiceProvider
       });
 
       view()->composer('quarters.quarter', function($view){
-        return $view->with('quarters', Quarter::with('score.student')->isLive()->get());
+        return $view->with('quarters', Quarter::with('score.student')->isLive()->latestFirst()->get());
       });
     }
 
