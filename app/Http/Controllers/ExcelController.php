@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Subject;
 use App\Models\Quarter;
+use App\Models\Score;
 use App\Http\Requests;
 
 class ExcelController extends Controller
@@ -26,20 +27,35 @@ class ExcelController extends Controller
     ]);
   }
 
-  public function upload(Request $request)
+  public function upload(Request $request, Subject $subject)
   {
     $file = $request->file('sheet');
 
-    $SheetCollection = Excel::load($file)->get();
+    $SheetCollection = Excel::load($file)->ignoreEmpty();
     $rowCollection = $SheetCollection->all();
-    $collectionArr = [];
-    foreach ($rowCollection as $collection) {
-      $collectionArr [] = $collection->toArray();
+    $cellCollection = [];
+    $Arr = [];
+    foreach ($rowCollection as $collection)
+    {
+      foreach ($collection as $cell)
+      {
+        if (!empty($cell['student_id']) && !empty($cell['name']) && !empty($cell['first_month']))
+        {
+          $score = Score::where('subject_id', $subject->id)->where('quarter_id', $cell['quarter_id'])
+          ->where('student_id', $cell['student_id'])->first();
+
+          $score->update([
+            'first_month' => $cell['first_month'],
+            'second_month' => $cell['second_month'],
+            'third_month' => $cell['third_month']
+          ]);
+          $cellCollection [] = $cell->toArray();
+        }
+      }
     }
 
-    dd($rowCollection);
+    return redirect()->route('user.subject',$subject);
 
-    return redirect('/');
   }
 
   public function export(Subject $subject)
@@ -72,6 +88,8 @@ class ExcelController extends Controller
             foreach ($collection['score'] as $scoreCollection)
             {
               $scores [] = [
+                'Student ID' => $scoreCollection['student_id'],
+                'Quarter ID' => $scoreCollection['quarter_id'],
                 'Name' => $scoreCollection['student']['name'],
                 'Sex' => $scoreCollection['student']['gender'],
                 'First Month' => $scoreCollection['first_month'],
@@ -79,7 +97,8 @@ class ExcelController extends Controller
                 'Third Month' => $scoreCollection['third_month'],
               ];
             }
-              $sheet->fromArray($scores, null, 'A1', false, true);
+
+            $sheet->fromArray($scores, null, 'A1', false, true);
           });
         }
 
