@@ -129,18 +129,41 @@ class HomeController extends Controller
 
     }
 
+    public function tinkerIndex(Subject $subject)
+    {
+      return view('tinker',[
+        'subject' => $subject
+      ]);
+    }
     public function tinkerUpload(Request $request, Subject $subject)
     {
       $file = $request->file('sheet');
 
-      $SheetCollection = Excel::load($file)->get();
+      $SheetCollection = Excel::load($file)->ignoreEmpty();
+      dd($SheetCollection->PHPExcel);
       $rowCollection = $SheetCollection->all();
-      $collectionArr = [];
-      foreach ($rowCollection as $collection) {
-        $collectionArr [] = $collection->toArray();
-      }
+      $cellCollection = [];
+      $Arr = [];
+      foreach ($rowCollection as $collection)
+      {
+        foreach ($collection as $cell)
+        {
+          if (!empty($cell['student_id']) && !empty($cell['name']) && !empty($cell['first_month']))
+          {
+            $score = Score::where('subject_id', $subject->id)->where('quarter_id', $cell['quarter_id'])
+            ->where('student_id', $cell['student_id'])->first();
 
-      dd($rowCollection);
+            $score->update([
+              'first_month' => $cell['first_month'],
+              'second_month' => $cell['second_month'],
+              'third_month' => $cell['third_month']
+            ]);
+            $cellCollection [] = $cell->toArray();
+          }
+        }
+      }
+      dd($cellCollection);
+
     }
 
 }
