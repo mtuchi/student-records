@@ -17,6 +17,11 @@ class Quarter extends Model
     return $query->where('live', true);
   }
 
+  public function scopeLatestFirst($query)
+  {
+    return $query->orderBy('created_at','desc');
+  }
+  
   public function score()
   {
     return $this->hasMany(Score::class)->where('subject_id', Request::route()->subject->id);
