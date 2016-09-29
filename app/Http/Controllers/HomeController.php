@@ -6,10 +6,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 use App\Models\Subject;
 use App\Models\Quarter;
+use App\Models\Score;
+use App\Http\Requests\QuarterMonths;
 
 class HomeController extends Controller
 {
@@ -32,6 +33,37 @@ class HomeController extends Controller
     public function index()
     {
       return view('subjects.subject');
+    }
+
+    public function indexEdit(Request $request, Subject $subject)
+    {
+      $student_id = $request->route()->id;
+      $quarter_slug = $request->route()->quarter;
+      $quarter = Quarter::isLive()->where('slug', $quarter_slug)->first();
+
+      $user = Auth::user()->username;
+      $score = Score::with('student','quarter')->where('student_id', $student_id)->where('quarter_id', $quarter->id)->first();
+
+      return view('quarters.edit',[
+        'user' => $user,
+        'subject' => $subject,
+        'score' => $score
+      ]);
+    }
+
+    public function edit($subject,$quarter, $id, QuarterMonths $request)
+    {
+      $score = Score::where('subject_id', Subject::where('slug', $subject)->pluck('id'))
+              ->where('quarter_id', Quarter::isLive()->where('slug', $quarter)->pluck('id'))
+              ->where('student_id', $id)->first();
+
+      $score->update([
+        'first_month' => $request->first_month_score,
+        'second_month' => $request->second_month_score,
+        'third_month' => $request->third_month_score,
+      ]);
+
+      return redirect()->route('user.subject',$subject);
     }
 
     /**
