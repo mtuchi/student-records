@@ -10,7 +10,11 @@ use App\Models\Subject;
 class Score extends Model
 {
   protected $fillable = ['quarter_id','subject_id','student_id','first_month','second_month','third_month'];
-
+  
+  public function scopeLatestFirst($query)
+  {
+    return $query->orderBy('created_at','desc');
+  }
   public function student()
   {
     return $this->belongsTo(Student::class, 'student_id');
