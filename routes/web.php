@@ -62,4 +62,14 @@ Route::post('/upload/{subject}', [
 Route::get('/tinker/{subject}', [
   'as' => 'tinker',
   'uses' => 'HomeController@tinker',
-  ]);
+]);
+
+Route::get('/{subject}/{quarter}/edit/{id}', [
+  'as' => 'get.edit',
+  'uses' => 'HomeController@indexEdit',
+]);
+
+Route::post('/{subject}/{quarter}/edit/{id}', [
+  'as' => 'post.edit',
+  'uses' => 'HomeController@edit',
+]);
