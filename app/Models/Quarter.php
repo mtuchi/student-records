@@ -21,5 +21,5 @@ class Quarter extends Model
   {
     return $this->hasMany(Score::class)->where('subject_id', Request::route()->subject->id);
   }
-  
+
 }
