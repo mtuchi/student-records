@@ -94,6 +94,7 @@ class HomeController extends Controller
           $collectionArr[] = $collection->toArray();
       }
 
+      dd($collectionArr);
       // Generate and return the spreadsheet
       Excel::create('grades', function($excel) use ($collectionArr, $subjectName, $teacherName) {
 
@@ -126,6 +127,20 @@ class HomeController extends Controller
 
       dd($scores);
 
+    }
+
+    public function tinkerUpload(Request $request, Subject $subject)
+    {
+      $file = $request->file('sheet');
+
+      $SheetCollection = Excel::load($file)->get();
+      $rowCollection = $SheetCollection->all();
+      $collectionArr = [];
+      foreach ($rowCollection as $collection) {
+        $collectionArr [] = $collection->toArray();
+      }
+
+      dd($rowCollection);
     }
 
 }
