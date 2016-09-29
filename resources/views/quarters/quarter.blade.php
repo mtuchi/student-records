@@ -48,6 +48,7 @@
                     <th>First Month</th>
                     <th>Second Month</th>
                     <th>Third Month</th>
+                    <th>Actions</th>
                   </tr>
               </thead>
               <tbody>
@@ -58,6 +59,7 @@
                       <td>{{ $score->first_month }}</td>
                       <td>{{ $score->second_month }}</td>
                       <td>{{ $score->third_month }}</td>
+                      <td><a href="{{ route('get.edit', [$subject->slug,$quarter->slug,$score->student_id])}}" class="btn btn-link btn-xs">Edit</a></td>
                   </tr>
                 @endforeach
               </tbody>
@@ -83,6 +85,7 @@
                       <th>First Month</th>
                       <th>Second Month</th>
                       <th>Third Month</th>
+                      <th>Actions</th>
                   </tr>
               </thead>
               <tbody>
@@ -93,6 +96,7 @@
                     <td>{{ $score->first_month }}</td>
                     <td>{{ $score->second_month }}</td>
                     <td>{{ $score->third_month }}</td>
+                    <td><a href="{{ route('get.edit', [$subject->slug,$quarter->slug,$score->student_id])}}" class="btn btn-link btn-xs">Edit</a></td>
                   </tr>
                 @endforeach
               </tbody>
