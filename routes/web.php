@@ -64,6 +64,16 @@ Route::get('/tinker/{subject}', [
   'uses' => 'HomeController@tinker',
 ]);
 
+Route::get('/tinker/{subject}', [
+  'as' => 'get.tinker',
+  'uses' =>'HomeController@tinkerIndex'
+]);
+
+Route::post('/tinker/{subject}', [
+  'as' => 'post.tinker',
+  'uses' => 'HomeController@tinkerUpload'
+]);
+
 Route::get('/{subject}/{quarter}/edit/{id}', [
   'as' => 'get.edit',
   'uses' => 'HomeController@indexEdit',
