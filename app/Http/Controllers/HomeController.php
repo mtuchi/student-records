@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Subject;
 use App\Models\Quarter;
 use App\Models\Score;
+use App\Models\User;
+use App\Models\Grade;
+use App\Models\Teacher;
 use App\Http\Requests\QuarterMonths;
 
 class HomeController extends Controller
@@ -32,6 +35,9 @@ class HomeController extends Controller
 
     public function index()
     {
+      // $grade = Grade::where('user_id', Auth::user()->id)->first();
+      // $teachers = Teacher::where('grade_id', $grade->id)->whereIn('subject_id', json_decode($grade->subjects))->with('subject','teacher')->get();
+      // dd($teachers);
       return view('subjects.subject');
     }
 
@@ -42,6 +48,7 @@ class HomeController extends Controller
       $quarter = Quarter::isLive()->where('slug', $quarter_slug)->first();
 
       $user = Auth::user()->username;
+
       $score = Score::with('student','quarter')->where('student_id', $student_id)->where('quarter_id', $quarter->id)->first();
 
       return view('quarters.edit',[
@@ -71,12 +78,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function quarter(Subject $subject)
+    public function quarter()
     {
+      $subject = Auth::user()->subjects()->with('subject')->first();
       $user = Auth::user()->username;
+      
       return view('quarters.quarter', [
         'user' => $user,
-        'subject' => $subject
+        'subject' => $subject->subject
       ]);
     }
 
