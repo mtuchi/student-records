@@ -20,16 +20,16 @@ class ScoreTableSeeder extends Seeder
       $students = Grade::pluck('students');
       // dd($students);
       $quarters = Quarter::isLive()->get();
-      $subjects = Subject::all();
+      $subjects = Subject::whereIn('id', [1,2])->pluck('id');
       $faker = Faker::create();
-
+      
       foreach ($quarters as $key => $value)
       {
         foreach (json_decode($students[0]) as $first)
          {
           factory(Score::class)->create([
             'student_id' => $first,
-            'subject_id' => $subjects[0]['id'],
+            'subject_id' => $subjects[0],
             'quarter_id' => $value['id'],
             'first_month'=> $faker->randomNumber($nbDigits = 2),
             'second_month' => $faker->randomNumber($nbDigits = 2),
@@ -40,7 +40,7 @@ class ScoreTableSeeder extends Seeder
          {
           factory(Score::class)->create([
             'student_id' => $second,
-            'subject_id' => $subjects[1]['id'],
+            'subject_id' => $subjects[1],
             'quarter_id' => $value['id'],
             'first_month'=> $faker->randomNumber($nbDigits = 2),
             'second_month' => $faker->randomNumber($nbDigits = 2),

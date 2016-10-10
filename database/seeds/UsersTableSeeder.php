@@ -25,6 +25,11 @@ class UsersTableSeeder extends Seeder
             'name' => 'Jane Doe',
             'username' => 'janedoe'
           ],
+          [
+            'email' => 'class@gonzaga.ac.tz',
+            'name' => 'Voip Doe',
+            'username' => 'voip'
+          ],
         ];
 
 
@@ -43,6 +48,15 @@ class UsersTableSeeder extends Seeder
           ]);
 
           $secondUser->makeTeacher('class_teacher');
+
+          $thirdUser = factory(User::class)->create([
+              'email' => $arr[2]['email'],
+              'name' => $arr[2]['name'],
+              'username' => $arr[2]['username'],
+          ]);
+
+          $thirdUser->makeTeacher('class_teacher');
+          $thirdUser->makeTeacher('teacher');
 
     }
 }

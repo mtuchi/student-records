@@ -14,20 +14,23 @@ class SubjectsTableSeeder extends Seeder
     {
 
         $arr = [
-          [
-            'name' => 'Mathematics',
-            'class' => 'IV A',
-            'slug' => 'Mathematics-IVA',
-          ],
-          [
-          'name' => 'English',
-          'class' => 'II B',
-          'slug' => 'English-IIB',
-          ]
-        ];
+            'Mathematics',
+            'English',
+            'Kiswahili',
+            'Science',
+            'Arts',
+            'Sport',
+            'General Manner',
+            'Vocational Skills',
+            'Civics',
+            'Geography',
+            'History',
+            'French',
+            'Social Studies',
+          ];
 
-        foreach ($arr as $k => $v) {
-          factory(Subject::class)->create(['name' => $v['name'], 'class'=>$v['class'], 'slug'=>$v['slug']]);
+        foreach ($arr as $v) {
+          factory(Subject::class)->create(['name' => $v]);
         }
     }
 }
