@@ -27,9 +27,6 @@ $factory->define(\App\Models\Subject::class, function (Faker\Generator $faker) {
 
     return [
         'name' => 'Mathematics',
-        'class' => 'IV A',
-        'slug' => 'Mathematics-IVA',
-        'user_id' => 1
     ];
 });
 
@@ -88,7 +85,17 @@ $factory->define(\App\Models\Grade::class, function (Faker\Generator $faker) {
   return [
     'user_id' => 2,
     'name' => 'IV A',
-    'subjects' => json_encode(['1','2']),
+    'subjects' => json_encode(['1','2','3','4','8','6','9','10','11']),
     'students' => json_encode(['1','2','3','4','5']),
+  ];
+});
+
+$factory->define(\App\Models\Teacher::class, function () {
+
+  return [
+    'user_id' => 1,
+    'grade_id' => 1,
+    'subject_id' => 1,
+    'slug' => 'Mathematics-IVA',
   ];
 });
