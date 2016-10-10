@@ -21,10 +21,12 @@ class Quarter extends Model
   {
     return $query->orderBy('created_at','desc');
   }
-  
+
   public function score()
   {
-    return $this->hasMany(Score::class)->where('subject_id', Request::route()->subject->id);
+    // dd(Request::route()->subject);
+    $id = Teacher::where('slug', Request::route()->subject)->pluck('subject_id')->first();
+    return $this->hasMany(Score::class)->where('subject_id', $id);
   }
 
 }

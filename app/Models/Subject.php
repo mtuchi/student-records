@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Quarter;
+use App\Models\User;
 
 class Subject extends Model
 {
@@ -12,11 +13,6 @@ class Subject extends Model
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name','class', 'slug'];
-
-	public function getRouteKeyName()
-	{
-		return 'slug';
-	}
+	protected $fillable = ['name'];
 
 }

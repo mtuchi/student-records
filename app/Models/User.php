@@ -31,12 +31,17 @@ class User extends Authenticatable
 
     public function subjects()
     {
-        return $this->hasMany(Subject::class);
+        return $this->hasMany(Teacher::class);
     }
 
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function grade()
+    {
+        return $this->belongsTo(Grade::class)->where('user_id', $this->id);
     }
 
     /**
