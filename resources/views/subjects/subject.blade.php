@@ -23,6 +23,13 @@
 					</ul>
 				</div>
 			@endif
+			@if(Auth::user()->hasRole('class_teacher'))
+				<div class="dashboard-notice js-notice">
+					{{-- @foreach($subjects as $subject)
+						{{ dd($subject->name) }}
+					@endforeach --}}
+				</div>
+			@endif
 		</div>
 	</div>
 @endsection
