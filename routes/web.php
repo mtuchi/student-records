@@ -27,12 +27,12 @@ Route::get('/user/{user}',[
   'uses' => 'HomeController@user',
 ]);
 
-Route::get('/subject/{subject}',[
+Route::get('/{subject}',[
   'as' => 'user.subject',
   'uses' => 'HomeController@quarter'
 ]);
 
-Route::post('/subject/{subject}',[
+Route::post('/{subject}',[
   'as' => 'go.back',
   function () {
     return redirect()->back();
