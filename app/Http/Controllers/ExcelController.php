@@ -12,7 +12,8 @@ use App\Models\Quarter;
 use App\Models\Grade;
 use App\Models\Score;
 use App\Models\Teacher;
-use App\Http\Requests;
+use App\Http\Requests\QuarterFormRequest;
+use App\Http\Requests\MonthFormRequest;
 
 use Notify;
 
@@ -32,10 +33,12 @@ class ExcelController extends Controller
   {
     $subject = Auth::user()->subjects()->with('subject')->first();
     $grade =  Grade::where('slug', $class)->first();
+    $quarters = Quarter::isLive()->get();
 
     return view('subjects.export', [
       'subject' => $subject,
-      'grade' => $grade
+      'grade' => $grade,
+      'quarters' => $quarters
     ]);
   }
 
@@ -86,7 +89,7 @@ class ExcelController extends Controller
 
   }
 
-  public function export($class, $subject)
+  public function all($class, $subject)
   {
     $id = Subject::where('name', $subject)->pluck('id')->first();
 
@@ -155,6 +158,11 @@ class ExcelController extends Controller
       dd($students);
     }
 
+  }
+
+  public function quarter($class, $subject, QuarterFormRequest $request)
+  {
+    dd($request);
   }
 
   public function back()
