@@ -15,7 +15,7 @@
       <a href="#">{{ $subject }}</a>
       </strong>
     </h4>
-    <ul class="nav nav-tabs col-xs-12 col-sm-8" role="tablist" style="margin-bottom:-2px;">
+    <ul class="nav nav-tabs col-xs-12 col-sm-8" role="tablist" style="margin-bottom:-2px;" id="quarter-tabs">
       @foreach($quarters as $quarter)
         @if($loop->first)
           <li role="presentation" class="active"><a style="border-left:none;" href="#{{ $quarter->slug}}" aria-controls="{{ $quarter->slug}}" role="tab" data-toggle="tab">{{ $quarter->name }}</a></li>

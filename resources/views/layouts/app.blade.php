@@ -13,7 +13,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
-    {{-- <link href="{{ asset('/bower_components/datatables.net-bs/css/dataTables.bootstrap.css') }}" rel="stylesheet"> --}}
+    {{-- <link href="{{ asset('/bower_components/dropdown/dropdowns-enhancement.css') }}" rel="stylesheet"> --}}
     <style media="screen">
       .record-row{
         position: relative;
@@ -37,66 +37,12 @@
     </script>
 </head>
 <body>
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Gonzaga') }}
-                </a>
-            </div>
-
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    &nbsp;
-                </ul>
-
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
-                    @if (Auth::guest())
-          						@if (Route::has('login'))
-          							{{-- <li><a href="{{ url('/register') }}">Register</a></li> --}}
-          						@else
-          	              <li><a href="{{ url('/login') }}">Login</a></li>
-          						@endif
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="{{ url('/logout') }}"
-                                        onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                        Logout
-                                    </a>
-
-                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif
-                </ul>
-            </div>
-        </div>
-    </nav>
+  <div id="app">
+    @include('layouts.partials._navigations')
     @include('layouts.partials.notify')
     @yield('content')
+  </div>
+
 
     <!-- Scripts -->
     <script src="{{ asset('/js/app.js')}}"></script>
@@ -113,6 +59,44 @@
               $(this).remove();
           });
       }, {{ notify()->option('timer') ? notify()->option('timer') : 2000 }});
+
+      /*
+        Bootstrap 3: Keep selected tab on page refresh
+        source:http://stackoverflow.com/questions/18999501/bootstrap-3-keep-selected-tab-on-page-refresh
+      */
+      $('#export-tabmenu a').click(function(e) {
+        e.preventDefault();
+        $(this).tab('show');
+      });
+
+      // store the currently selected tab in the hash value
+      $("ul#export-tabmenu > li > a").on("shown.bs.tab", function(e) {
+        var id = $(e.target).attr("href").substr(1);
+        window.location.hash = id;
+      });
+
+      // on load of the page: switch to the currently selected tab
+      var hash = window.location.hash;
+      $('#export-tabmenu a[href="' + hash + '"]').tab('show');
+
+      // Duplicate of above solution for quarter tabs
+      $('#quarter-tabs a').click(function(e) {
+        e.preventDefault();
+        $(this).tab('show');
+      });
+
+      // store the currently selected tab in the hash value
+      $("ul#quarter-tabs > li > a").on("shown.bs.tab", function(e) {
+        var id = $(e.target).attr("href").substr(1);
+        window.location.hash = id;
+      });
+
+      // on load of the page: switch to the currently selected tab
+      var hash = window.location.hash;
+      $('#quarter-tabs a[href="' + hash + '"]').tab('show');
+
+      // Dropdown issues #quick fix
+      $('.dropdown-checkbox').prop('checked',false);
 
     </script>
 </body>
