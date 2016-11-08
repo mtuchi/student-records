@@ -98,6 +98,24 @@
       // Dropdown issues #quick fix
       $('.dropdown-checkbox').prop('checked',false);
 
+      $.ajax({
+        type        :   'POST', // define the type of HTTP verb we want to use (POST for our form)
+        url         :   url, // the url where we want to POST
+        data        :   formdata, // our data object
+        dataType    :   'json', // what type of data do we expect back from the server
+        encode      :   true,
+        success     :   function(data){
+
+            if (data['request_status'] ){
+
+                //Do success notification here
+                console.log('response:'+data['request_status']);
+            } else {
+                    // Do errors here
+                    console.log(data);
+                }
+        }
+
     </script>
 </body>
 </html>
