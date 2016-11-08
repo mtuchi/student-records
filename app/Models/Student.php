@@ -14,4 +14,8 @@ class Student extends Model
 	 */
 	protected $fillable = ['name', 'gender'];
 
+	public function grade()
+	{
+		return $this->belongsTo(Grade::class);
+	}
 }

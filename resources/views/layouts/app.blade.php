@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
@@ -13,6 +14,20 @@
     <!-- Styles -->
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     {{-- <link href="{{ asset('/bower_components/datatables.net-bs/css/dataTables.bootstrap.css') }}" rel="stylesheet"> --}}
+    <style media="screen">
+      .record-row{
+        position: relative;
+        cursor: pointer;
+      }
+      .actions{
+        position: absolute;
+        right: 0;
+        display: none;
+      }
+      .record-row:hover .actions{
+        display: block;
+      }
+    </style>
 
     <!-- Scripts -->
     <script>
@@ -36,7 +51,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Gonzaga') }}
                 </a>
             </div>
 
@@ -50,11 +65,11 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-						@if (Route::has('login'))
-							{{-- <li><a href="{{ url('/register') }}">Register</a></li> --}}
-						@else
-	                        <li><a href="{{ url('/login') }}">Login</a></li>
-						@endif
+          						@if (Route::has('login'))
+          							{{-- <li><a href="{{ url('/register') }}">Register</a></li> --}}
+          						@else
+          	              <li><a href="{{ url('/login') }}">Login</a></li>
+          						@endif
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -80,7 +95,7 @@
             </div>
         </div>
     </nav>
-
+    @include('layouts.partials.notify')
     @yield('content')
 
     <!-- Scripts -->
@@ -88,11 +103,17 @@
     {{-- <script src="{{ asset('/bower_components/datatables.net.bs/js/jquery.dataTables.js')}}"></script> --}}
     <script type="text/javascript">
       $(document).ready(function() {
-        $('#data_first_quarter').DataTable();
-        $('#data_second_quarter').DataTable();
-        $('#data_third_quarter').DataTable();
-        $('#data_fourth_quarter').DataTable();
+        // $('#data_first_quarter').DataTable();
+        // $('#data_second_quarter').DataTable();
+        // $('#data_third_quarter').DataTable();
+        // $('#data_fourth_quarter').DataTable();
       } );
+      window.setTimeout(function() {
+          $(".alert-message").fadeTo(500, 0).slideUp(500, function(){
+              $(this).remove();
+          });
+      }, {{ notify()->option('timer') ? notify()->option('timer') : 2000 }});
+
     </script>
 </body>
 </html>

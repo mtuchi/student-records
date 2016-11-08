@@ -15,71 +15,128 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/notify', function () {
+    // notify
+    notify()->flash('You have bees', 'success',[
+      'timer' => 5000,
+    ]);
+    return redirect()->back();
+});
+
 Auth::routes();
 
-Route::get('/',[
-  'as' => 'home',
-  'uses'=>'HomeController@index'
-]);
+Route::group(['middleware' => 'auth'], function () {
+  Route::get('/',[
+    'as' => 'home',
+    'uses'=>'HomeController@index'
+  ]);
 
-Route::get('/user/{user}',[
-  'as' => 'user.profile',
-  'uses' => 'HomeController@user',
-]);
+  Route::get('/user/{user}',[
+    'as' => 'user.profile',
+    'uses' => 'HomeController@user',
+  ]);
 
-Route::get('/{subject}',[
-  'as' => 'user.subject',
-  'uses' => 'HomeController@quarter'
-]);
 
-Route::post('/{subject}',[
-  'as' => 'go.back',
-  function () {
-    return redirect()->back();
-  }
-]);
 
-Route::get('/export/{subject}',[
-  'as' => 'get.export',
-  'uses' => 'ExcelController@indexExport'
-]);
 
-Route::post('/export/{subject}',[
-  'as' => 'post.export',
-  'uses' => 'ExcelController@export'
-]);
 
-Route::get('/upload/{subject}', [
-  'as' => 'get.upload',
-  'uses' =>'ExcelController@indexUpload'
-]);
 
-Route::post('/upload/{subject}', [
-  'as' => 'post.upload',
-  'uses' => 'ExcelController@upload'
-]);
 
-Route::get('/tinker/{subject}', [
-  'as' => 'tinker',
-  'uses' => 'HomeController@tinker',
-]);
+  Route::get('/tinker/{subject}', [
+    'as' => 'tinker',
+    'uses' => 'HomeController@tinker',
+  ]);
 
-Route::get('/tinker/{subject}', [
-  'as' => 'get.tinker',
-  'uses' =>'HomeController@tinkerIndex'
-]);
+  // tinker routes
+  Route::get('/tinker/{subject}', [
+    'as' => 'get.tinker',
+    'uses' =>'HomeController@tinkerIndex'
+  ]);
 
-Route::post('/tinker/{subject}', [
-  'as' => 'post.tinker',
-  'uses' => 'HomeController@tinkerUpload'
-]);
+  Route::post('/tinker/{subject}', [
+    'as' => 'post.tinker',
+    'uses' => 'HomeController@tinkerUpload'
+  ]);
 
-Route::get('/{subject}/{quarter}/edit/{id}', [
-  'as' => 'get.edit',
-  'uses' => 'HomeController@indexEdit',
-]);
 
-Route::post('/{subject}/{quarter}/edit/{id}', [
-  'as' => 'post.edit',
-  'uses' => 'HomeController@edit',
-]);
+  # grade group prefix routes
+  Route::group(['prefix' => '{grade}'], function () {
+    # subject routes group prefix
+    Route::group(['prefix' => '{subject}'], function(){
+      # export routes
+      Route::get('/export',[
+        'as' => 'export.show',
+        'uses' => 'ExcelController@show'
+      ]);
+
+      Route::post('/export',[
+        'as' => 'post.export',
+        'uses' => 'ExcelController@export'
+      ]);
+
+      # get quarter scores routes
+       Route::get('/',[
+         'as' => 'quarter.show',
+         'uses' => 'ScoreController@show'
+       ]);
+
+       Route::post('/',[
+         'as' => 'go.back',
+         function () {
+           return redirect()->back();
+         }
+       ]);
+
+       # subject edit records routes
+       Route::get('/{quarter}/{id}/edit', [
+         'as' => 'score.show',
+         'uses' => 'ScoreController@edit',
+       ]);
+
+       Route::post('/{quarter}/{id}/edit', [
+         'as' => 'score.update',
+         'uses' => 'ScoreController@update',
+       ]);
+
+       # upload routes
+       Route::get('/upload', [
+         'as' => 'upload.show',
+         'uses' =>'ExcelController@index'
+       ]);
+
+       Route::post('/upload', [
+         'as' => 'post.upload',
+         'uses' => 'ExcelController@upload'
+       ]);
+    });
+
+    # grade routes
+    Route::get('/',[
+      'as' => 'grade.show',
+      'uses' => 'GradeController@show'
+    ]);
+
+    Route::post('/',[
+      'as' => 'grade.back',
+      function () {
+        return redirect()->back();
+      }
+    ]);
+
+
+    // Editing  student attendance
+    Route::get('/{quarter}/{id}/edit', [
+      'as' => 'show.attendance',
+      'uses' => 'AttendanceController@show'
+    ]);
+
+    Route::post('/{quarter}/{id}/edit', [
+      'as' => 'attendance.update',
+      'uses' => 'AttendanceController@update'
+    ]);
+
+  });
+
+  // attendance arena
+
+});

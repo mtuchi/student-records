@@ -24,9 +24,9 @@ class QuarterMonths extends FormRequest
     public function rules()
     {
         return [
-          'first_month_score' => 'integer|max:100|digits_between:0,9',
-          'second_month_score' => 'integer|max:100|digits_between:0,9',
-          'third_month_score' => 'integer|max:100|digits_between:0,9',
+          'first_month' => 'integer|max:100|digits_between:0,9',
+          'second_month' => 'integer|max:100|digits_between:0,9',
+          'third_month' => 'integer|max:100|digits_between:0,9',
         ];
     }
 }

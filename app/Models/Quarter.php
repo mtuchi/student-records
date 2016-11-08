@@ -24,9 +24,12 @@ class Quarter extends Model
 
   public function score()
   {
-    // dd(Request::route()->subject);
-    $id = Teacher::where('slug', Request::route()->subject)->pluck('subject_id')->first();
-    return $this->hasMany(Score::class)->where('subject_id', $id);
+    return $this->hasMany(Score::class);
+  }
+
+  public function attendance()
+  {
+    return $this->hasMany(Attendance::class);
   }
 
 }

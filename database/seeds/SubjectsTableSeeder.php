@@ -29,8 +29,10 @@ class SubjectsTableSeeder extends Seeder
             'Social Studies',
           ];
 
-        foreach ($arr as $v) {
+        foreach ($arr as $v)
+        {
           factory(Subject::class)->create(['name' => $v]);
         }
+
     }
 }

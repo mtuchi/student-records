@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Subject;
+use App\Models\Student;
 use App\Models\Quarter;
 use App\Models\Score;
 use App\Models\User;
@@ -35,58 +36,7 @@ class HomeController extends Controller
 
     public function index()
     {
-      // $grade = Grade::where('user_id', Auth::user()->id)->first();
-      // $teachers = Teacher::where('grade_id', $grade->id)->whereIn('subject_id', json_decode($grade->subjects))->with('subject','teacher')->get();
-      // dd($teachers);
       return view('subjects.subject');
-    }
-
-    public function indexEdit(Request $request, Subject $subject)
-    {
-      $student_id = $request->route()->id;
-      $quarter_slug = $request->route()->quarter;
-      $quarter = Quarter::isLive()->where('slug', $quarter_slug)->first();
-
-      $user = Auth::user()->username;
-
-      $score = Score::with('student','quarter')->where('student_id', $student_id)->where('quarter_id', $quarter->id)->first();
-
-      return view('quarters.edit',[
-        'user' => $user,
-        'subject' => $subject,
-        'score' => $score
-      ]);
-    }
-
-    public function edit($subject,$quarter, $id, QuarterMonths $request)
-    {
-      $score = Score::where('subject_id', Subject::where('slug', $subject)->pluck('id'))
-              ->where('quarter_id', Quarter::isLive()->where('slug', $quarter)->pluck('id'))
-              ->where('student_id', $id)->first();
-
-      $score->update([
-        'first_month' => $request->first_month_score,
-        'second_month' => $request->second_month_score,
-        'third_month' => $request->third_month_score,
-      ]);
-
-      return redirect()->route('user.subject',$subject);
-    }
-
-    /**
-     * Show the users quaters data.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function quarter()
-    {
-      $subject = Auth::user()->subjects()->with('subject')->first();
-      $user = Auth::user()->username;
-      
-      return view('quarters.quarter', [
-        'user' => $user,
-        'subject' => $subject->subject
-      ]);
     }
 
     public function tinker(Subject $subject)
@@ -149,7 +99,6 @@ class HomeController extends Controller
       $file = $request->file('sheet');
 
       $SheetCollection = Excel::load($file)->ignoreEmpty();
-      dd($SheetCollection->PHPExcel);
       $rowCollection = $SheetCollection->all();
       $cellCollection = [];
       $Arr = [];

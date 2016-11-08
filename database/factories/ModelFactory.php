@@ -85,6 +85,7 @@ $factory->define(\App\Models\Grade::class, function (Faker\Generator $faker) {
   return [
     'user_id' => 2,
     'name' => 'IV A',
+    'slug' => 'IV-A',
     'subjects' => json_encode(['1','2','3','4','8','6','9','10','11']),
     'students' => json_encode(['1','2','3','4','5']),
   ];

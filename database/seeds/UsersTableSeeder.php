@@ -48,6 +48,7 @@ class UsersTableSeeder extends Seeder
           ]);
 
           $secondUser->makeTeacher('class_teacher');
+          $secondUser->makeTeacher('teacher');
 
           $thirdUser = factory(User::class)->create([
               'email' => $arr[2]['email'],

@@ -13,25 +13,32 @@ class TeachersTableSeeder extends Seeder
     public function run()
     {
 
-      factory(Teacher::class)->create([
+      $firstTeacher = factory(Teacher::class)->create([
         'user_id' => 1,
         'grade_id' => 1,
         'subject_id' => 1,
         'slug' => 'Mathematics-IVA'
       ]);
 
-      factory(Teacher::class)->create([
+      $firstTeacher->makeGrade('IV A');
+
+       $secondTeacher = factory(Teacher::class)->create([
         'user_id' => 2,
         'grade_id' => 2,
         'subject_id' => 2,
         'slug' => 'English-IIB'
       ]);
 
-      factory(Teacher::class)->create([
+      $secondTeacher->makeGrade('II B');
+
+      $thirdTeacher = factory(Teacher::class)->create([
         'user_id' => 3,
-        'grade_id' => 2,
+        'grade_id' => 2,        
         'subject_id' => 3,
         'slug' => 'Kiswahili-IIB'
       ]);
+
+      $thirdTeacher->makeGrade('II B');
+
     }
 }

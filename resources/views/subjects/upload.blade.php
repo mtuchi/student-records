@@ -7,16 +7,18 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Upload Score Sheet
                   <div class="pull-right" style="margin-top:-7.5px;">
-                    <a href="{{route('go.back',$subject->slug)}}" class="btn btn-default">Go Back</a>
+                    <a href="{{route('go.back',[$grade, $subject->subject->name])}}" class="btn btn-default">Go Back</a>
                   </div>
                 </div>
                 <div class="panel-body">
-                <form class="form-horizontal" action="{{ route('post.upload',$subject->slug) }}" method="post" enctype="multipart/form-data">
+                <form class="form-horizontal" action="{{ route('post.upload',[$grade, $subject->subject->name]) }}" method="post" enctype="multipart/form-data">
                   {{ csrf_field() }}
 
                   <div class="form-group">
                       <div class="col-md-12 container">
-                        <p class="alert alert-success" role="alert"> Please make sure you have latest entry result for {{$subject->name}}. </p>
+                        <p class="alert alert-warning" role="alert"> Please make sure you have latest entry result for {{ $subject->subject->name }},
+                          For {{ $grade}}
+                        </p>
                         <input class="form-control" type="file" name="sheet" id="sheet" required autofocus>
                       </div>
                   </div>

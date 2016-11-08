@@ -30,6 +30,40 @@ class Teacher extends Model
 
   public function grade()
   {
-    return $this->belongsTo(Grade::class,'grade_id');
+    return $this->belongsToMany(Grade::class);
   }
-}
+
+  private function getIdInArray($array, $term)
+  {
+   foreach ($array as $key => $value)
+   {
+       if ($value['name'] == $term)
+       {
+           return $key;
+       }
+   }
+  }
+
+
+  public function makeGrade($title)
+  {
+    $assaigned_grade = [];
+    $grades = Grade::all()->keyBy('id')->toArray();
+
+     switch ($title)
+     {
+       case 'IV A':
+           $assaigned_grade[] = $this->getIdInArray($grades, 'IV A');
+           break;
+
+       case 'II B':
+           $assaigned_grade[] = $this->getIdInArray($grades, 'II B');
+           break;
+       default:
+           throw new \Exception("The grade status entered does not exist");
+     }
+
+     $this->grade()->attach($assaigned_grade);
+   }
+
+  }

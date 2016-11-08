@@ -12,11 +12,10 @@
       </span>
       <span class="path-divider">/</span>
       <strong>
-      <a href="#">{{ $subject->name }}</a>
+      <a href="#">{{ $subject }}</a>
       </strong>
     </h4>
     <ul class="nav nav-tabs col-xs-12 col-sm-8" role="tablist" style="margin-bottom:-2px;">
-
       @foreach($quarters as $quarter)
         @if($loop->first)
           <li role="presentation" class="active"><a style="border-left:none;" href="#{{ $quarter->slug}}" aria-controls="{{ $quarter->slug}}" role="tab" data-toggle="tab">{{ $quarter->name }}</a></li>
@@ -30,13 +29,14 @@
 <!-- Tab panes -->
 <div class="tab-content">
 @foreach($quarters as $quarter)
+
   @if($loop->first)
     <div role="tabpanel" class="tab-pane active" id="{{ $quarter->slug }}">
       <div class="panel panel-default">
         <div class="panel-heading">Dashboard
           <div class="pull-right" style="margin-top:-7.5px;">
-            <a href="{{ route('get.export',$subject->slug)}}" class="btn btn-success">Download Sheet</a>
-            <a href="{{ route('get.upload',$subject->slug)}}" class="btn btn-primary">Upload Worksheet <i class="glyphicon glyphicon-download"></i></a>
+            <a href="{{ route('export.show',[$grade->slug, $subject])}}" class="btn btn-success">Download Sheet</a>
+            <a href="{{ route('upload.show',[$grade->slug, $subject])}}" class="btn btn-primary">Upload Worksheet <i class="glyphicon glyphicon-download"></i></a>
           </div>
         </div>
           <div class="panel-body">
@@ -48,20 +48,40 @@
                     <th>First Month</th>
                     <th>Second Month</th>
                     <th>Third Month</th>
-                    <th>Actions</th>
                   </tr>
               </thead>
-              <tbody>
-                @foreach($quarter->score as $score)
-                  <tr>
+              <tbody style="position:relative;">
+                @if(count($quarter->score))
+                  @foreach($quarter->score as $score)
+                    <tr class="record-row">
                       <td>{{$score->student->name}}</td>
                       <td>{{ $score->student->gender }}</td>
                       <td>{{ $score->first_month }}</td>
                       <td>{{ $score->second_month }}</td>
                       <td>{{ $score->third_month }}</td>
-                      <td><a href="{{ route('get.edit', [$subject->slug,$quarter->slug,$score->student_id])}}" class="btn btn-link btn-xs">Edit</a></td>
+                      <td class="actions">
+                        <a href="{{ route('score.show', [$grade->slug, $subject, $quarter->slug, $score->student->id]) }}" class="btn-link btn-xs text-info text-uppercase"> <b>edit</b></a>
+                      </td>
+                    </tr>
+                  @endforeach
+                @else
+                  @foreach($students as $student)
+                    <tr>
+                      <td>{{ $student->name }}</td>
+                      <td>{{ $student->gender }}</td>
+                    </tr>
+                  @endforeach
+                  <tr>
+                    <td style="position:absolute; width:65%; bottom:0; top:0;right:0.5em;">
+                        <div class="panel-body">
+                          <div class="alert alert-info" role="alert">
+                            Heads up! <a href="{{ route('export.show',[$grade->slug, $subject])}}" class="alert-link">Download Spreed Sheet</a>
+                            to fill student scores
+                          </div>
+                        </div>
+                    </td>
                   </tr>
-                @endforeach
+                @endif
               </tbody>
             </table>
         </div>
@@ -72,8 +92,8 @@
       <div class="panel panel-default">
         <div class="panel-heading">Dashboard
           <div class="pull-right" style="margin-top:-7.5px;">
-            <a href="{{ route('get.export',$subject->slug)}}" class="btn btn-success">Download Sheet</a>
-            <a href="{{ route('get.upload',$subject->slug)}}" class="btn btn-primary">Upload Worksheet <i class="glyphicon glyphicon-download"></i></a>
+            <a href="{{ route('export.show',[$grade->slug, $subject])}}" class="btn btn-success">Download Sheet</a>
+            <a href="{{ route('upload.show',[$grade->slug, $subject])}}" class="btn btn-primary">Upload Worksheet <i class="glyphicon glyphicon-download"></i></a>
           </div>
         </div>
           <div class="panel-body">
@@ -85,20 +105,40 @@
                       <th>First Month</th>
                       <th>Second Month</th>
                       <th>Third Month</th>
-                      <th>Actions</th>
                   </tr>
               </thead>
-              <tbody>
-                @foreach($quarter->score as $score)
+              <tbody  style="position:relative;">
+                @if(count($quarter->score))
+                  @foreach($quarter->score as $score)
+                    <tr class="record-row">
+                      <td>{{$score->student->name}}</td>
+                      <td>{{ $score->student->gender }}</td>
+                      <td>{{ $score->first_month }}</td>
+                      <td>{{ $score->second_month }}</td>
+                      <td>{{ $score->third_month }}</td>
+                      <td class="actions">
+                        <a href="{{ route('score.show', [$grade->slug, $subject, $quarter->slug, $score->student->id]) }}" class="btn-link btn-xs text-info text-uppercase"> <b>edit</b></a>
+                      </td>
+                    </tr>
+                  @endforeach
+                @else
+                  @foreach($students as $student)
+                    <tr>
+                      <td>{{ $student->name }}</td>
+                      <td>{{ $student->gender }}</td>
+                    </tr>
+                  @endforeach
                   <tr>
-                    <td>{{$score->student->name}}</td>
-                    <td>{{ $score->student->gender }}</td>
-                    <td>{{ $score->first_month }}</td>
-                    <td>{{ $score->second_month }}</td>
-                    <td>{{ $score->third_month }}</td>
-                    <td><a href="{{ route('get.edit', [$subject->slug,$quarter->slug,$score->student_id])}}" class="btn btn-link btn-xs">Edit</a></td>
+                    <td style="position:absolute; width:65%; bottom:0; top:0;right:0.5em;">
+                        <div class="panel-body">
+                          <div class="alert alert-info" role="alert">
+                            Heads up! <a href="{{ route('export.show',[$grade->slug,$subject])}}" class="alert-link">Download Spreed Sheet</a>
+                            to fill student scores
+                          </div>
+                        </div>
+                    </td>
                   </tr>
-                @endforeach
+                @endif
               </tbody>
             </table>
         </div>

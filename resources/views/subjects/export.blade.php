@@ -7,11 +7,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Download Score Sheet
                   <div class="pull-right" style="margin-top:-7.5px;">
-                    <a href="{{route('go.back',$subject->slug)}}" class="btn btn-default">Go Back</a>
+                    <a href="{{route('go.back',[$grade->slug, $subject->subject->name])}}" class="btn btn-default">Go Back</a>
                   </div>
                 </div>
                 <div class="panel-body">
-                <form class="form-horizontal" action="{{ route('post.export',$subject->slug) }}" method="post" enctype="multipart/form-data">
+                <form class="form-horizontal" action="{{ route('post.export',[$grade->slug, $subject->subject->name]) }}" method="post" enctype="multipart/form-data">
                   {{ csrf_field() }}
 
                   <div class="form-group">
