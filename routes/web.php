@@ -70,10 +70,14 @@ Route::group(['middleware' => 'auth'], function () {
       ]);
 
       Route::post('/export',[
-        'as' => 'post.export',
-        'uses' => 'ExcelController@export'
+        'as' => 'post.exportall',
+        'uses' => 'ExcelController@all'
       ]);
 
+      Route::post('/export/quarter',[
+        'as' => 'post.exportquarter',
+        'uses' => 'ExcelController@quarter'
+      ]);
       # get quarter scores routes
        Route::get('/',[
          'as' => 'quarter.show',
