@@ -98,23 +98,42 @@
       // Dropdown issues #quick fix
       $('.dropdown-checkbox').prop('checked',false);
 
-      $.ajax({
-        type        :   'POST', // define the type of HTTP verb we want to use (POST for our form)
-        url         :   url, // the url where we want to POST
-        data        :   formdata, // our data object
-        dataType    :   'json', // what type of data do we expect back from the server
-        encode      :   true,
-        success     :   function(data){
+      $('.export-form').submit(function(e){
+        e.preventDefault();
+          var url = window.location.pathname,
+             hash = window.location.hash.replace('#', '/'),
+         formdata = $(this).serializeArray();
 
-            if (data['request_status'] ){
+          $.ajax({
+            type        :   'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         :   url.concat(hash), // the url where we want to POST
+            data        :   formdata, // our data object
+            dataType    :   'json', // what type of data do we expect back from the server
+            encode      :   true,
+            success     :   function(data){
 
-                //Do success notification here
-                console.log('response:'+data['request_status']);
-            } else {
-                    // Do errors here
-                    console.log(data);
-                }
-        }
+                if (data['request_status'] )
+                {
+                    //Do success notification here
+                    console.log('response:'+data['request_status']);
+                } else {
+                        // Do errors here
+                        console.log(data);
+                    }
+            },
+            error: function(response){
+              var obj = jQuery.parseJSON(response.responseText);
+              console.log(response.responseText);
+
+              $('#incase-has-errors').addClass('has-error');
+              $('#incase-errors').show({duration: 0, queue: true}).delay(2000).hide({duration: 0, queue: true});
+              $('#incase-errors strong').text(obj.quarters);
+              $('#incase-errors-months').show({duration: 0, queue: true}).delay(2000).hide({duration: 0, queue: true});
+              $('#incase-errors-months strong').text(obj.months);
+            }
+          });
+      });
+
 
     </script>
 </body>

@@ -136,7 +136,6 @@ class ExcelController extends Controller
               {
                 $scores [] = [
                   'Student ID' => $scoreCollection['student_id'],
-                  // 'Quarter ID' => $scoreCollection['quarter_id'],
                   'Name' => $scoreCollection['student']['name'],
                   'Sex' => $scoreCollection['student']['gender'],
                   'First Month' => $scoreCollection['first_month'],
@@ -162,7 +161,82 @@ class ExcelController extends Controller
 
   public function quarter($class, $subject, QuarterFormRequest $request)
   {
-    dd($request);
+    if ($request->ajax())
+    {
+      print_r($request);die;
+    }
+    $id = Subject::where('name', $subject)->pluck('id')->first();
+
+    $collections = Quarter::isLive()->whereIn('id', $request->quarters)->with(['score' => function ($query) use($id) {
+        $query->with('student')->where('subject_id', $id);
+    }])->get();
+
+
+    /*
+      Convert each member of the returned collection into an array,
+      and append it to the payments array.
+      where would i need this
+      # $user = Auth::user()->subjects()->with('subject')->first();
+    */
+
+
+    $collectionArr = [];
+    $title = $subject."-". $class;
+    $teacherName = Auth::user()->name;
+    $scores = [];
+    foreach ($collections as $collection)
+    {
+      $collectionArr[] = $collection->toArray();
+    }
+
+    if (count($collection->score))
+    {
+      # Generate and return the spreadsheet
+      Excel::create($title, function($excel) use ($collectionArr, $title, $teacherName)
+      {
+        # Set the spreadsheet title, creator, and description
+        $excel->setTitle($title);
+        $excel->setCreator($teacherName)->setCompany('Gonzaga Gradesheet');
+        $excel->setDescription('Student Quarterly grades');
+
+        # Build the spreadsheet, passing in the collectionArr array
+        foreach ($collectionArr as $collection)
+        {
+          $excel->sheet($collection['name'], function($sheet) use ($collection)
+          {
+            if (!empty($collection['score']))
+            {
+              foreach ($collection['score'] as $scoreCollection)
+              {
+                $scores [] = [
+                  'Student ID' => $scoreCollection['student_id'],
+                  'Name' => $scoreCollection['student']['name'],
+                  'Sex' => $scoreCollection['student']['gender'],
+                  'First Month' => $scoreCollection['first_month'],
+                  'Second Month' => $scoreCollection['second_month'],
+                  'Third Month' => $scoreCollection['third_month'],
+                ];
+              }
+
+              $sheet->fromArray($scores, null, 'A1', false, true);
+            }
+          });
+        }
+      })->export('xlsx');
+
+    }else {
+      $studentList = Grade::where('slug', $class)->pluck('students')->first();
+      $students = Student::whereIn('id', json_decode($studentList))->get();
+
+      dd($students);
+    }
+
+    return response()->json($request);
+  }
+
+  public function month($class, $subject, MonthFormRequest $request)
+  {
+    return response()->json($request);
   }
 
   public function back()

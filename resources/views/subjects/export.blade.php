@@ -64,7 +64,8 @@
                   </div>
                 </div>
                 <div class="panel-body">
-                  <form class="form-horizontal" action="{{ route('post.exportquarter',[$grade->slug, $subject->subject->name]) }}" method="post" enctype="multipart/form-data">
+                  {{-- {{ route('post.exportquarter',[$grade->slug, $subject->subject->name]) }} --}}
+                  <form class="form-horizontal export-form" action="" method="post">
                     {{ csrf_field() }}
 
                     <div class="form-group">
@@ -76,7 +77,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('quarters') ? ' has-error' : '' }}">
+                    <div class="form-group" id="incase-has-errors">
                         <div class="col-md-6">
                           <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="quarter-dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -102,11 +103,9 @@
                                 <label for="fourth">Fourth</label>
                               </li>
                             </ul>
-                            @if ($errors->has('quarters'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('quarters') }}</strong>
-                                </span>
-                            @endif
+                            <span class="help-block" id="incase-errors">
+                                <strong></strong>
+                            </span>
                           </div>
                         </div>
                     </div>
@@ -130,7 +129,8 @@
                   </div>
                 </div>
                 <div class="panel-body">
-                  <form class="form-horizontal" action="{{ route('post.exportall',[$grade->slug, $subject->subject->name]) }}" method="post" enctype="multipart/form-data">
+                  {{-- {{ route('post.exportall',[$grade->slug, $subject->subject->name]) }} --}}
+                  <form class="form-horizontal export-form" action="" method="post">
                     {{ csrf_field() }}
 
                     <div class="form-group">
@@ -142,7 +142,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group{{ $errors->has('months') ? ' has-error' : '' }}">
+                    <div class="form-group" id="incase-has-errors">
                         <div class="col-md-6">
                           <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="month-dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -199,11 +199,9 @@
                                 <label for="dec">December</label>
                               </li>
                             </ul>
-                            @if ($errors->has('months'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('months') }}</strong>
-                                </span>
-                            @endif
+                            <span class="help-block" id="incase-errors-months">
+                                <strong></strong>
+                            </span>
                           </div>
                         </div>
                     </div>
