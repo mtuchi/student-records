@@ -7,7 +7,7 @@
         <div class="col-md-4">
           <div class="panel panel-default">
             <div class="panel-heading">
-                Export Scores,
+                Export Attendance,
             </div>
             <div class="panel-body">
               <ul class="nav nav-pills nav-stacked" role="tablist" id="export-tabmenu">
@@ -17,7 +17,7 @@
                 <li role="presentation">
                   <a href="#quarter" role="tab" data-toggle="tab" id="quarter-tab" aria-controls="quarter" aria-expanded="false">By Quarter</a>
                 </li>
-                <li role="presentation">
+                <li role="presentation" class="hidden">
                   <a href="#month" role="tab" data-toggle="tab" id="month-tab" aria-controls="month" aria-expanded="false">By Month</a>
                 </li>
               </ul>
@@ -29,26 +29,26 @@
           <div class="tab-content" id="export-tabcontent">
             <div class="tab-pane fade active in" role="tabpanel" id="all" aria-labelledby="all-tab">
               <div class="panel panel-default">
-                <div class="panel-heading">Download Score Sheet
+                <div class="panel-heading">Download Attendance Sheet
                   <div class="pull-right" style="margin-top:-7.5px;">
-                    <a href="{{route('go.back',[$grade->slug, $subject->subject->name])}}" class="btn btn-default">Go Back</a>
+                    <a href="{{route('grade.back',$grade->slug)}}" class="btn btn-default">Go Back</a>
                   </div>
                 </div>
                 <div class="panel-body">
-                  <form class="form-horizontal" action="{{ route('post.exportall',[$grade->slug, $subject->subject->name]) }}" method="post" enctype="multipart/form-data">
+                  <form class="form-horizontal" action="{{ route('exportattendance.all',$grade->slug) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div class="form-group">
                         <div class="col-md-12 container">
-                          <p class="alert alert-success hidden" role="alert"> You will get latest entry result for <b>{{ $subject->subject->name }}</b>.</p>
-                          <p class="alert alert-info" role="alert">This is option will export all students <b> {{ $subject->subject->name }} </b> scores for <b>{{ $grade->slug }}</b> </p>
+                          <p class="alert alert-success hidden" role="alert"> You will get latest entry result for </p>
+                          <p class="alert alert-info" role="alert">This is option will export all students attendance for <b>{{ $grade->slug }}</b> </p>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-8">
                             <button class="btn btn-default" type="submit">
-                                Download scores
+                                Download attendance
                             </button>
                         </div>
                     </div>
@@ -60,24 +60,23 @@
               <div class="panel panel-default">
                 <div class="panel-heading">Export by quarter
                   <div class="pull-right" style="margin-top:-7.5px;">
-                    <a href="{{route('go.back',[$grade->slug, $subject->subject->name])}}" class="btn btn-default">Go Back</a>
+                    <a href="{{route('grade.back',$grade->slug)}}" class="btn btn-default">Go Back</a>
                   </div>
                 </div>
                 <div class="panel-body">
-                  {{-- {{ route('post.exportquarter',[$grade->slug, $subject->subject->name]) }} --}}
-                  <form class="form-horizontal export-form" action="" method="post">
+                  <form class="form-horizontal" action="{{ route('exportattendance.quarter',$grade->slug) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div class="form-group">
                         <div class="col-md-12 container">
                           <p class="alert alert-info" role="alert">
-                            This is option will export students <b> {{ $subject->subject->name }} </b> scores for <b>{{ $grade->slug }}</b>
+                            This is option will export students <b>  </b> attendance for <b>{{ $grade->slug }}</b>
                             By select quarter you wish to edit.
                           </p>
                         </div>
                     </div>
 
-                    <div class="form-group" id="incase-has-errors">
+                    <div class="form-group{{ $errors->has('quarters') ? ' has-error' : '' }}">
                         <div class="col-md-6">
                           <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="quarter-dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -103,9 +102,11 @@
                                 <label for="fourth">Fourth</label>
                               </li>
                             </ul>
-                            <span class="help-block" id="incase-errors">
-                                <strong></strong>
-                            </span>
+                            @if ($errors->has('quarters'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('quarters') }}</strong>
+                                </span>
+                            @endif
                           </div>
                         </div>
                     </div>
@@ -113,7 +114,7 @@
                     <div class="form-group">
                         <div class="col-md-8">
                             <button class="btn btn-default" type="submit">
-                                Download scores
+                                Download attendance
                             </button>
                         </div>
                     </div>
@@ -125,24 +126,23 @@
               <div class="panel panel-default">
                 <div class="panel-heading">Export by month
                   <div class="pull-right" style="margin-top:-7.5px;">
-                    <a href="{{route('go.back',[$grade->slug, $subject->subject->name])}}" class="btn btn-default">Go Back</a>
+                    <a href="{{route('grade.back',$grade->slug)}}" class="btn btn-default">Go Back</a>
                   </div>
                 </div>
                 <div class="panel-body">
-                  {{-- {{ route('post.exportall',[$grade->slug, $subject->subject->name]) }} --}}
-                  <form class="form-horizontal export-form" action="" method="post">
+                  <form class="form-horizontal" action="{{ route('exportattendance.month',$grade->slug) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div class="form-group">
                         <div class="col-md-12 container">
                           <p class="alert alert-info" role="alert">
-                            This is option will export students <b> {{ $subject->subject->name }} </b> scores for <b>{{ $grade->slug }}</b>
+                            This is option will export students attendance for <b>{{ $grade->slug }}</b>
                             By select month you wish to edit.
                           </p>
                         </div>
                     </div>
 
-                    <div class="form-group" id="incase-has-errors">
+                    <div class="form-group{{ $errors->has('months') ? ' has-error' : '' }}">
                         <div class="col-md-6">
                           <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" id="month-dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -151,57 +151,59 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="month-dropdownMenu">
                               <li>
-                                <input id="jan" name="months[]" value="[1,1]" type="checkbox" class="dropdown-checkbox">
+                                <input id="jan" name="months[]" value="1" type="checkbox" class="dropdown-checkbox">
                                 <label for="jan">January</label>
                               </li>
                               <li>
-                                <input id="feb" name="months[]" value="[1,2]" type="checkbox" class="dropdown-checkbox">
+                                <input id="feb" name="months[]" value="2" type="checkbox" class="dropdown-checkbox">
                                 <label for="feb">February</label>
                               </li>
                               <li>
-                                <input id="mar" name="months[]" value="[1,3]" type="checkbox" class="dropdown-checkbox">
+                                <input id="mar" name="months[]" value="3" type="checkbox" class="dropdown-checkbox">
                                 <label for="mar">March</label>
                               </li>
                               <li>
-                                <input id="april" name="months[]" value="[2,4]" type="checkbox" class="dropdown-checkbox">
+                                <input id="april" name="months[]" value="4" type="checkbox" class="dropdown-checkbox">
                                 <label for="april">April</label>
                               </li>
                               <li>
-                                <input id="may" name="months[]" value="[2,5]" type="checkbox" class="dropdown-checkbox">
+                                <input id="may" name="months[]" value="5" type="checkbox" class="dropdown-checkbox">
                                 <label for="may">May</label>
                               </li>
                               <li>
-                                <input id="june" name="months[]" value="[2,6]" type="checkbox" class="dropdown-checkbox">
+                                <input id="june" name="months[]" value="6" type="checkbox" class="dropdown-checkbox">
                                 <label for="june">June</label>
                               </li>
                               <li>
-                                <input id="july" name="months[]" value="[3,7]" type="checkbox" class="dropdown-checkbox">
+                                <input id="july" name="months[]" value="7" type="checkbox" class="dropdown-checkbox">
                                 <label for="july">July</label>
                               </li>
                               <li>
-                                <input id="aug" name="months[]" value="[3,8]" type="checkbox" class="dropdown-checkbox">
+                                <input id="aug" name="months[]" value="8" type="checkbox" class="dropdown-checkbox">
                                 <label for="aug">August</label>
                               </li>
                               <li>
-                                <input id="sept" name="months[]" value="[3,9]" type="checkbox" class="dropdown-checkbox">
+                                <input id="sept" name="months[]" value="9" type="checkbox" class="dropdown-checkbox">
                                 <label for="sept">September</label>
                               </li>
                               <li>
-                                <input id="oct" name="months[]" value="[4,10]" type="checkbox" class="dropdown-checkbox">
+                                <input id="oct" name="months[]" value="10" type="checkbox" class="dropdown-checkbox">
                                 <label for="oct">October</label>
                               </li>
                               <li>
-                                <input id="nov" name="months[]" value="[4,11]" type="checkbox" class="dropdown-checkbox">
+                                <input id="nov" name="months[]" value="11" type="checkbox" class="dropdown-checkbox">
                                 <label for="nov">November</label>
                               </li>
                               <li>
-                                <input id="dec" name="months[]" value="[4,12]" type="checkbox" class="dropdown-checkbox">
+                                <input id="dec" name="months[]" value="12" type="checkbox" class="dropdown-checkbox">
                                 <label for="dec">December</label>
                               </li>
                             </ul>
-                            <span class="help-block" id="incase-errors-months">
-                                <strong></strong>
-                            </span>
+                            @if ($errors->has('months'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('months') }}</strong>
+                                </span>
+                            @endif
                           </div>
                         </div>
                     </div>
@@ -209,7 +211,7 @@
                     <div class="form-group">
                         <div class="col-md-8">
                             <button class="btn btn-default " type="submit">
-                                Download scores
+                                Download attendance
                             </button>
                         </div>
                     </div>

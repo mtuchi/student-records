@@ -9,11 +9,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Gonzaga') }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
-    {{-- <link href="{{ asset('/bower_components/dropdown/dropdowns-enhancement.css') }}" rel="stylesheet"> --}}
+
     <style media="screen">
       .record-row{
         position: relative;
@@ -27,6 +27,16 @@
       .record-row:hover .actions{
         display: block;
       }
+      .custom-position{
+        position: fixed;
+        top: 10px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        z-index: 1040;
+        box-sizing: border-box;
+        width: 350px;
+      }
     </style>
 
     <!-- Scripts -->
@@ -37,6 +47,7 @@
     </script>
 </head>
 <body>
+
   <div id="app">
     @include('layouts.partials._navigations')
     @include('layouts.partials.notify')
@@ -44,16 +55,11 @@
   </div>
 
 
-    <!-- Scripts -->
-    <script src="{{ asset('/js/app.js')}}"></script>
-    {{-- <script src="{{ asset('/bower_components/datatables.net.bs/js/jquery.dataTables.js')}}"></script> --}}
-    <script type="text/javascript">
-      $(document).ready(function() {
-        // $('#data_first_quarter').DataTable();
-        // $('#data_second_quarter').DataTable();
-        // $('#data_third_quarter').DataTable();
-        // $('#data_fourth_quarter').DataTable();
-      } );
+  <!-- Scripts -->
+  <script src="{{ asset('/js/app.js')}}"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+
       window.setTimeout(function() {
           $(".alert-message").fadeTo(500, 0).slideUp(500, function(){
               $(this).remove();
@@ -98,43 +104,9 @@
       // Dropdown issues #quick fix
       $('.dropdown-checkbox').prop('checked',false);
 
-      $('.export-form').submit(function(e){
-        e.preventDefault();
-          var url = window.location.pathname,
-             hash = window.location.hash.replace('#', '/'),
-         formdata = $(this).serializeArray();
-
-          $.ajax({
-            type        :   'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         :   url.concat(hash), // the url where we want to POST
-            data        :   formdata, // our data object
-            dataType    :   'json', // what type of data do we expect back from the server
-            encode      :   true,
-            success     :   function(data){
-
-                if (data['request_status'] )
-                {
-                    //Do success notification here
-                    console.log('response:'+data['request_status']);
-                } else {
-                        // Do errors here
-                        console.log(data);
-                    }
-            },
-            error: function(response){
-              var obj = jQuery.parseJSON(response.responseText);
-              console.log(response.responseText);
-
-              $('#incase-has-errors').addClass('has-error');
-              $('#incase-errors').show({duration: 0, queue: true}).delay(2000).hide({duration: 0, queue: true});
-              $('#incase-errors strong').text(obj.quarters);
-              $('#incase-errors-months').show({duration: 0, queue: true}).delay(2000).hide({duration: 0, queue: true});
-              $('#incase-errors-months strong').text(obj.months);
-            }
-          });
-      });
+    });
 
 
-    </script>
+  </script>
 </body>
 </html>

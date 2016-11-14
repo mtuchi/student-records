@@ -7,7 +7,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">Edit {{ $score->quarter->name }} Scores
           <div class="pull-right" style="margin-top:-7.5px;">
-            <a href="{{route('go.back',[$grade,$subject])}}" class="btn btn-default">Go Back</a>
+            <a href="{{route('quarter.back',[$grade,$subject])}}" class="btn btn-default">Go Back</a>
           </div>
         </div>
         <div class="panel-body">
