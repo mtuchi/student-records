@@ -61,27 +61,59 @@ Route::group(['middleware' => 'auth'], function () {
 
   # grade group prefix routes
   Route::group(['prefix' => '{grade}'], function () {
+
+    # upload routes
+    Route::get('/upload', [
+      'as' => 'uploadattendance.show',
+      'uses' =>'AttendanceController@showupload'
+    ]);
+
+    Route::post('/upload', [
+      'as' => 'uploadattendance.store',
+      'uses' => 'AttendanceController@storeupload'
+    ]);
+
+    # export routes for grade attendance
+    Route::get('/export',[
+      'as' => 'exportattendance.show',
+      'uses' => 'ExportAttendanceController@show'
+    ]);
+
+    Route::post('/export',[
+      'as' => 'exportattendance.all',
+      'uses' => 'ExportAttendanceController@all'
+    ]);
+
+    Route::post('/export/quarter',[
+      'as' => 'exportattendance.quarter',
+      'uses' => 'ExportAttendanceController@quarter'
+    ]);
+
+    Route::post('/export/month',[
+      'as' => 'exportattendance.month',
+      'uses' => 'ExportAttendanceController@month'
+    ]);
     # subject routes group prefix
     Route::group(['prefix' => '{subject}'], function(){
-      # export routes
+      # export routes for subject
       Route::get('/export',[
-        'as' => 'export.show',
-        'uses' => 'ExcelController@show'
+        'as' => 'exportscore.show',
+        'uses' => 'ExportScoreController@show'
       ]);
 
       Route::post('/export',[
-        'as' => 'post.exportall',
-        'uses' => 'ExcelController@all'
+        'as' => 'exportscore.all',
+        'uses' => 'ExportScoreController@all'
       ]);
 
       Route::post('/export/quarter',[
-        'as' => 'post.exportquarter',
-        'uses' => 'ExcelController@quarter'
+        'as' => 'exportscore.quarter',
+        'uses' => 'ExportScoreController@quarter'
       ]);
 
       Route::post('/export/month',[
-        'as' => 'post.exportmonth',
-        'uses' => 'ExcelController@month'
+        'as' => 'exportscore.month',
+        'uses' => 'ExportScoreController@month'
       ]);
       # get quarter scores routes
        Route::get('/',[
@@ -90,7 +122,7 @@ Route::group(['middleware' => 'auth'], function () {
        ]);
 
        Route::post('/',[
-         'as' => 'go.back',
+         'as' => 'quarter.back',
          function () {
            return redirect()->back();
          }
@@ -109,13 +141,13 @@ Route::group(['middleware' => 'auth'], function () {
 
        # upload routes
        Route::get('/upload', [
-         'as' => 'upload.show',
-         'uses' =>'ExcelController@index'
+         'as' => 'uploadscore.show',
+         'uses' =>'ScoreController@showupload'
        ]);
 
        Route::post('/upload', [
-         'as' => 'post.upload',
-         'uses' => 'ExcelController@upload'
+         'as' => 'uploadscore.store',
+         'uses' => 'ScoreController@storeupload'
        ]);
     });
 
@@ -135,7 +167,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Editing  student attendance
     Route::get('/{quarter}/{id}/edit', [
-      'as' => 'show.attendance',
+      'as' => 'attendance.show',
       'uses' => 'AttendanceController@show'
     ]);
 
