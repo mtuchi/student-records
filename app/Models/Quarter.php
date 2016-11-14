@@ -32,4 +32,9 @@ class Quarter extends Model
     return $this->hasMany(Attendance::class);
   }
 
+  public function months()
+  {
+    return $this->hasMany(Month::class);
+  }
+
 }
