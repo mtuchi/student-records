@@ -36,10 +36,10 @@ class GradeController extends Controller
     $user = Auth::user()->username;
     $quarters = Quarter::isLive()->with(['attendance' => function ($query) use($id) {
         $query->where('grade_id', $id);
-    }])->get();
+    },'months'])->get();
 
     $students = Student::whereIn('id', json_decode($grade->students))->get();
-    return view('quarters.attendance', [
+    return view('quarters.attendance.index', [
       'user' => $user,
       'grade' => $grade,
       'quarters' => $quarters,

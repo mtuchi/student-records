@@ -36,7 +36,7 @@ class HomeController extends Controller
 
     public function index()
     {
-      return view('subjects.subject');
+      return view('subjects.index');
     }
 
     public function tinker(Subject $subject)
