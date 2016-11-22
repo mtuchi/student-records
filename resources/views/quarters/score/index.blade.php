@@ -43,10 +43,10 @@
             <table id="data_{{ $quarter->slug }}" class="display" cellspacing="0" width="100%">
               <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Gender</th>
+                    <th class="col-md-3">Name</th>
+                    <th class="col-md-2">Gender</th>
                     @foreach($quarter->months as $month)
-                      <th>{{ $month['name']}}</th>
+                      <th class="col-md-2">{{ $month['name']}}</th>
                     @endforeach
                   </tr>
               </thead>
@@ -54,12 +54,12 @@
                 @if(count($quarter->score))
                   @foreach($quarter->score as $score)
                     <tr class="record-row">
-                      <td>{{$score->student->name}}</td>
-                      <td>{{ $score->student->gender }}</td>
-                      <td>{{ $score->first_month }}</td>
-                      <td>{{ $score->second_month }}</td>
-                      <td>{{ $score->third_month }}</td>
-                      <td class="actions">
+                      <td class="col-md-3">{{$score->student->name}}</td>
+                      <td class="col-md-2">{{ $score->student->gender }}</td>
+                      <td class="col-md-2"> {{ $score->first_month }}</td>
+                      <td class="col-md-2">{{ $score->second_month }}</td>
+                      <td class="col-md-2"> {{ $score->third_month }}</td>
+                      <td class="actions col-md-1">
                         <a href="{{ route('score.show', [$grade->slug, $subject, $quarter->slug, $score->student->id]) }}" class="btn-link btn-xs text-info text-uppercase"> <b>edit</b></a>
                       </td>
                     </tr>
@@ -67,12 +67,12 @@
                 @else
                   @foreach($students as $student)
                     <tr>
-                      <td>{{ $student->name }}</td>
-                      <td>{{ $student->gender }}</td>
+                      <td class="col-md-3">{{ $student->name }}</td>
+                      <td class="col-md-2">{{ $student->gender }}</td>
                     </tr>
                   @endforeach
                   <tr>
-                    <td style="position:absolute; width:65%; bottom:0; top:0;right:0.5em;">
+                    <td style="position:absolute; width:55%; bottom:0; right:0.5em;">
                         <div class="panel-body">
                           <div class="alert alert-info" role="alert">
                             Heads up! <a href="{{ route('exportscore.show',[$grade->slug, $subject])}}" class="alert-link">Download Spreed Sheet</a>
@@ -100,23 +100,23 @@
             <table id="data_{{ $quarter->slug }}" class="display" cellspacing="0" width="100%">
               <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Gender</th>
+                    <th class="col-md-3">Name</th>
+                    <th class="col-md-2">Gender</th>
                     @foreach($quarter->months as $month)
-                      <th>{{ $month['name']}}</th>
+                      <th class="col-md-2">{{ $month['name']}}</th>
                     @endforeach
                   </tr>
               </thead>
-              <tbody  style="position:relative;">
+              <tbody style="position:relative;">
                 @if(count($quarter->score))
                   @foreach($quarter->score as $score)
                     <tr class="record-row">
-                      <td>{{$score->student->name}}</td>
-                      <td>{{ $score->student->gender }}</td>
-                      <td>{{ $score->first_month }}</td>
-                      <td>{{ $score->second_month }}</td>
-                      <td>{{ $score->third_month }}</td>
-                      <td class="actions">
+                      <td class="col-md-3">{{$score->student->name}}</td>
+                      <td class="col-md-2">{{ $score->student->gender }}</td>
+                      <td class="col-md-2"> {{ $score->first_month }}</td>
+                      <td class="col-md-2">{{ $score->second_month }}</td>
+                      <td class="col-md-2"> {{ $score->third_month }}</td>
+                      <td class="actions col-md-1">
                         <a href="{{ route('score.show', [$grade->slug, $subject, $quarter->slug, $score->student->id]) }}" class="btn-link btn-xs text-info text-uppercase"> <b>edit</b></a>
                       </td>
                     </tr>
@@ -124,12 +124,12 @@
                 @else
                   @foreach($students as $student)
                     <tr>
-                      <td>{{ $student->name }}</td>
-                      <td>{{ $student->gender }}</td>
+                      <td class="col-md-3">{{ $student->name }}</td>
+                      <td class="col-md-2">{{ $student->gender }}</td>
                     </tr>
                   @endforeach
                   <tr>
-                    <td style="position:absolute; width:65%; bottom:0; top:0;right:0.5em;">
+                    <td style="position:absolute; width:55%; bottom:0; right:0.5em;">
                         <div class="panel-body">
                           <div class="alert alert-info" role="alert">
                             Heads up! <a href="{{ route('exportscore.show',[$grade->slug,$subject])}}" class="alert-link">Download Spreed Sheet</a>

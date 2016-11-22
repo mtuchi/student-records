@@ -108,6 +108,25 @@ class ScoreController extends Controller
 
     notify()->flash($getStudent->name." Scores has been updated", 'success');
 
+    activity($grade."-".$subject)
+        ->causedBy(Auth::user())
+        ->performedOn($score)
+        ->withProperties([
+          'attributes' => [
+            'first_month' => $request->first_month,
+            'second_month' => $request->second_month,
+            'third_month' => $request->third_month,
+          ],
+          'old' => [
+            'first_month' => $score->first_month,
+            'second_month' => $score->second_month,
+            'third_month' => $score->third_month,
+          ],
+          'type' => 'success',
+          'quarter' => $quarter,
+        ])
+        ->log($getStudent->name." Scores has been updated successful by ". Auth::user()->name);
+
     return redirect()->route('quarter.show',[$grade, $getSubject->name]);
   }
 
@@ -149,6 +168,11 @@ class ScoreController extends Controller
             } else {
                 notify()->flash('Something is wrong with your excel sheet, Make sure the name of the file is '.$urltitle.'
                 and you don\'t have any invalid charcters in your excel sheet', 'danger',['timer' => 5000]);
+                activity($class."-".$subject)
+                    ->causedBy(Auth::user())
+                    ->withProperties(['type' => 'danger'])
+                    ->log(" Something is wrong with your excel sheet, Make sure the name of the file is ". $urltitle ."
+                    and you don\'t have any invalid charcters in your excel sheet");
 
                 return redirect()->back();
             }
@@ -170,15 +194,41 @@ class ScoreController extends Controller
               'third_month' => $cell[strtolower($months[2]['name'])]
             ]);
             $cellCollection [] = $cell->toArray();
+            activity($class."-".$subject)
+                ->causedBy(Auth::user())
+                ->performedOn($score)
+                ->withProperties([
+                  'attributes' => [
+                    'first_month' => $cell[strtolower($months[0]['name'])],
+                    'second_month' => $cell[strtolower($months[1]['name'])],
+                    'third_month' => $cell[strtolower($months[2]['name'])],
+                  ],
+                  'old' => [
+                    'first_month' => $score->first_month,
+                    'second_month' => $score->second_month,
+                    'third_month' => $score->third_month,
+                  ],
+                  'type' => 'success',
+                  'description' => 'update',
+
+                ])
+                ->log(" You have success full uploaded the scores for ".$urltitle." To see the changes checkout activity logs");
           }
         }
       }
       notify()->flash('You have success full uploaded the scores for '.$urltitle.' To see the changes checkout activity logs', 'success',['timer' => 5000]);
 
+
+
       return redirect()->route('quarter.show',[$class, $subject]);
 
     }else {
       notify()->flash('Something is wrong with your excel sheet, Make sure the name of the file is '.$urltitle, 'danger',['timer' => 5000]);
+
+      activity($class."-".$subject)
+          ->causedBy(Auth::user())
+          ->withProperties(['type' => 'danger'])
+          ->log("Something is wrong with your excel sheet, Make sure the name of the file is ".$urltitle);
 
       return redirect()->back();
     }

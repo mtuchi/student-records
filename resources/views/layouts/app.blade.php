@@ -15,6 +15,110 @@
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
     <style media="screen">
+      td.description .body .full, td.description .body .blurb.is-showing{
+        display: none;
+        -webkit-transition: display 2s; /* Safari */
+        transition: display 2s;
+        -moz-transition: display 2s;
+
+      }
+
+      td.description .body .full.is-showing{
+        display: block;
+        -webkit-transition: display 2s; /* Safari */
+        transition: display 2s;
+        -moz-transition: display 2s;
+      }
+
+      td.description .body .blurb{
+        position: relative;
+      }
+      td.description .body .blurb{
+        width: 400px;
+        height: 24px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .activity-row{
+        cursor: pointer;
+        border-bottom: 1px solid #ddd;
+      }
+      .activity-row .type, .activity-row .action{
+        position: relative;
+        width: 15%;
+      }
+      .activity-row .created_at{
+        position: relative;
+        width: 20%;
+      }
+      .default-activity, .activity-row .action span,.activity-row .created_at div{
+        position: absolute;
+        top: 0;
+        margin:1em 1em 0 0;
+      }
+      .subj-list li{
+        padding: 1em 0;
+      }
+      .subj-list li:last-child{
+        margin-bottom: 1em;
+      }
+      .border-top{
+        border-top: 1px solid #ddd;
+      }
+      .border-bottom {
+        border-bottom: 1px solid #ddd;
+      }
+      .card-details{
+        padding: .25em 0;
+      }
+      .card-detail{
+        margin: .5em 0;
+      }
+      .border-gray-dark{
+        border: 1px solid #ddd;
+      }
+      .pinned-subjs-list{
+        position: relative;
+        list-style: none;
+        padding-left: 1em;
+      }
+      .pinned-subj-desc{
+        /*background: red;*/
+      }
+
+      .teacher-name{
+        position: absolute;
+        bottom: 1em;
+        left: 1em;
+      }
+      .profile-timeline-card{
+        padding: 1em;
+      }
+      .profile-timeline-card-wrapper{
+        margin-left: -1em;
+        margin-right: 1em;
+      }
+      .overviews-setting{
+        /*background: red;*/
+        width: auto;
+      }
+      .profile-timeline.discussion-timeline{
+        position: relative;
+      }
+      .profile-timeline-month-heading{ }
+      .overviews-setting .dropdown{
+        display: inline-block;
+      }
+      .subj-filter{
+        position: relative;
+      }
+      .pinned-subj-item {
+        /*background: grey;        */
+        padding: 1em;
+        margin:1em 4.5em 1em 0;
+        height: 200px;
+      }
       .record-row{
         position: relative;
         cursor: pointer;
@@ -22,10 +126,10 @@
       .actions{
         position: absolute;
         right: 0;
-        display: none;
+        visibility: hidden;
       }
       .record-row:hover .actions{
-        display: block;
+        visibility: visible;
       }
       .custom-position{
         position: fixed;
@@ -104,6 +208,11 @@
       // Dropdown issues #quick fix
       $('.dropdown-checkbox').prop('checked',false);
 
+      // Re implimeting the collapse for activity logs
+      $('.activity-row').click(function(){
+        $(this).children('td.description').children('.body').children('.full').toggleClass('is-showing');
+        $(this).children('td.description').children('.body').children('.blurb').toggleClass('is-showing');
+      });
     });
 
 

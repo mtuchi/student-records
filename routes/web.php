@@ -26,36 +26,38 @@ Route::get('/notify', function () {
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
+  # user profile settings
+
+
   Route::get('/',[
     'as' => 'home',
     'uses'=>'HomeController@index'
   ]);
 
-  Route::get('/user/{user}',[
-    'as' => 'user.profile',
-    'uses' => 'HomeController@user',
+  Route::get('/settings/{user}', [
+    'as' => 'user.show',
+    'uses' => 'UserController@show'
+  ]);
+
+  Route::get('/settings/profile', [
+    'as' => 'settings.show',
+    'uses' => 'UserController@show'
+  ]);
+
+  Route::get('/settings/profile/edit', [
+    'as' => 'settings.update',
+    'uses' => 'UserController@update'
+  ]);
+
+  Route::get('/',[
+    'as' => 'home',
+    'uses'=>'HomeController@index'
   ]);
 
 
-
-
-
-
-
-  Route::get('/tinker/{subject}', [
+  Route::get('/tinker', [
     'as' => 'tinker',
     'uses' => 'HomeController@tinker',
-  ]);
-
-  // tinker routes
-  Route::get('/tinker/{subject}', [
-    'as' => 'get.tinker',
-    'uses' =>'HomeController@tinkerIndex'
-  ]);
-
-  Route::post('/tinker/{subject}', [
-    'as' => 'post.tinker',
-    'uses' => 'HomeController@tinkerUpload'
   ]);
 
 

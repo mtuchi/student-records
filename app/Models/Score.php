@@ -3,9 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Student;
-use App\Models\Quarter;
-use App\Models\Subject;
 
 class Score extends Model
 {

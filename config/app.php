@@ -168,6 +168,7 @@ return [
          */
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Codecourse\Notify\NotifyServiceProvider::class,
+        Spatie\Activitylog\ActivitylogServiceProvider::class,
 
         /*
          * Application Service Providers...

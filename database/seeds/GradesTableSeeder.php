@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Grade;
+
 class GradesTableSeeder extends Seeder
 {
     /**
@@ -26,6 +27,5 @@ class GradesTableSeeder extends Seeder
         'subjects' => json_encode(['1','2','3', '4', '8','6']),
         'students' => json_encode(['6','7','8','9','10']),
       ]);
-
     }
 }

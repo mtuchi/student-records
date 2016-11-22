@@ -44,36 +44,36 @@
             <table id="data_{{ $quarter->slug }}" class="display" cellspacing="0" width="100%">
               <thead>
                   <tr>
-                    <th>Name</th>
-                    <th>Gender</th>
+                    <th class="col-md-3">Name</th>
+                    <th class="col-md-2">Gender</th>
                     @foreach($quarter->months as $month)
-                      <th>{{ $month['name']}}</th>
+                      <th class="col-md-2">{{ $month['name']}}</th>
                     @endforeach
                   </tr>
               </thead>
-              <tbody>
+              <tbody style="position:relative;">
                 @if(count($quarter->attendance))
                   @foreach($quarter->attendance as $attendance)
                     <tr class="record-row">
-                        <td>{{$attendance->student->name}}</td>
-                        <td>{{ $attendance->student->gender }}</td>
-                        <td>{{ $attendance->first_month }}</td>
-                        <td>{{ $attendance->second_month }}</td>
-                        <td>{{ $attendance->third_month }}</td>
-                        <td class="actions">
-                          <a href="{{ route('attendance.show', [$grade->slug,$quarter->slug,$attendance->student_id])}}" class="btn-link btn-xs text-info text-uppercase"> <b>edit</b></a>
-                        </td>
+                      <td class="col-md-3">{{$attendance->student->name}}</td>
+                      <td class="col-md-2">{{ $attendance->student->gender }}</td>
+                      <td class="col-md-2">{{ $attendance->first_month }}</td>
+                      <td class="col-md-2">{{ $attendance->second_month }}</td>
+                      <td class="col-md-2">{{ $attendance->third_month }}</td>
+                      <td class="actions col-md-1">
+                        <a href="{{ route('attendance.show', [$grade->slug,$quarter->slug,$attendance->student_id])}}" class="btn-link btn-xs text-info text-uppercase"> <b>edit</b></a>
+                      </td>
                     </tr>
                   @endforeach
                 @else
                   @foreach($students as $student)
                     <tr>
-                      <td>{{ $student->name }}</td>
-                      <td>{{ $student->gender }}</td>
+                      <td class="col-md-3">{{ $student->name }}</td>
+                      <td class="col-md-2">{{ $student->gender }}</td>
                     </tr>
                   @endforeach
                   <tr>
-                    <td style="position:absolute; width:65%; bottom:0; top:0;right:0.5em;">
+                    <td style="position:absolute; width:55%; bottom:0; top:0;right:0.5em;">
                       <div class="panel panel-default">
                         <div class="panel-body">
                           <div class="alert alert-info" role="alert">
@@ -104,36 +104,36 @@
             <table id="data_{{ $quarter->slug }}" class="display" cellspacing="0" width="100%">
               <thead>
                   <tr>
-                      <th>Name</th>
-                      <th>Gender</th>
-                      @foreach($quarter->months as $month)
-                        <th>{{ $month['name']}}</th>
-                      @endforeach
+                    <th class="col-md-3">Name</th>
+                    <th class="col-md-2">Gender</th>
+                    @foreach($quarter->months as $month)
+                      <th class="col-md-2">{{ $month['name']}}</th>
+                    @endforeach
                   </tr>
               </thead>
-              <tbody>
+              <tbody style="position:relative;">
                 @if(count($quarter->attendance))
                   @foreach($quarter->attendance as $attendance)
                     <tr class="record-row">
-                        <td>{{$attendance->student->name}}</td>
-                        <td>{{ $attendance->student->gender }}</td>
-                        <td>{{ $attendance->first_month }}</td>
-                        <td>{{ $attendance->second_month }}</td>
-                        <td>{{ $attendance->third_month }}</td>
-                        <td class="actions">
-                          <a href="{{ route('attendance.show', [$grade->slug,$quarter->slug,$attendance->student_id])}}" class="btn-link btn-xs text-info text-uppercase"> <b>edit</b></a>
-                        </td>
+                      <td class="col-md-3">{{$attendance->student->name}}</td>
+                      <td class="col-md-2">{{ $attendance->student->gender }}</td>
+                      <td class="col-md-2">{{ $attendance->first_month }}</td>
+                      <td class="col-md-2">{{ $attendance->second_month }}</td>
+                      <td class="col-md-2">{{ $attendance->third_month }}</td>
+                      <td class="actions col-md-1">
+                        <a href="{{ route('attendance.show', [$grade->slug,$quarter->slug,$attendance->student_id])}}" class="btn-link btn-xs text-info text-uppercase"> <b>edit</b></a>
+                      </td>
                     </tr>
                   @endforeach
                 @else
                   @foreach($students as $student)
                     <tr>
-                      <td>{{ $student->name }}</td>
-                      <td>{{ $student->gender }}</td>
+                      <td class="col-md-3">{{ $student->name }}</td>
+                      <td class="col-md-2">{{ $student->gender }}</td>
                     </tr>
                   @endforeach
                   <tr>
-                    <td style="position:absolute; width:65%; bottom:0; top:0;right:0.5em;">
+                    <td style="position:absolute; width:55%; bottom:0; top:0;right:0.5em;">
                       <div class="panel panel-default">
                         <div class="panel-body">
                           <div class="alert alert-info" role="alert">

@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Quarter;
-use App\Models\User;
 
 class Subject extends Model
 {

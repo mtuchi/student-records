@@ -63,6 +63,25 @@ class AttendanceController extends Controller
       'timer' => 5000,
     ]);
 
+    activity($grade)
+      ->causedBy(Auth::user())
+      ->performedOn($attendance)
+      ->withProperties([
+        'attributes' => [
+          'first_month' => $request->first_month,
+          'second_month' => $request->second_month,
+          'third_month' => $request->third_month,
+        ],
+        'old' => [
+          'first_month' => $attendance->first_month,
+          'second_month' => $attendance->second_month,
+          'third_month' => $attendance->third_month,
+        ],
+        'description' => 'updated',
+        'type' => 'success'
+      ])
+      ->log($getStudent->name.' Attendance has been updated successfull by '. Auth::user()->name);
+
 
     return redirect()->route('grade.show',[$grade]);
   }
@@ -102,6 +121,12 @@ class AttendanceController extends Controller
                 notify()->flash('Something is wrong with your excel sheet, Make sure the name of the file is '.$urltitle.'
                 and you don\'t have any invalid charcters in your excel sheet', 'danger',['timer' => 5000]);
 
+                activity($class)
+                  ->causedBy(Auth::user())
+                  ->withProperties(['type' => 'danger'])
+                  ->log('Something is wrong with your excel sheet, Make sure the name of the file is '.$urltitle.'
+                  and you don\'t have any invalid charcters in your excel sheet');
+
                 return redirect()->back();
             }
           }
@@ -111,24 +136,50 @@ class AttendanceController extends Controller
         {
           if (!empty($cell['student_id']) && !empty($cell['name']) && !empty($cell[strtolower($months[0]['name'])]))
           {
-            $score = Attendance::where('quarter_id', $id)
+            $attendance = Attendance::where('quarter_id', $id)
             ->where('student_id', $cell['student_id'])->first();
 
-            $score->update([
+            $attendance->update([
               'first_month' => $cell[strtolower($months[0]['name'])],
               'second_month' => $cell[strtolower($months[1]['name'])],
               'third_month' => $cell[strtolower($months[2]['name'])]
             ]);
             $cellCollection [] = $cell->toArray();
+
+            activity($class)
+              ->causedBy(Auth::user())
+              ->performedOn($attendance)
+              ->withProperties([
+                'attributes' => [
+                  'first_month' => $cell[strtolower($months[0]['name'])],
+                  'second_month' => $cell[strtolower($months[1]['name'])],
+                  'third_month' => $cell[strtolower($months[2]['name'])],
+                ],
+                'old' => [
+                  'first_month' => $attendance->first_month,
+                  'second_month' => $attendance->second_month,
+                  'third_month' => $attendance->third_month,
+                ],
+                'description' => 'updated',
+                'type' => 'success'
+              ])
+              ->log('You have success full uploaded the attendance for '.$urltitle.' To see the changes checkout activity logs');
           }
         }
       }
       notify()->flash('You have success full uploaded the attendance for '.$urltitle.' To see the changes checkout activity logs', 'success',['timer' => 5000]);
 
+
+
       return redirect()->route('grade.show',$class);
 
     }else {
       notify()->flash('Something is wrong with your excel sheet, Make sure the name of the file is '.$urltitle, 'danger',['timer' => 5000]);
+
+      activity($class)
+        ->causedBy(Auth::user())
+        ->withProperties(['type' => 'danger'])
+        ->log('Something is wrong with your excel sheet, Make sure the name of the file is '.$urltitle);
 
       return redirect()->back();
     }

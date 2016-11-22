@@ -11,6 +11,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -42,6 +43,11 @@ class User extends Authenticatable
     public function grade()
     {
         return $this->belongsTo(Grade::class)->where('user_id', $this->id);
+    }
+
+    public function joined()
+    {
+      return $this->created_at->diffForHumans();
     }
 
     /**
@@ -103,6 +109,14 @@ class User extends Authenticatable
        }
 
        $this->roles()->attach($assigned_roles);
+    }
+
+    public function avatar($options = [])
+    {
+      $size = isset($options['size']) ? $options['size']:45;
+      $image = isset($options['image']) ? $options['image']:'identicon';
+
+      return 'http://www.gravatar.com/avatar/' .md5($this->email). '?s=' . $size . '&d='. $image;
     }
 
 }

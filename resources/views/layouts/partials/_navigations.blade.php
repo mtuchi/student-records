@@ -38,28 +38,29 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
+                          <li class="dropdown-header">Signed in as {{ Auth::user()->name }}</li>
+                          <li role="separator" class="divider"></li>
+                          @if(Auth::user()->hasRole('class_teacher'))
+                            <li><a href="{{ route('user.show', Auth::user()->username )}}">Overview</a></li>
+                          @endif
+                          @if(Auth::user()->hasRole('teacher'))
+                            <li><a href="#">Profile</a></li>
+                          @endif
+                          <li>
+                            <a href="{{route('settings.show')}}">Settings</a>
+                          </li>
 
-                            <li class="dropdown-header">Signed in as {{ Auth::user()->name }}</li>
-                            <li role="separator" class="divider"></li>
-                            <li>
-                              <a href="#">You profile</a>
-                            </li>
-                            {{-- <li role="separator" class="divider"></li> --}}
-                            <li>
-                              <a href="#">Settings</a>
-                            </li>
+                          <li>
+                              <a href="{{ url('/logout') }}"
+                                  onclick="event.preventDefault();
+                                           document.getElementById('logout-form').submit();">
+                                  Logout
+                              </a>
 
-                            <li>
-                                <a href="{{ url('/logout') }}"
-                                    onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-
-                                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                            </li>
+                              <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                  {{ csrf_field() }}
+                              </form>
+                          </li>
                         </ul>
                     </li>
                 @endif
