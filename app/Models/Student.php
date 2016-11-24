@@ -17,4 +17,17 @@ class Student extends Model
 	{
 		return $this->belongsTo(Grade::class);
 	}
+
+	public function avatar($options = [])
+	{
+		$size = isset($options['size']) ? $options['size']:45;
+		$image = isset($options['image']) ? $options['image']:'identicon';
+
+		return 'http://www.gravatar.com/avatar/' .md5('student@gonzaga.ac.tz'). '?s=' . $size . '&d='. $image;
+	}
+
+  public function joined()
+  {
+    return $this->created_at->diffForHumans();
+  }
 }
