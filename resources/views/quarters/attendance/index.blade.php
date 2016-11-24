@@ -36,7 +36,7 @@
         <div class="panel-heading">Dashboard
           <div class="pull-right" style="margin-top:-7.5px;">
             <a href="{{ route('exportattendance.show',$grade->slug)}}" class="btn btn-success">Download Sheet</a>
-            <a href="{{ route('uploadattendance.show',$grade->slug)}}" class="btn btn-primary">Upload Worksheet <i class="glyphicon glyphicon-download"></i></a>
+            <a href="{{ route('uploadattendance.show',$grade->slug)}}" class="btn btn-primary">Upload Worksheet <i class="fa fa-download"></i></a>
 
           </div>
         </div>
@@ -55,14 +55,24 @@
                 @if(count($quarter->attendance))
                   @foreach($quarter->attendance as $attendance)
                     <tr class="record-row">
-                      <td class="col-md-3">{{$attendance->student->name}}</td>
+                      <td class="col-md-3">
+                        <div class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            {{ $attendance->student->name }} <span class="caret"></span>
+                          </a>
+                          <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                            <li>
+                              <a href="{{ route('attendance.show', [$grade->slug,$quarter->slug,$attendance->student_id])}}">Edit</a>
+                            </li>
+                            <li><a href="{{ route('student.show', $attendance->student_id) }}">Profile</a></li>
+                          </ul>
+                        </div>
+                      </td>
                       <td class="col-md-2">{{ $attendance->student->gender }}</td>
                       <td class="col-md-2">{{ $attendance->first_month }}</td>
                       <td class="col-md-2">{{ $attendance->second_month }}</td>
                       <td class="col-md-2">{{ $attendance->third_month }}</td>
-                      <td class="actions col-md-1">
-                        <a href="{{ route('attendance.show', [$grade->slug,$quarter->slug,$attendance->student_id])}}" class="btn-link btn-xs text-info text-uppercase"> <b>edit</b></a>
-                      </td>
+
                     </tr>
                   @endforeach
                 @else
@@ -97,7 +107,7 @@
         <div class="panel-heading">Dashboard
           <div class="pull-right" style="margin-top:-7.5px;">
             <a href="{{ route('exportattendance.show',$grade->slug)}}" class="btn btn-success">Download Sheet</a>
-            <a href="{{ route('uploadattendance.show',$grade->slug)}}" class="btn btn-primary">Upload Worksheet <i class="glyphicon glyphicon-download"></i></a>
+            <a href="{{ route('uploadattendance.show',$grade->slug)}}" class="btn btn-primary">Upload Worksheet <i class="fa fa-download"></i></a>
           </div>
         </div>
           <div class="panel-body">
@@ -115,14 +125,23 @@
                 @if(count($quarter->attendance))
                   @foreach($quarter->attendance as $attendance)
                     <tr class="record-row">
-                      <td class="col-md-3">{{$attendance->student->name}}</td>
+                      <td class="col-md-3">
+                        <div class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            {{ $attendance->student->name }} <span class="caret"></span>
+                          </a>
+                          <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                            <li>
+                              <a href="{{ route('attendance.show', [$grade->slug,$quarter->slug,$attendance->student_id])}}">Edit</a>
+                            </li>
+                            <li><a href="{{ route('student.show', $attendance->student_id) }}">Profile</a></li>
+                          </ul>
+                        </div>
+                      </td>
                       <td class="col-md-2">{{ $attendance->student->gender }}</td>
                       <td class="col-md-2">{{ $attendance->first_month }}</td>
                       <td class="col-md-2">{{ $attendance->second_month }}</td>
                       <td class="col-md-2">{{ $attendance->third_month }}</td>
-                      <td class="actions col-md-1">
-                        <a href="{{ route('attendance.show', [$grade->slug,$quarter->slug,$attendance->student_id])}}" class="btn-link btn-xs text-info text-uppercase"> <b>edit</b></a>
-                      </td>
                     </tr>
                   @endforeach
                 @else
