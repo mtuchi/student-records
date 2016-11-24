@@ -29,22 +29,66 @@ class UserController extends Controller
   {
     $data = Auth::user()->where('username', $user)->with('subjects.teacher','subjects.subject')->first();
     $grade = Grade::where('user_id', Auth::user()->id)->first();
-    $teachers = Teacher::where('grade_id', $grade->id)->with('subject', 'teacher')->get();
 
-    $collect = [$grade->slug];
-    foreach ($teachers as $key => $value)
-    {
-      $collect[] = $grade->slug."-".$value->subject->name;
-    }
+    $teachers = function() use($grade, $data){
+      if (Auth::user()->hasRole('class_teacher','teacher')) {
+        return Teacher::where('grade_id', $grade->id)->with('subject', 'teacher')->get();
+      }
+      if (Auth::user()->hasRole('teacher')) {
+        return $data->subjects;
+      }
+    };
 
-    $activity = Activity::latest()->inLog($collect)->get();
-    $overview = Activity::latest()->inLog($collect)->paginate(2);
+    $activity = function() use($grade, $teachers, $data){
+      if (Auth::user()->hasRole('class_teacher','teacher')) {
+        $collect = [$grade->slug];
+
+        foreach ($teachers as $key => $value)
+        {
+          $collect[] = $grade->slug."-".$value->subject->name;
+        }
+
+        return Activity::latest()->inLog($collect)->get();
+      }
+      if (Auth::user()->hasRole('teacher')) {
+          $collect = [];
+
+          foreach ($data->subjects as $key => $value)
+          {
+            $collect[] = Grade::where('id',$value->grade_id)->pluck('slug')->first()."-".$value->subject->name;
+          }
+
+        return Activity::latest()->inLog($collect)->get();
+      }
+    };
+
+    $overview = function() use($grade, $teachers, $data){
+      if (Auth::user()->hasRole('class_teacher') && Auth::user()->hasRole('teacher')) {
+        $collect = [$grade->slug];
+
+        foreach ($teachers as $key => $value)
+        {
+          $collect[] = $grade->slug."-".$value->subject->name;
+        }
+
+        return Activity::latest()->inLog($collect)->paginate(2);
+      }
+      if (Auth::user()->hasRole('teacher')) {
+          $collect = [];
+          foreach ($data->subjects as $key => $value)
+          {
+            $collect[] = Grade::where('id',$value->grade_id)->pluck('slug')->first()."-".$value->subject->name;
+          }
+
+        return Activity::latest()->inLog($collect)->paginate(2);
+      }
+    };
 
     return view('settings.user.profile',[
       'user' => $data,
-      'teachers' => $teachers,
-      'activities' => $activity,
-      'overviewActivities' => $overview
+      'teachers' => $teachers(),
+      'activities' => $activity(),
+      'overviewActivities' => $overview()
     ]);
   }
 
