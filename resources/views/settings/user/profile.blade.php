@@ -15,7 +15,7 @@
                 </span>
               </div>
             </div>
-            <a href="/account" aria-label="Change your avatar" class="card-avatar show tooltipped tooltipped-s">
+            <a href="#" aria-label="Change your avatar" class="card-avatar show tooltipped tooltipped-s">
               <img alt="" class="avatar width-full img-circle" src="{{ $user->avatar(['size' =>460]) }}" width="150" height="150">
             </a>
             <div class="card-names-container js-user-profile-sticky-fields is-placeholder"></div>
@@ -77,7 +77,6 @@
                   <a href="#subject" class="underline-nav-item" aria-controls="subject" role="tab" data-toggle="tab">
                      Subjects
                      <span class="badge">
-                       <!-- 10 -->
                        {{ $teachers->count() }}
                      </span>
                   </a>
