@@ -123,14 +123,7 @@
         position: relative;
         cursor: pointer;
       }
-      .actions{
-        position: absolute;
-        right: 0;
-        visibility: hidden;
-      }
-      .record-row:hover .actions{
-        visibility: visible;
-      }
+    
       .custom-position{
         position: fixed;
         top: 10px;

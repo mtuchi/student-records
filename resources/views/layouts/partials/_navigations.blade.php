@@ -40,14 +40,9 @@
                         <ul class="dropdown-menu" role="menu">
                           <li class="dropdown-header">Signed in as {{ Auth::user()->name }}</li>
                           <li role="separator" class="divider"></li>
-                          @if(Auth::user()->hasRole('class_teacher'))
-                            <li><a href="{{ route('user.show', Auth::user()->username )}}">Overview</a></li>
-                          @endif
-                          @if(Auth::user()->hasRole('teacher'))
-                            <li><a href="#">Profile</a></li>
-                          @endif
+                          <li><a href="{{ route('user.show', Auth::user()->username )}}">Profile</a></li>
                           <li>
-                            <a href="{{route('settings.show')}}">Settings</a>
+                            <a href="">Settings</a>
                           </li>
 
                           <li>
