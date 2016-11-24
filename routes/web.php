@@ -39,19 +39,15 @@ Route::group(['middleware' => 'auth'], function () {
     'uses' => 'UserController@show'
   ]);
 
-  Route::get('/settings/profile', [
-    'as' => 'settings.show',
-    'uses' => 'UserController@show'
-  ]);
-
   Route::get('/settings/profile/edit', [
     'as' => 'settings.update',
     'uses' => 'UserController@update'
   ]);
 
-  Route::get('/',[
-    'as' => 'home',
-    'uses'=>'HomeController@index'
+
+  Route::get('/profile/{id}', [
+    'as' => 'student.show',
+    'uses' => 'StudentController@show'
   ]);
 
 
