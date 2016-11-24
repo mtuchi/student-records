@@ -24,6 +24,7 @@ class CreateAttendancesTable extends Migration
             $table->integer('first_month')->nullable();
             $table->integer('second_month')->nullable();
             $table->integer('third_month')->nullable();
+            $table->text('comments')->nullable();      
             $table->timestamps();
         });
     }
