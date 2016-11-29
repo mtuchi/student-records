@@ -99,15 +99,7 @@ class ScoreController extends Controller
             ->where('quarter_id', Quarter::isLive()
             ->where('slug', $quarter)->pluck('id'))
             ->where('student_id', $id)->first();
-
-    $score->update([
-      'first_month' => $request->first_month,
-      'second_month' => $request->second_month,
-      'third_month' => $request->third_month,
-    ]);
-
-    notify()->flash($getStudent->name." Scores has been updated", 'success');
-
+            
     activity($grade."-".$subject)
         ->causedBy(Auth::user())
         ->performedOn($score)
@@ -116,16 +108,29 @@ class ScoreController extends Controller
             'first_month' => $request->first_month,
             'second_month' => $request->second_month,
             'third_month' => $request->third_month,
+            'comments' => $request->comments,
           ],
           'old' => [
             'first_month' => $score->first_month,
             'second_month' => $score->second_month,
             'third_month' => $score->third_month,
+            'comments' => $score->comments,
           ],
           'type' => 'success',
           'quarter' => $quarter,
         ])
         ->log($getStudent->name." Scores has been updated successful by ". Auth::user()->name);
+
+    $score->update([
+      'first_month' => $request->first_month,
+      'second_month' => $request->second_month,
+      'third_month' => $request->third_month,
+      'comments' => $request->comments,
+    ]);
+
+    notify()->flash($getStudent->name." Scores has been updated", 'success');
+
+
 
     return redirect()->route('quarter.show',[$grade, $getSubject->name]);
   }
