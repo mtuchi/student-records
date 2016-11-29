@@ -11,7 +11,6 @@
           </div>
         </div>
         <div class="panel-body">
-          {{-- {{ dd($score->subject->name)}} --}}
           <form class="form-horizontal" action="{{ route('score.update',[$grade, $score->subject->name, $score->quarter->slug, $score->student_id])}}" method="post">
             {{ csrf_field() }}
 
@@ -54,6 +53,19 @@
                 @endif
               </div>
             </div>
+
+            <div class="form-group{{ $errors->has('comments') ? ' has-error' : '' }}">
+              <label for="third_month" class="col-sm-2 control-label">Remarks</label>
+              <div class="col-sm-10">
+                <textarea name="comments" class="form-control" rows="3" placeholder="Add remarks" value="{{ $score->comments or old('comments') }}"></textarea>
+                @if ($errors->has('comments'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('comments') }}</strong>
+                    </span>
+                @endif
+              </div>
+            </div>
+
             <div class="form-group">
                 <div class="col-md-4 col-md-offset-2">
                     <button type="submit" class="btn btn-primary btn-block">

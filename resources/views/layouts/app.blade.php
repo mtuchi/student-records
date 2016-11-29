@@ -15,12 +15,94 @@
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
     <style media="screen">
+      .profile-rollup-wrapper{
+        border: 1px solid #ddd;
+        cursor: pointer;
+        margin: 1em 0;
+        /*background: blue;*/
+      }
+      .py-4 {
+        padding-top: 24px;
+        padding-bottom: 44px;
+      }
+      .py-1 {
+          padding-top: 4px;
+          padding-bottom: 4px;
+      }
+
+      .pl-4 {
+        padding-left: 24px;
+      }
+      .ml-3 {
+          margin-left: 16px;
+      }
+      .ml-0 {
+          margin-left: 0;
+      }
+
+      .mt-1 {
+        margin-top: 4px;
+      }
+      .position-relative{
+        position: relative;
+      }
+      .discussion-item-icon {
+          position: absolute;
+          float: left;
+          width: 32px;
+          height: 32px;
+          margin-top: -7px;
+          margin-left: -40px;
+          line-height: 28px;
+          color: #767676;
+          text-align: center;
+          background-color: #f3f3f3;
+          border: 2px solid #fff;
+          border-radius: 50%;
+      }
+      .no-underline {
+          text-decoration: none;
+      }
+      .lh-condensed {
+          line-height: 1.25;
+      }
+
+      .octicon {
+          vertical-align: text-bottom;
+      }
+      .octicon {
+          display: inline-block;
+          vertical-align: text-top;
+          fill: currentColor;
+      }
+      .f4 {
+          font-size: 16px;
+      }
+      .muted-link {
+          color: #767676;
+      }
+
+      .profile-rollup-content{
+        padding: 2em 2em 0 0;
+        display: block;
+      }
+      .profile-header{
+        height: 32px;
+        margin-top: -7px;
+        line-height: 28px;
+        font-size: 24px;
+        padding-left: 0;
+      }
+      span.profile-rollup-toggle-open {
+        display: none;
+      }
+
+
       td.description .body .full, td.description .body .blurb.is-showing{
         display: none;
         -webkit-transition: display 2s; /* Safari */
         transition: display 2s;
         -moz-transition: display 2s;
-
       }
 
       td.description .body .full.is-showing{
@@ -106,7 +188,7 @@
       .profile-timeline.discussion-timeline{
         position: relative;
       }
-      .profile-timeline-month-heading{ }
+
       .overviews-setting .dropdown{
         display: inline-block;
       }
@@ -114,7 +196,6 @@
         position: relative;
       }
       .pinned-subj-item {
-        /*background: grey;        */
         padding: 1em;
         margin:1em 4.5em 1em 0;
         height: 200px;
@@ -123,7 +204,7 @@
         position: relative;
         cursor: pointer;
       }
-    
+
       .custom-position{
         position: fixed;
         top: 10px;
@@ -206,8 +287,14 @@
         $(this).children('td.description').children('.body').children('.full').toggleClass('is-showing');
         $(this).children('td.description').children('.body').children('.blurb').toggleClass('is-showing');
       });
-    });
 
+      $('.profile-rollup-wrapper').click(function(){
+        $(this).children('ul.profile-rollup-content').toggleClass('hidden');
+        $(this).children('span.profile-header').children('span.toggle-icon').children('.profile-rollup-toggle-open').toggleClass('show');
+        $(this).children('span.profile-header').children('span.toggle-icon').children('.profile-rollup-toggle-closed').toggleClass('hidden');
+      });
+
+    });
 
   </script>
 </body>
