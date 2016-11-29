@@ -34,10 +34,16 @@ class AttendanceController extends Controller
 
   public function show($grade, $quarter, $id)
   {
-    $attendance = Attendance::where('quarter_id', Quarter::isLive()
-                  ->where('slug', $quarter)->pluck('id')->first())
-                  ->where('grade_id', Grade::where('slug', $grade)->pluck('id')->first())
-                  ->where('student_id',$id )->first();
+    // $attendance = Attendance::with('months')->where('quarter_id', Quarter::isLive()
+    //               ->where('slug', $quarter)->pluck('id')->first())
+    //               ->where('grade_id', Grade::where('slug', $grade)->pluck('id')->first())
+    //               ->where('student_id',$id )->get();
+
+    $attendance = Quarter::isLive()->where('slug', $quarter)->with(['attendance' => function ($query) use($id, $grade) {
+        $query->where('student_id', $id)
+              ->where('grade_id', Grade::where('slug', $grade)->pluck('id')->first())
+              ->with('student');
+    },'months'])->first();
 
     return view('quarters.attendance.edit', [
       'grade' => $grade,
@@ -53,16 +59,7 @@ class AttendanceController extends Controller
                   ->where('student_id', $id)->first();
     $getStudent = Student::where('id',$id)->first();
 
-    $attendance->update([
-      'first_month' => $request->first_month,
-      'second_month' => $request->second_month,
-      'third_month' => $request->third_month,
-    ]);
-
-    notify()->flash($getStudent->name." Attendance has been updated", 'success',[
-      'timer' => 5000,
-    ]);
-
+    // Log the activity
     activity($grade)
       ->causedBy(Auth::user())
       ->performedOn($attendance)
@@ -71,17 +68,29 @@ class AttendanceController extends Controller
           'first_month' => $request->first_month,
           'second_month' => $request->second_month,
           'third_month' => $request->third_month,
+          'comments' => $request->comments,
         ],
         'old' => [
           'first_month' => $attendance->first_month,
           'second_month' => $attendance->second_month,
           'third_month' => $attendance->third_month,
+          'comments' => $attendance->comments,
         ],
         'description' => 'updated',
         'type' => 'success'
       ])
       ->log($getStudent->name.' Attendance has been updated successfull by '. Auth::user()->name);
 
+    $attendance->update([
+      'first_month' => $request->first_month,
+      'second_month' => $request->second_month,
+      'third_month' => $request->third_month,
+      'comments' => $request->comments,
+    ]);
+
+    notify()->flash($getStudent->name." Attendance has been updated", 'success',[
+      'timer' => 5000,
+    ]);
 
     return redirect()->route('grade.show',[$grade]);
   }
