@@ -27,6 +27,7 @@ class QuarterMonths extends FormRequest
           'first_month' => 'integer|max:100|digits_between:0,9',
           'second_month' => 'integer|max:100|digits_between:0,9',
           'third_month' => 'integer|max:100|digits_between:0,9',
+          'comments' => 'required'
         ];
     }
 }
