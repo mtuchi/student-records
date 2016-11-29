@@ -45,12 +45,6 @@ Route::group(['middleware' => 'auth'], function () {
   ]);
 
 
-  Route::get('/profile/{id}', [
-    'as' => 'student.show',
-    'uses' => 'StudentController@show'
-  ]);
-
-
   Route::get('/tinker', [
     'as' => 'tinker',
     'uses' => 'HomeController@tinker',
@@ -59,6 +53,16 @@ Route::group(['middleware' => 'auth'], function () {
 
   # grade group prefix routes
   Route::group(['prefix' => '{grade}'], function () {
+    # student profile
+    Route::get('/{id}/profile', [
+      'as' => 'student.show',
+      'uses' => 'StudentController@show'
+    ]);
+
+    Route::get('/{id}/student', [
+      'as' => 'singlestudent.show',
+      'uses' => 'StudentController@student'
+    ]);
 
     # upload routes
     Route::get('/upload', [
