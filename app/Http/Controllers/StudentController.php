@@ -9,9 +9,11 @@ use Spatie\Activitylog\Models\Activity;
 
 use App\Http\Requests;
 
-use App\Models\Quarter;
+use App\Models\Grade;
 use App\Models\Student;
 use App\Models\Score;
+use App\Models\Subject;
+use App\Models\Attendance;
 
 class StudentController extends Controller
 {
@@ -25,36 +27,64 @@ class StudentController extends Controller
         $this->middleware('auth');
       }
 
-      public function show($id)
+      public function show($class, $id)
       {
-        $data = Student::where('id', $id)->with('grade')->first();
-        $teacher = Auth::user()->subjects->first();
+        $student = Student::where('id', $id)->with('grade')->first();
+        $grade = Grade::where('slug', $class)->first();
+        $subject = Subject::get();
 
-        $results = function() use($id,$teacher){
+
+        $scores = function() use($id, $subject) {
           if (Auth::user()->hasRole('class_teacher')) {
-            // Can see student scores of all subjects and attendance + remarks
-            return Quarter::isLive()->with(['score' => function ($query) use($id) {
-                $query->where('student_id', $id);
-            },'attendance' => function ($q) use($id) {
-                $q->where('student_id', $id);
-            },'months'])->get();
+            return Score::where('student_id', $id)->with('subject','quarter.months')->get()->groupBy(function($key, $item) use($subject){
+             return $subject->where('id', $key['subject_id'])->pluck('name')->first();
+           });
           }
           if (Auth::user()->hasRole('teacher')) {
-            // Can see only scores for his/her subject
-            return Quarter::isLive()->with(['score' => function ($query) use($id, $teacher) {
-                $query->where('student_id', $id)
-                      ->where('subject_id', $teacher->subject_id);
-            },'months'])->get();
+            return Score::where('student_id', $id)->where('subject_id', Auth::user()->subjects->first()->subject_id)
+            ->with('subject','quarter.months')->get()->groupBy(function($key, $item) use($subject){
+             return $subject->where('id', $key['subject_id'])->pluck('name')->first();
+           });
           }
         };
 
-        $res = Score::where('student_id', $id)->get();
-        //
-        dd($res);
+        $attendance = Attendance::where('student_id', $id)->with('grade','quarter.months')->get()->groupBy(function($key, $item) use($grade){
+          return $grade->where('id', $key['grade_id'])->pluck('name')->first();
+        });
+
 
         return view('settings.student.profile',[
-          'student' => $data,
-          'results' => $results()
+          'student' => $student,
+          'scores' => $scores(),
+          'attendance' => $attendance
+        ]);
+      }
+
+
+      public function student($class, $id)
+      {
+        $student = Student::where('id', $id)->first();
+        $grade = Grade::where('slug', $class)->first();
+        $subject = Subject::get();
+
+
+        $scores = function() use($id, $subject) {
+          if (Auth::user()->hasRole('class_teacher')) {
+            return Score::where('student_id', $id)->with('subject','quarter.months')->get()->groupBy(function($key, $item) use($subject){
+             return $subject->where('id', $key['subject_id'])->pluck('name')->first();
+           });
+          }
+          if (Auth::user()->hasRole('teacher')) {
+            return Score::where('student_id', $id)->where('subject_id', Auth::user()->subjects->first()->subject_id)
+            ->with('subject','quarter.months')->get()->groupBy(function($key, $item) use($subject){
+             return $subject->where('id', $key['subject_id'])->pluck('name')->first();
+           });
+          }
+        };
+
+        return view('settings.student.single',[
+          'student' => $student,
+          'scores' => $scores(),
         ]);
       }
 
