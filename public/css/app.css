@@ -5,6 +5,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+@import url(node_modules/octicons/build/octicons.css);
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
