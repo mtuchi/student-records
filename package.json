@@ -16,6 +16,7 @@
     "vue-resource": "^1.0.3"
   },
   "dependencies": {
-    "gulp-install": "^0.6.0"
+    "gulp-install": "^0.6.0",
+    "octicons": "^5.0.1"
   }
 }
