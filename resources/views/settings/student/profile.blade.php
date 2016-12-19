@@ -8,7 +8,7 @@
             <div class="user-profile-sticky-bar js-user-profile-sticky-bar hidden">
               <div class="user-profile-mini-vcard d-table">
                 <span class="user-profile-mini-avatar d-table-cell center-block">
-                  <img alt="@mtuchi" class="img-rounded" src="{{ $student->avatar(['size' => 64])}}" width="32" height="32">
+                  <img alt="" class="img-rounded" src="{{ $student->avatar(['size' => 64])}}" width="32" height="32">
                 </span>
                 <span class="d-table-cell v-align-middle lh-condensed js-user-profile-following-mini-toggle">
                   <strong>{{ $student->name }}</strong>
@@ -61,7 +61,9 @@
                 <a href="{{ config('app.url') }}" aria-label="{{ config('app.name') }}" class="tooltipped tooltipped-n avatar-group-item" itemprop="follows">
                   <img alt="@{{ config('app.name') }}" class="avatar img-circle" src="{{ $student->avatar(['size'=> 35,'image' => 'retro']) }}" width="35" height="35">
                 </a>
-                <span></span>
+                <span>
+                  <a href="{{ route('test')}}">Print</a>
+                </span>
             </div>
           </div>
         </div>
@@ -229,7 +231,6 @@
                                         No perfomance remarks have been given by the teacher !.
                                       </span>
                                     @endif
-
                                   </blockquote>
                                 </div>
                               </li>
