@@ -9,14 +9,8 @@ use Spatie\Activitylog\Models\Activity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-use App\Models\Subject;
-use App\Models\Student;
-use App\Models\Quarter;
-use App\Models\Score;
 use App\Models\User;
-use App\Models\Grade;
-use App\Models\Teacher;
-use App\Http\Requests\QuarterMonths;
+use App\Http\Requests\AddTeacherFormRequest;
 
 class HomeController extends Controller
 {
@@ -45,11 +39,23 @@ class HomeController extends Controller
     {
       $activity = Activity::all();
 
-      // dd($activity);
+      return view('teacher.add');
+    }
 
-      foreach ($activity as $key => $value) {
-        dd($value->changes);
-      }
+    public function store(AddTeacherFormRequest $request)
+    {
+			dd($request);
+
+      $user = User::create([
+          'name' => $request['name'],
+          'email' => $request['email'],
+          'password' => bcrypt($request['password']),
+          'DOB' => $request['dob'],
+          'gender' => $request['gender'],
+          'phone' => $request['phone'],
+      ]);
+
+      return response()->json(['data' => $user]);
     }
 
 }

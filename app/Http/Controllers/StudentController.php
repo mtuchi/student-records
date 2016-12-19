@@ -15,6 +15,8 @@ use App\Models\Score;
 use App\Models\Subject;
 use App\Models\Attendance;
 
+use PDF;
+
 class StudentController extends Controller
 {
     /**
@@ -91,5 +93,12 @@ class StudentController extends Controller
       public function update(Request $request)
       {
         return view('settings.edit.profile');
+      }
+
+      public function print()
+      {
+        $data = ['Sanaa Tuu'];
+        $pdf = PDF::loadView('settings.print.sample');
+        return $pdf->download('invoice.pdf');
       }
 }
