@@ -25,9 +25,16 @@ Route::get('/notify', function () {
 
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function () {
-  # user profile settings
+#vuejs test return
+Route::post('/addteacher','HomeController@store');
 
+Route::group(['middleware' => 'auth'], function () {
+
+  # user profile settings
+  Route::get('/pdf', [
+    'as' => 'test',
+    'uses' => 'StudentController@print'
+  ]);
 
   Route::get('/',[
     'as' => 'home',
