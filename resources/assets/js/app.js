@@ -13,7 +13,16 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+ /*
+   Require dropdown
+   source:http://behigh.github.io/bootstrap_dropdowns_enhancement/
+ */
+ require('../dropdowns-enhancement');
+
 Vue.component('example', require('./components/Example.vue'));
+Vue.component('teacher-form', require('./components/TeacherForm.vue'));
+Vue.component('grade-list', require('./components/partials/Gradelist.vue'));
+Vue.component('subject-list', require('./components/partials/Subjectlist.vue'));
 
 const app = new Vue({
     el: '#app'
