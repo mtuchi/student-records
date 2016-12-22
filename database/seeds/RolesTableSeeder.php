@@ -12,7 +12,7 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
       $arr = [
-        'class_teacher', 'teacher', 'admin', 'register',
+        'class_teacher', 'teacher', 'admin', 'registrar',
       ];
 
       foreach ($arr as $val)
