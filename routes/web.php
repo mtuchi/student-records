@@ -26,9 +26,51 @@ Route::get('/notify', function () {
 Auth::routes();
 
 #vuejs test return
-Route::post('/addteacher','HomeController@store');
+#Route::post('/addteacher','HomeController@store');
 
 Route::group(['middleware' => 'auth'], function () {
+  #get teacher list
+  Route::get('/teacherlist', 'TeacherController@list');
+	#add teacher
+  Route::get('/addteacher', 'TeacherController@create');
+	# store teacher
+	Route::post('/addteacher','TeacherController@store');
+	#assaign teacher
+	Route::get('/{id}/assaign', [
+		'as' => 'assaign.show',
+		'uses' =>'AssaignTeacherController@show'
+		]);
+
+  #update
+  Route::post('/{id}/assaign', [
+		'as' => 'assaign.edit',
+		'uses' =>'AssaignTeacherController@edit'
+		]);
+  #show profile
+	Route::get('/{id}/show', [
+		'as' => 'teacher.show',
+		'uses' => 'TeacherController@show'
+	]);
+	# save updates
+	Route::get('/{id}/edit', [
+		'as' => 'teacher.edit',
+		'uses' => 'TeacherController@edit'
+	]);
+
+	Route::put('/{id}/edit', [
+		'as' => 'teacher.update',
+		'uses' => 'TeacherController@update'
+	]);
+
+  Route::get('/{id}/delete',[
+		'as' => 'teacher.delete',
+		'uses' => 'TeacherController@delete'
+	]);
+
+  Route::delete('/{id}/delete', [
+		'as' => 'teacher.destroy',
+		'uses' => 'TeacherController@destroy'
+	]);
 
   # user profile settings
   Route::get('/pdf', [
@@ -46,11 +88,15 @@ Route::group(['middleware' => 'auth'], function () {
     'uses' => 'UserController@show'
   ]);
 
-  Route::get('/settings/profile/edit', [
-    'as' => 'settings.update',
-    'uses' => 'UserController@update'
-  ]);
+	Route::get('/settings/{user}/edit', [
+		'as' => 'user.edit',
+		'uses' => 'UserController@edit'
+	]);
 
+	Route::post('/settings/{user}/edit', [
+		'as' => 'user.edit',
+		'uses' => 'UserController@edit'
+	]);
 
   Route::get('/tinker', [
     'as' => 'tinker',
