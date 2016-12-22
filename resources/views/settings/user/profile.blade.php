@@ -77,7 +77,9 @@
                   <a href="#subject" class="underline-nav-item" aria-controls="subject" role="tab" data-toggle="tab">
                      Subjects
                      <span class="badge">
-                       {{ $teachers->count() }}
+											 @if (Auth::user()->hasRole('teacher'))
+												 {{ $teachers->count() }}
+											 @endif
                      </span>
                   </a>
                 </li>
@@ -85,7 +87,9 @@
                   <a href="#activity" class="underline-nav-item " aria-controls="activity" role="tab" data-toggle="tab">
                     Activity
                     <span class="badge">
-                      {{ $activities->count() }}
+											@if (Auth::user()->hasRole('teacher'))
+												{{ $activities->count() }}
+											@endif
                     </span>
                   </a>
                 </li>
@@ -116,38 +120,40 @@
                   <span class="pinned-repos-reorder-error js-pinned-repos-reorder-error"></span>
                 </h2>
                 <ol class="pinned-subjs-list row">
-                  @foreach($teachers as $teacher)
-                    <li class="pinned-subj-item col-md-5 border-gray-dark">
-                      <span class="pinned-subj-item-content">
-                        <span class="show">
-                            <a href="" class="text-bold">
-                           <span class="subj js-subj" title="subject-name">{{ $teacher->subject->name }}</span>
-                            </a>
-                        </span>
+									@if (Auth::user()->hasRole('teacher'))
+										@foreach($teachers as $teacher)
+	                    <li class="pinned-subj-item col-md-5 border-gray-dark">
+	                      <span class="pinned-subj-item-content">
+	                        <span class="show">
+	                            <a href="" class="text-bold">
+	                           <span class="subj js-subj" title="subject-name">{{ $teacher->subject->name }}</span>
+	                            </a>
+	                        </span>
 
-                        <p class="text-gray text-small">subject assaigned by <a href="#">Academic Head</a></p>
+	                        <p class="text-gray text-small">subject assaigned by <a href="#">Academic Head</a></p>
 
-                        @if($teacher->subject->description)
-                        <p class="pinned-subj-desc text-gray text-small show">
-                          {{ $teacher->subject->description }}
-                        </p>
-                        @else
-                        <p class="pinned-subj-desc text-gray text-small show">
-                          <blockquote class="h5">
-                            Subject description is not set
-                            Please add subject description
-                            <a href="#">subject description</a>
-                          </blockquote>
-                        </p>
-                        @endif
+	                        @if($teacher->subject->description)
+	                        <p class="pinned-subj-desc text-gray text-small show">
+	                          {{ $teacher->subject->description }}
+	                        </p>
+	                        @else
+	                        <p class="pinned-subj-desc text-gray text-small show">
+	                          <blockquote class="h5">
+	                            Subject description is not set
+	                            Please add subject description
+	                            <a href="#">subject description</a>
+	                          </blockquote>
+	                        </p>
+	                        @endif
 
-                        <p class="teacher-name text-gray">
-                          <span class="subj-language-color pinned-subj-meta" style="background-color:#f1e05a;"></span>
-                          {{ $teacher->teacher->name }}
-                        </p>
-                      </span>
-                    </li>
-                  @endforeach
+	                        <p class="teacher-name text-gray">
+	                          <span class="subj-language-color pinned-subj-meta" style="background-color:#f1e05a;"></span>
+	                          {{ $teacher->teacher->name }}
+	                        </p>
+	                      </span>
+	                    </li>
+	                  @endforeach
+									@endif
                 </ol>
 
                 <div class="col-md-12 ">
