@@ -11,6 +11,7 @@ use App\Http\Requests;
 
 use App\Models\Grade;
 use App\Models\Teacher;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -92,7 +93,8 @@ class UserController extends Controller
     ]);
   }
 
-  public function update(Request $request)
+	// This method below is in accurate needs some fixing
+  public function update()
   {
     return view('settings.edit.profile');
   }
