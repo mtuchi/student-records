@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Subject;
 use App\Models\Quarter;
@@ -10,7 +11,14 @@ use App\Models\Quarter;
 class User extends Authenticatable
 {
     use Notifiable;
+		use SoftDeletes;
 
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','username'
+        'name', 'email', 'password','username','DOB', 'gender','phone'
     ];
 
     /**
@@ -103,6 +111,12 @@ class User extends Authenticatable
 
            case 'teacher':
                $assigned_roles[] = $this->getIdInArray($roles, 'teacher');
+               break;
+           case 'admin':
+               $assigned_roles[] = $this->getIdInArray($roles, 'admin');
+               break;
+           case 'registrar':
+               $assigned_roles[] = $this->getIdInArray($roles, 'registrar');
                break;
            default:
                throw new \Exception("The teacher status entered does not exist");
