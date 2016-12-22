@@ -294,6 +294,11 @@
         $(this).children('span.profile-header').children('span.toggle-icon').children('.profile-rollup-toggle-closed').toggleClass('hidden');
       });
 
+      // tooltip
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+
     });
 
   </script>

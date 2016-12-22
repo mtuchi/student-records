@@ -1,4 +1,21 @@
-  @if(Auth::user()->hasRole('teacher'))
+@if(Auth::user()->hasRole('admin'))
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			School Management Section
+		</div>
+		<div class="panel-body">
+			<div class="boxed-group-inner">
+				<ul class="mini-class-list js-class-list">
+					<li><a href="{{ url('/teacherlist') }}">Teachers</a></li>
+					<li><a href="">Students</a></li>
+					<li><a href="">Grades</a></li>
+					<li><a href="">Subjects</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+@endif
+	@if(Auth::user()->hasRole('teacher'))
   <div class="panel panel-default">
     <div class="panel-heading">Teacher Sections</div>
     <div class="panel-body">
