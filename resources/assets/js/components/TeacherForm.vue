@@ -141,7 +141,6 @@
 						}, function (response) {
 								if (response.status == 422) {
 									this.errors = response.data
-									// console.log(response.data);
 								}
 						});
           }
