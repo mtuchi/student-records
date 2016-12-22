@@ -1,6 +1,6 @@
 @extends('home')
 
-@section('stdsubject.content')
+@section('main.content')
 
 <div class="panel" style="padding-left:1em;">
   <div class="row">
