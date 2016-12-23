@@ -23,13 +23,13 @@
 								<th class="col-md-3">
 									Name
 								</th>
-								<th class="col-md-2">
+								<th class="col-md-1">
 									Gender
 								</th>
 								<th class="col-md-2">
 									DOB
 								</th>
-								<th class="col-md-2">
+								<th class="col-md-3">
 									Guardian
 								</th>
 								<th class="col-md-2">
@@ -59,13 +59,13 @@
 												</ul>
 											</div>
 										</td>
-										<td class="col-md-2">
+										<td class="col-md-1">
 											{{ $student->gender }}
 										</td>
 										<td class="col-md-2">
-											{{ $student->DOB }}
+											{{ $student->dob }}
 										</td>
-										<td class="col-md-2">
+										<td class="col-md-3">
 											{{ $student->guardian }}
 										</td>
 										<td class="col-md-2">

@@ -69,7 +69,7 @@
 							<div class="form-group{{ $errors->has('dob') ? ' has-error' : '' }}">
 								<label for="gender" class="col-md-4 control-label">Date Of Birth</label>
 								<div class="col-md-6">
-									<input type="date" class="form-control" name="dob" value="{{ $user->DOB ? $user->DOB : old('dob')  }}" required>
+									<input type="date" class="form-control" name="dob" value="{{ $user->dob ? $user->dob : old('dob')  }}" required>
 									@if ($errors->has('dob'))
 											<span class="help-block">
 													<strong>{{ $errors->first('dob') }}</strong>

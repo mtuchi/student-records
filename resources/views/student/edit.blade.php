@@ -18,11 +18,11 @@
             <div class="panel panel-default">
     					<div class="panel-heading">
     	          <div class="row">
-    	            <h4 class="col-md-8 text-center text-uppercase text-muted">Edit <b>{{ $student->name }}</b> Record</h4>
+    	            <h5 class="col-md-8 text-left text-capitalize text-muted">Edit <b>{{ $student->name }}</b> Record</h5>
     	            <div class="col-md-4">
     	              <div class="btn-group pull-right" role="group">
-    	                <a href="#" class="btn btn-primary">Use Excel</a>
-    	                <a href="{{ url('/students') }}" class="btn btn-default">Go Back</a>
+    	                <a href="#" class="btn btn-sm btn-primary">Use Excel</a>
+    	                <a href="{{ url('/students') }}" class="btn btn-sm btn-default">Go Back</a>
     	              </div>
     	            </div>
     	          </div>
@@ -59,7 +59,7 @@
                   <div class="form-group{{ $errors->has('dob') ? ' has-error' : '' }}">
     								<label for="gender" class="col-md-4 control-label">Date Of Birth</label>
     								<div class="col-md-6">
-    									<input type="date" class="form-control" name="dob" value="{{ $student->DOB ? $student->DOB : old('dob')  }}" required>
+    									<input type="date" class="form-control" name="dob" value="{{ $student->dob ? $student->dob : old('dob')  }}" required>
     									@if ($errors->has('dob'))
     											<span class="help-block">
     													<strong>{{ $errors->first('dob') }}</strong>
@@ -79,13 +79,13 @@
     								</div>
     							</div>
 
-    							<div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-    								<label for="gender" class="col-md-4 control-label">Phone number</label>
+    							<div class="form-group{{ $errors->has('emergency_contact') ? ' has-error' : '' }}">
+    								<label for="gender" class="col-md-4 control-label">Emergency number</label>
     								<div class="col-md-6">
-    									<input type="tel" name="phone" class="form-control" value="{{ $student->phone ? $student->phone : old('phone')  }}" required>
-    									@if ($errors->has('phone'))
+    									<input type="tel" name="emergency_contact" class="form-control" value="{{ $student->emergency_contact ? $student->emergency_contact : old('emergency_contact')  }}" required>
+    									@if ($errors->has('emergency_contact'))
     											<span class="help-block">
-    													<strong>{{ $errors->first('phone') }}</strong>
+    													<strong>{{ $errors->first('emergency_contact') }}</strong>
     											</span>
     									@endif
     								</div>
@@ -106,11 +106,11 @@
             <div class="panel panel-default">
     					<div class="panel-heading">
     	          <div class="row">
-    	            <h4 class="col-md-8 text-center text-uppercase text-muted">Delete <strong>{{ $student->name }}</strong> Records</h4>
+    	            <h5 class="col-md-8 text-left text-capitalize text-muted">Delete <strong>{{ $student->name }}</strong> Records</h5>
     	            <div class="col-md-4">
     	              <div class="btn-group pull-right" role="group">
-    	                <a href="#" class="btn btn-primary">Use Excel</a>
-    	                <a href="{{ url('/students') }}" class="btn btn-default">Go Back</a>
+    	                <a href="#" class="btn btn-sm btn-primary">Use Excel</a>
+    	                <a href="{{ url('/students') }}" class="btn btn-sm btn-default">Go Back</a>
     	              </div>
     	            </div>
     	          </div>
@@ -143,11 +143,11 @@
             <div class="panel panel-default">
     					<div class="panel-heading">
     	          <div class="row">
-    	            <h4 class="col-md-8 text-center text-uppercase text-muted">Suspend <strong>{{ $student->name }}</strong> Records</h4>
+    	            <h5 class="col-md-8 text-left text-capitalize text-muted">Suspend <strong>{{ $student->name }}</strong> Records</h5>
     	            <div class="col-md-4">
     	              <div class="btn-group pull-right" role="group">
-    	                <a href="#" class="btn btn-primary">Use Excel</a>
-    	                <a href="{{ url('/students') }}" class="btn btn-default">Go Back</a>
+    	                <a href="#" class="btn btn-sm btn-primary">Use Excel</a>
+    	                <a href="{{ url('/students') }}" class="btn btn-sm btn-default">Go Back</a>
     	              </div>
     	            </div>
     	          </div>

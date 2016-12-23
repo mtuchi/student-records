@@ -66,7 +66,7 @@
 											{{ $teacher->gender }}
 										</td>
 										<td class="col-md-2">
-											{{ $teacher->DOB }}
+											{{ $teacher->dob }}
 										</td>
 										<td class="col-md-2">
 											@foreach ($teacher->roles as $role)
