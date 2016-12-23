@@ -11,7 +11,7 @@ class Student extends Model
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'gender'];
+	protected $fillable = ['name', 'gender','dob','guardian','emergency_contact'];
 
 	public function grade()
 	{
