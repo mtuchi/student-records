@@ -29,6 +29,39 @@ Auth::routes();
 #Route::post('/addteacher','HomeController@store');
 
 Route::group(['middleware' => 'auth'], function () {
+	# group prefix for students routes
+	Route::group(['prefix' => '/students'], function () {
+		#student list
+		Route::get('/', 'StudentController@index');
+		#add student
+		Route::get('/create', 'StudentController@create');
+		# store student
+		Route::post('/','StudentController@store');
+		#prefix with student id
+		Route::group(['prefix' => '{id}'], function(){
+			#show profile
+			Route::get('/', [
+				'as' => 'student.show',
+				'uses' => 'StudentController@show'
+			]);
+			# save updates
+			Route::get('/edit', [
+				'as' => 'student.edit',
+				'uses' => 'StudentController@edit'
+			]);
+
+			Route::put('/', [
+				'as' => 'student.update',
+				'uses' => 'StudentController@update'
+			]);
+
+			Route::delete('/', [
+				'as' => 'student.destroy',
+				'uses' => 'StudentController@destroy'
+			]);
+		});
+
+	});
   #get teacher list
   Route::get('/teacherlist', 'TeacherController@list');
 	#add teacher
@@ -75,7 +108,7 @@ Route::group(['middleware' => 'auth'], function () {
   # user profile settings
   Route::get('/pdf', [
     'as' => 'test',
-    'uses' => 'StudentController@print'
+    'uses' => 'StudentGradeController@print'
   ]);
 
   Route::get('/',[
@@ -108,13 +141,13 @@ Route::group(['middleware' => 'auth'], function () {
   Route::group(['prefix' => '{grade}'], function () {
     # student profile
     Route::get('/{id}/profile', [
-      'as' => 'student.show',
-      'uses' => 'StudentController@show'
+      'as' => 'student.grade.show',
+      'uses' => 'StudentGradeController@show'
     ]);
 
     Route::get('/{id}/student', [
-      'as' => 'singlestudent.show',
-      'uses' => 'StudentController@student'
+      'as' => 'singlestudent.grade.show',
+      'uses' => 'StudentGradeController@student'
     ]);
 
     # upload routes
