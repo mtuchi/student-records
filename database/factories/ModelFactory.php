@@ -49,14 +49,22 @@ $factory->define(\App\Models\Student::class, function (Faker\Generator $faker) {
 	if($gender == 'f') {
 		return [
 			'name' =>  $faker->firstNameFemale . " " . $faker->lastName,
-			'gender' => $gender
+			'gender' => $gender,
+			'dob' => $faker->dateTimeBetween($startDate = '-15 years', $endDate = 'now', $timezone = date_default_timezone_get()),
+			'guardian' => $faker->name($gender = null|'male'|'female'),
+			'emergency_contact' => $faker->e164PhoneNumber,
+		];
+	} else{
+
+		return [
+			'name' => $faker->firstNameMale . " " . $faker->lastName,
+			'gender' => $gender,
+			'dob' => $faker->dateTimeBetween($startDate = '-15 years', $endDate = 'now', $timezone = date_default_timezone_get()),
+			'guardian' => $faker->name,
+			'emergency_contact' => $faker->e164PhoneNumber,
 		];
 	}
 
-	return [
-		'name' => $faker->firstNameMale . " " . $faker->lastName,
-		'gender' => $gender
-	];
 });
 
 $factory->define(\App\Models\Score::class, function (Faker\Generator $faker) {
