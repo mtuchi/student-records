@@ -39,4 +39,16 @@ class StudentController extends Controller
 		{
 			return view('student.create');
 		}
+
+		public function edit($id)
+		{
+			$student = Student::where('id', $id)->firstOrFail();
+			return view('student.edit',['student' => $student,'id' => $id]);
+		}
+
+		public function show($id)
+		{
+			$student = Student::where('id', $id)->firstOrFail();
+			return view('student.show',['student' => $student,'id' => $id]);
+		}
 }
