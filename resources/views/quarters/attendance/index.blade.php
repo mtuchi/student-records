@@ -64,7 +64,7 @@
                             <li>
                               <a href="{{ route('attendance.show', [$grade->slug,$quarter->slug,$attendance->student_id])}}">Edit</a>
                             </li>
-                            <li><a href="{{ route('student.show', [$grade->slug,$attendance->student_id]) }}">Profile</a></li>
+                            <li><a href="{{ route('student.grade.show', [$grade->slug,$attendance->student_id]) }}">Profile</a></li>
                           </ul>
                         </div>
                       </td>
@@ -134,7 +134,7 @@
                             <li>
                               <a href="{{ route('attendance.show', [$grade->slug,$quarter->slug,$attendance->student_id])}}">Edit</a>
                             </li>
-                            <li><a href="{{ route('student.show', [$grade->slug,$attendance->student_id]) }}">Profile</a></li>
+                            <li><a href="{{ route('student.grade.show', [$grade->slug,$attendance->student_id]) }}">Profile</a></li>
                           </ul>
                         </div>
                       </td>
