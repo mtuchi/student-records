@@ -17,6 +17,9 @@ class CreateStudentsTable extends Migration
             $table->increments('id');
       			$table->string('name');
       			$table->enum('gender', ['f', 'm']);
+						$table->date('dob')->nullable();
+						$table->string('guardian')->nullable();
+            $table->string('emergency_contact')->nullable();
             $table->timestamps();
         });
     }

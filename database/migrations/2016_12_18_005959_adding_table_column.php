@@ -14,7 +14,7 @@ class AddingTableColumn extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->date('DOB')->nullable();
+            $table->date('dob')->nullable();
             $table->string('phone')->nullable();
             $table->enum('gender', ['f', 'm'])->nullable();
 						$table->softDeletes();
