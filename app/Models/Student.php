@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Student extends Model
 {
+	use SoftDeletes;
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -15,7 +18,7 @@ class Student extends Model
 
 	public function grade()
 	{
-		return $this->belongsTo(Grade::class);
+		return $this->belongsToMany(Grade::class);
 	}
 
 	public function avatar($options = [])
@@ -30,4 +33,11 @@ class Student extends Model
   {
     return $this->created_at->diffForHumans();
   }
+
+	public function hasGrade($grade)
+	{
+		$grades = collect($this->grade->pluck('name')->toArray());
+		return $grades->contains($grade);
+	}
+
 }
