@@ -44,6 +44,13 @@ Route::group(['middleware' => 'auth'], function () {
 				'as' => 'student.show',
 				'uses' => 'StudentController@show'
 			]);
+
+			# assign student to class
+			Route::post('/', [
+				'as' => 'student.assign',
+				'uses' => 'StudentController@assign'
+			]);
+
 			# save updates
 			Route::get('/edit', [
 				'as' => 'student.edit',
@@ -62,22 +69,33 @@ Route::group(['middleware' => 'auth'], function () {
 		});
 
 	});
-  #get teacher list
-  Route::get('/teacherlist', 'TeacherController@list');
-	#add teacher
-  Route::get('/addteacher', 'TeacherController@create');
-	# store teacher
-	Route::post('/addteacher','TeacherController@store');
-	#assaign teacher
-	Route::get('/{id}/assaign', [
-		'as' => 'assaign.show',
-		'uses' =>'AssaignTeacherController@show'
+
+	# group prefix for teachers
+	Route::group(['prefix' => 'teachers'], function(){
+		#get teacher list
+		Route::get('/', 'TeacherController@index');
+		#add teacher
+	  Route::get('/create', 'TeacherController@create');
+		# store teacher
+		Route::post('/create','TeacherController@store');
+	});
+
+
+  #assign class teacher role
+  Route::post('/{id}/class', [
+		'as' => 'assign.class',
+		'uses' =>'AssignRoleController@class'
+		]);
+	#assign teacher role
+	Route::post('/{id}/teacher', [
+		'as' => 'assign.teacher',
+		'uses' =>'AssignRoleController@teacher'
 		]);
 
-  #update
-  Route::post('/{id}/assaign', [
-		'as' => 'assaign.edit',
-		'uses' =>'AssaignTeacherController@edit'
+	#assign admin role
+	Route::post('/{id}/admin', [
+		'as' => 'assign.admin',
+		'uses' =>'AssignRoleController@admin'
 		]);
   #show profile
 	Route::get('/{id}/show', [
