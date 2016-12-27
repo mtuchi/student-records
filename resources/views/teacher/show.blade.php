@@ -10,7 +10,7 @@
 	            <h4 class="col-md-8 text-uppercase text-muted">{{ $user->name }} Records</h4>
 	            <div class="col-md-4">
 	              <div class="btn-group pull-right" role="group">
-	                <a href="{{ url('/teacherlist') }}" class="btn btn-default">Go Back</a>
+	                <a href="{{ url('/teachers') }}" class="btn btn-default">Go Back</a>
 	              </div>
 	            </div>
 	          </div>
@@ -52,7 +52,7 @@
 								<label for="gender" class="col-md-4 control-label">Date Of Birth</label>
 								<div class="col-md-6">
 									<p class="form-control-static">
-										{{ $user->DOB }}
+										{{ $user->dob }}
 									</p>
 								</div>
 							</div>

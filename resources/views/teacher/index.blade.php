@@ -8,7 +8,7 @@
 				<div class="panel-heading">
 					<div class="row">
 						<div class="pull-left" style="margin-left:20px;">
-							<a href="{{ url('/addteacher') }}" class="btn btn-default">+ Add Teacher</a>
+							<a href="{{ url('/teachers/create') }}" class="btn btn-default">+ Add Teacher</a>
 						</div>
 						<div class="pull-right" style="margin-right:20px;">
 							<a href="" class="btn btn-success">Download Sheet</a>
@@ -48,16 +48,10 @@
 												</a>
 												<ul class="dropdown-menu dropdown-menu-right" role="menu">
 													<li>
-														<a href="{{ route('teacher.edit',[$teacher->id])}}">Edit</a>
-													</li>
-													<li>
-														<a href="{{ route('teacher.delete',[$teacher->id])}}">Delete</a>
-													</li>
-													<li>
 														<a href="{{ route('teacher.show',[$teacher->id])}}">Profile</a>
 													</li>
 													<li>
-														<a href="{{ route('assaign.show',$teacher->id) }}">Assaign Role</a>
+														<a href="{{ route('teacher.edit',[$teacher->id])}}">Settings</a>
 													</li>
 												</ul>
 											</div>

@@ -11,13 +11,13 @@
 	            <div class="col-md-4">
 	              <div class="btn-group pull-right" role="group">
 	                <a href="#" class="btn btn-primary">Use Excel</a>
-	                <a href="{{ url('/teacherlist') }}" class="btn btn-default">Go Back</a>
+	                <a href="{{ url('/teachers') }}" class="btn btn-default">Go Back</a>
 	              </div>
 	            </div>
 	          </div>
 					</div>
 					<div class="panel-body">
-						<form class="form-horizontal" role="form" method="post" action="{{ url('/addteacher') }}">
+						<form class="form-horizontal" role="form" method="post" action="{{ url('/teachers/create') }}">
 							{{ csrf_field() }}
 							<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 								<label for="name" class="col-md-4 control-label">Name</label>
