@@ -43,7 +43,7 @@
 							</div>
 
 							<div class="form-group{{ $errors->has('dob') ? ' has-error' : '' }}">
-								<label for="gender" class="col-md-4 control-label">Date Of Birth</label>
+								<label for="dob" class="col-md-4 control-label">Date Of Birth</label>
 								<div class="col-md-6">
 									<input type="date" class="form-control" name="dob" value="{{ old('dob') }}" required>
 									@if ($errors->has('dob'))
@@ -55,7 +55,7 @@
 							</div>
 
 							<div class="form-group{{ $errors->has('guardian') ? ' has-error' : '' }}">
-								<label for="name" class="col-md-4 control-label">Parent or Guardian</label>
+								<label for="guardian" class="col-md-4 control-label">Parent or Guardian</label>
 								<div class="col-md-6">
 									<input id="guardian" type="text" class="form-control" name="guardian" value="{{ old('guardian')  }}" required>
 									@if ($errors->has('guardian'))
@@ -67,7 +67,7 @@
 							</div>
 
 							<div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-								<label for="gender" class="col-md-4 control-label">Phone number</label>
+								<label for="phone" class="col-md-4 control-label">Phone number</label>
 								<div class="col-md-6">
 									<input type="tel" name="phone" class="form-control" value="{{ old('phone') }}" required>
 									@if ($errors->has('phone'))

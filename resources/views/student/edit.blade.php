@@ -6,15 +6,15 @@
       <div class="col-md-8 row">
 				<div class="col-md-3">
 				  <!-- Nav tabs -->
-				  <ul class="nav nav-pills nav-stacked" role="tablist">
-				    <li role="presentation" class="active"><a href="#edit" aria-controls="edit" role="tab" data-toggle="tab">Edit</a></li>
+				  <ul class="nav nav-pills nav-stacked" id="myTab" role="tablist">
+						<li role="presentation" class="active"><a href="#assign" aria-controls="assign" role="tab" data-toggle="tab">Assign Class</a></li>
+				    <li role="presentation"><a href="#edit" aria-controls="edit" role="tab" data-toggle="tab">Edit</a></li>
 				    <li role="presentation"><a href="#delete" aria-controls="delete" role="tab" data-toggle="tab">Delete</a></li>
-            <li role="presentation"><a href="#suspend" aria-controls="suspend" role="tab" data-toggle="tab">Suspend</a></li>
 				  </ul>
 				</div>
 				<!-- Tab panes -->
 			  <div class="tab-content col-md-9">
-					<div role="tabpanel" class="tab-pane active" id="edit">
+					<div role="tabpanel" class="tab-pane" id="edit">
             <div class="panel panel-default">
     					<div class="panel-heading">
     	          <div class="row">
@@ -57,7 +57,7 @@
     								</div>
     							</div>
                   <div class="form-group{{ $errors->has('dob') ? ' has-error' : '' }}">
-    								<label for="gender" class="col-md-4 control-label">Date Of Birth</label>
+    								<label for="dob" class="col-md-4 control-label">Date Of Birth</label>
     								<div class="col-md-6">
     									<input type="date" class="form-control" name="dob" value="{{ $student->dob ? $student->dob : old('dob')  }}" required>
     									@if ($errors->has('dob'))
@@ -68,7 +68,7 @@
     								</div>
     							</div>
                   <div class="form-group{{ $errors->has('guardian') ? ' has-error' : '' }}">
-    								<label for="name" class="col-md-4 control-label">Parent or Guardian</label>
+    								<label for="guardian" class="col-md-4 control-label">Parent or Guardian</label>
     								<div class="col-md-6">
     									<input id="guardian" type="text" class="form-control" name="guardian" value="{{ $student->guardian ? $student->guardian : old('guardian')  }}" required>
     									@if ($errors->has('guardian'))
@@ -79,13 +79,13 @@
     								</div>
     							</div>
 
-    							<div class="form-group{{ $errors->has('emergency_contact') ? ' has-error' : '' }}">
-    								<label for="gender" class="col-md-4 control-label">Emergency number</label>
+    							<div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+    								<label for="phone" class="col-md-4 control-label">Emergency number</label>
     								<div class="col-md-6">
-    									<input type="tel" name="emergency_contact" class="form-control" value="{{ $student->emergency_contact ? $student->emergency_contact : old('emergency_contact')  }}" required>
-    									@if ($errors->has('emergency_contact'))
+    									<input type="tel" name="phone" class="form-control" value="{{ $student->emergency_contact ? $student->emergency_contact : old('phone')  }}" required>
+    									@if ($errors->has('phone'))
     											<span class="help-block">
-    													<strong>{{ $errors->first('emergency_contact') }}</strong>
+    													<strong>{{ $errors->first('phone') }}</strong>
     											</span>
     									@endif
     								</div>
@@ -123,7 +123,7 @@
     								<div class="col-md-12">
     									<div class="alert alert-danger">
     										<p class="form-control-static">
-    											Are you sure you want to delete {{ $student->name }} ?
+    											Are you sure you want to delete <b>{{ $student->name }}</b> ?
     										</p>
     									</div>
     								</div>
@@ -139,25 +139,8 @@
     					</div>
     				</div>
 					</div>
-			    <div role="tabpanel" class="tab-pane" id="suspend">
-            <div class="panel panel-default">
-    					<div class="panel-heading">
-    	          <div class="row">
-    	            <h5 class="col-md-8 text-left text-capitalize text-muted">Suspend <strong>{{ $student->name }}</strong> Records</h5>
-    	            <div class="col-md-4">
-    	              <div class="btn-group pull-right" role="group">
-    	                <a href="#" class="btn btn-sm btn-primary">Use Excel</a>
-    	                <a href="{{ url('/students') }}" class="btn btn-sm btn-default">Go Back</a>
-    	              </div>
-    	            </div>
-    	          </div>
-    					</div>
-    					<div class="panel-body">
-    						<div class="alert alert-warning">
-    						  Throw a warning here!
-    						</div>
-    					</div>
-    				</div>
+			    <div role="tabpanel" class="tab-pane active" id="assign">
+            @include('student.partials._assign')
           </div>
 			  </div>
       </div>

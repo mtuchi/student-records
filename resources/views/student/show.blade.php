@@ -7,36 +7,20 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 	          <div class="row">
-	            <h4 class="col-md-8 text-uppercase text-muted">{{ $user->name }} Records</h4>
+	            <h4 class="col-md-8 text-uppercase text-muted"><b>{{ $student->name }}</b> Records</h4>
 	            <div class="col-md-4">
 	              <div class="btn-group pull-right" role="group">
-	                <a href="{{ url('/teacherlist') }}" class="btn btn-default">Go Back</a>
+	                <a href="{{ url('/students') }}" class="btn btn-default">Go Back</a>
 	              </div>
 	            </div>
 	          </div>
 					</div>
 					<div class="panel-body">
 							<div class="form-group">
-								<label for="name" class="col-md-4 control-label">Name</label>
+								<label for="name" class="col-md-4 control-label">Full Name</label>
 								<div class="col-md-6">
 									<p class="form-control-static">
-										{{ $user->name }}
-									</p>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="name" class="col-md-4 control-label">Username</label>
-								<div class="col-md-6">
-									<p class="form-control-static">
-										{{ $user->username }}
-									</p>
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="email" class="col-md-4 control-label">E-Mail Address</label>
-								<div class="col-md-6">
-									<p class="form-control-static">
-										{{ $user->email }}
+										{{ $student->name }}
 									</p>
 								</div>
 							</div>
@@ -44,23 +28,32 @@
 								<label for="gender" class="col-md-4 control-label">Gender</label>
 								<div class="col-md-6">
 									<p class="form-control-static">
-										{{ $user->gender }}
+										{{ $student->gender }}
 									</p>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="gender" class="col-md-4 control-label">Date Of Birth</label>
+								<label for="dob" class="col-md-4 control-label">Date of Birth</label>
 								<div class="col-md-6">
 									<p class="form-control-static">
-										{{ $user->DOB }}
+										{{ $student->dob }}
 									</p>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="gender" class="col-md-4 control-label">Phone number</label>
+								<label for="guardian" class="col-md-4 control-label">Parent or Guardian</label>
 								<div class="col-md-6">
 									<p class="form-control-static">
-										{{ $user->phone }}
+										{{ $student->guardian }}
+									</p>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="emergency_contact" class="col-md-4 control-label">Emergency number</label>
+								<div class="col-md-6">
+									<p class="form-control-static">
+										{{ $student->emergency_contact }}
 									</p>
 								</div>
 							</div>

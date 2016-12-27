@@ -53,9 +53,6 @@
 													<li>
 														<a href="{{ route('student.edit',[$student->id])}}">Settings</a>
 													</li>
-													<li>
-														<a href="{{ route('assaign.show',$student->id) }}">Assaign Class</a>
-													</li>
 												</ul>
 											</div>
 										</td>
