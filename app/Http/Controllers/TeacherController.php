@@ -24,14 +24,14 @@ class TeacherController extends Controller
 
 	public function edit($id)
 	{
-		$user = User::where('id', $id)->firstOrFail();
-		return view('settings.edit.teacher',['user' => $user,'id' => $id]);
+		$user = User::where('id', $id)->with('subjects')->first();
+		return view('teacher.edit',['user' => $user,'id' => $id]);
 	}
 
 	public function show($id)
 	{
 		$user = User::where('id', $id)->firstOrFail();
-		return view('teacher.profile',['user' => $user,'id' => $id]);
+		return view('teacher.show',['user' => $user,'id' => $id]);
 	}
 
 	public function assaign($id)
@@ -79,23 +79,23 @@ class TeacherController extends Controller
 
 	 notify()->flash($user->name." has been updated", 'success');
 
-	 return redirect('teacherlist');
+	 return redirect('teachers');
 	}
 
-	public function list()
+	public function index()
 	{
 		$users = User::with(['roles' => function($q){
 			$q->whereIn('name', ['teacher','class_teacher']);
 		}])->get();
 
-		return view('teacher.list',[
+		return view('teacher.index',[
 			'teachers' => $users
 		]);
 	}
 
 	public function create()
 	{
-		return view('teacher.add');
+		return view('teacher.create');
 	}
 
 	public function store(EditTeacherFormRequest $request)
@@ -129,7 +129,7 @@ class TeacherController extends Controller
 
 		notify()->flash($request->name." has been added", 'success');
 
-		return redirect('teacherlist');
+		return redirect('teachers');
 	}
 
 	public function delete($id)
@@ -164,6 +164,6 @@ class TeacherController extends Controller
 
 		notify()->flash($user->name. "record deleted", 'success');
 
-		return redirect('teacherlist');
+		return redirect('teachers');
 	}
 }
