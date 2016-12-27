@@ -96,7 +96,7 @@ class User extends Authenticatable
     }
 
     /**
-    * Add roles to user to make them a teacher
+    * Add roles to user
     */
     public function makeTeacher($title)
     {
