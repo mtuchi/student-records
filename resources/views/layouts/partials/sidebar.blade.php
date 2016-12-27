@@ -6,7 +6,7 @@
 		<div class="panel-body">
 			<div class="boxed-group-inner">
 				<ul class="mini-class-list js-class-list">
-					<li><a href="{{ url('/teacherlist') }}">Teachers</a></li>
+					<li><a href="{{ url('/teachers') }}">Teachers</a></li>
 					<li><a href="{{ url('/students') }}">Students</a></li>
 					<li><a href="">Grades</a></li>
 					<li><a href="">Subjects</a></li>
