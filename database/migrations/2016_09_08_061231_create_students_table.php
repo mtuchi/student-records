@@ -21,6 +21,7 @@ class CreateStudentsTable extends Migration
 						$table->string('guardian')->nullable();
             $table->string('emergency_contact')->nullable();
             $table->timestamps();
+						$table->softDeletes();
         });
     }
 
