@@ -12,20 +12,34 @@ class GradesTableSeeder extends Seeder
      */
     public function run()
     {
-      factory(Grade::class)->create([
-        'user_id' => 2,
-        'name' => 'IV A',
-        'slug' => 'IV-A',
-        'subjects' => json_encode(['1','2','3','4','8','6','9','10','11']),
-        'students' => json_encode(['1','2','3','4','5']),
-      ]);
+			$grades = ['Pre','I','II','III','IV','V','VI','VII'];
+			$streams = ['A','B'];
+			$i = 0;
+			foreach ($grades as $grade) {
+				foreach ($streams as $stream) {
+					$i++;
+					if ($i == 1) {
+						factory(Grade::class)->create([
+							'user_id' => 2,
+			        'name' => $grade." ".$stream,
+			        'slug' => $grade."-".$stream,
+			      ]);
+					}
+					elseif ($i == 2) {
+						factory(Grade::class)->create([
+							'user_id' => 3,
+			        'name' => $grade." ".$stream,
+			        'slug' => $grade."-".$stream,
+			      ]);
+					} else {
+						factory(Grade::class)->create([
+							'user_id' => null,
+			        'name' => $grade." ".$stream,
+			        'slug' => $grade."-".$stream,
+			      ]);
+					}
 
-      factory(Grade::class)->create([
-        'user_id' => 3,
-        'name' => 'II B',
-        'slug' => 'II-B',
-        'subjects' => json_encode(['1','2','3', '4', '8','6']),
-        'students' => json_encode(['6','7','8','9','10']),
-      ]);
+				}
+			}
     }
 }

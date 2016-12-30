@@ -15,14 +15,13 @@ class AttendancesTableSeeder extends Seeder
      */
     public function run()
     {
-      $students = Grade::pluck('students');
       $quarters = Quarter::isLive()->get();
       $grades = Grade::all();
       $faker = Faker::create();
 
       foreach ($quarters as $key => $value)
       {
-        foreach (json_decode($students[0]) as $first)
+        foreach (range(1,5) as $first)
          {
           factory(Attendance::class)->create([
             'student_id' => $first,
@@ -33,7 +32,7 @@ class AttendancesTableSeeder extends Seeder
             'third_month' => $faker->randomNumber($nbDigits = 2),
           ]);
         }
-      foreach (json_decode($students[1]) as $second)
+      foreach (range(6,10) as $second)
        {
         factory(Attendance::class)->create([
           'student_id' => $second,

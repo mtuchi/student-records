@@ -93,12 +93,12 @@ $factory->define(\App\Models\Attendance::class, function (Faker\Generator $faker
 
 $factory->define(\App\Models\Grade::class, function (Faker\Generator $faker) {
 
+	$grade = $faker->randomElement($array = array ('Pre','I','II','III','IV','V','VI','VII'));
+	$stream = $faker->randomElement($array = array ('A','B'));
   return [
-    'user_id' => 2,
-    'name' => 'IV A',
-    'slug' => 'IV-A',
-    'subjects' => json_encode(['1','2','3','4','8','6','9','10','11']),
-    'students' => json_encode(['1','2','3','4','5']),
+		'user_id' => $faker->randomDigit,
+    'name' => $grade." ".$stream,
+    'slug' => $grade."-".$stream,
   ];
 });
 
