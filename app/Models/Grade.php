@@ -6,21 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Grade extends Model
 {
-    protected $fillable = ['user_id','name','slug','subjects','students'];
-
-    public function subject()
-    {
-      return $this->hasMany(Subject::class);
-    }
-
-    public function students()
-    {
-      return $this->hasMany(Student::class);
-    }
+    protected $fillable = ['user_id','name','slug'];
 
     public function user()
     {
-      return $this->hasOne(User::class);
+      return $this->belongsTo(User::class,'user_id');
     }
 
     public function quarter()

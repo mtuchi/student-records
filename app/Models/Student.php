@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Carbon\Carbon;
 
 class Student extends Model
 {
@@ -19,6 +20,14 @@ class Student extends Model
 	public function grade()
 	{
 		return $this->belongsToMany(Grade::class);
+	}
+
+	public function age()
+	{
+		$dob = $this->dob;
+		$dob = explode('-',$dob);
+
+		return Carbon::createFromDate($dob[0], $dob[1], $dob[2])->age;
 	}
 
 	public function avatar($options = [])
