@@ -24,7 +24,7 @@ class TeacherController extends Controller
 
 	public function edit($id)
 	{
-		$user = User::where('id', $id)->with('subjects')->first();
+		$user = User::where('id', $id)->with('grade','teacher')->first();
 		return view('teacher.edit',['user' => $user,'id' => $id]);
 	}
 
@@ -32,12 +32,6 @@ class TeacherController extends Controller
 	{
 		$user = User::where('id', $id)->firstOrFail();
 		return view('teacher.show',['user' => $user,'id' => $id]);
-	}
-
-	public function assaign($id)
-	{
-		$user = User::where('id', $id)->firstOrFail();
-		return view('teacher.assaign',['user' => $user,'id' => $id]);
 	}
 
 	public function update($id, EditTeacherFormRequest $request)
@@ -85,7 +79,7 @@ class TeacherController extends Controller
 	public function index()
 	{
 		$users = User::with(['roles' => function($q){
-			$q->whereIn('name', ['teacher','class_teacher']);
+			$q->whereIn('name', ['teacher','class_teacher','admin']);
 		}])->get();
 
 		return view('teacher.index',[

@@ -26,35 +26,59 @@ class AssignRoleController extends Controller
 
 	public function class($id, Request $request)
 	{
-		$user = User::where('id', $id)->first();
+		$user = User::where('id', $id)->with('grade')->first();
 
 		$slug = $request->class."-".$request->stream;
 		$name = $request->class." ".$request->stream;
 
-		$grade = Grade::where('slug', $slug)->count();
+		$grade = Grade::where('slug', $slug)->with('user')->firstOrFail();
 
-		if ($grade) {
+		if ($grade->user) {
 
 			notify()->flash("This class is already assigned to a teacher, choose another class", 'danger');
 
 			return redirect($id.'/edit')
              ->withInput();
 		} else {
+			if ($user->grade) {
+					$user->grade->update([
+						'user_id' => null,
+					]);
 
-			if ($user->hasRole('class_teacher')) {
+					$grade->update([
+						'user_id' => $id,
+						'name' => $name,
+						'slug' => $slug,
+					]);
+					activity('assign-class')
+					->causedBy(Auth::user())
+					->performedOn($user->grade)
+					->withProperties([
+					'attributes' => [
+						'name' => $name,
+						'slug' => $slug,
+					],
+					'type' => 'success',
+					])
+					->log($user->name." Class teacher role has been assigned successfull by ". Auth::user()->name);
+
+					notify()->flash($user->name." class teacher role has been assigned successfull", 'success');
+
+					return redirect('teachers');
+			}
+			elseif ($user->hasRole('class_teacher')) {
 				notify()->flash($user->name." is already a class teacher , assign another role", 'danger');
 				return redirect($id.'/edit')
 	             ->withInput();
 			} else {
 				$user->makeTeacher('class_teacher');
 
-				Grade::create([
+				$grade->update([
 					'user_id' => $id,
 					'name' => $name,
 					'slug' => $slug,
 				]);
-
-				activity('assign-teacher')
+				activity('assign-class')
 				->causedBy(Auth::user())
 				->performedOn($user)
 				->withProperties([
@@ -87,7 +111,7 @@ class AssignRoleController extends Controller
 		$grade = Grade::where('slug', $classslug)->first();
 
 		if ($grade) {
-			if ($user) {
+			if ($user->teacher) {
 					$user->update([
 						'grade_id' => $grade->id,
 						'subject_id' => $subject->id,
@@ -108,6 +132,7 @@ class AssignRoleController extends Controller
 				$newUser->teacher->makeTeacher('teacher');
 
 				notify()->flash($newUser->name." is  assigned to a class as .' $subjectname '. teacher", 'success');
+				return redirect('teachers');
 			}
 		}else {
 			notify()->flash("This class is not assigned to a class teacher yet, choose another class", 'danger');
@@ -115,7 +140,6 @@ class AssignRoleController extends Controller
 			return redirect($id.'/edit')
 						 ->withInput();
 		}
-
 
 	}
 
