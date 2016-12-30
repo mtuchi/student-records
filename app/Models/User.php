@@ -38,11 +38,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function subjects()
-    {
-        return $this->hasMany(Teacher::class);
-    }
-
     public function roles()
     {
         return $this->belongsToMany(Role::class);
@@ -50,7 +45,12 @@ class User extends Authenticatable
 
     public function grade()
     {
-        return $this->belongsTo(Grade::class)->where('user_id', $this->id);
+        return $this->hasOne(Grade::class);
+    }
+
+		public function teacher()
+    {
+        return $this->hasMany(Teacher::class);
     }
 
     public function joined()
