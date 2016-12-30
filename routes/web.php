@@ -29,6 +29,42 @@ Auth::routes();
 #Route::post('/addteacher','HomeController@store');
 
 Route::group(['middleware' => 'auth'], function () {
+  # group prefix for grades
+  Route::group(['prefix' => '/grades'], function(){
+    Route::get('/', 'GradeController@index');
+
+		#add grade
+		Route::get('/create', 'GradeController@create');
+
+		# store grade
+		Route::post('/','GradeController@store');
+
+
+		#prefix with grade id
+		Route::group(['prefix' => '{slug}'], function(){
+			#show grade
+			Route::get('/', [
+				'as' => 'grade.show',
+				'uses' => 'GradeController@show'
+			]);
+			#show edit
+			Route::get('/edit', [
+				'as' => 'grade.edit',
+				'uses' => 'GradeController@edit'
+			]);
+			# save updates
+			Route::put('/', [
+				'as' => 'grade.update',
+				'uses' => 'GradeController@update'
+			]);
+			#destroy record
+			Route::delete('/', [
+				'as' => 'grade.destroy',
+				'uses' => 'GradeController@destroy'
+			]);
+
+		});
+  });
 	# group prefix for students routes
 	Route::group(['prefix' => '/students'], function () {
 		#student list
@@ -259,8 +295,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     # grade routes
     Route::get('/',[
-      'as' => 'grade.show',
-      'uses' => 'GradeController@show'
+      'as' => 'grade.subject.show',
+      'uses' => 'GradeSubjectController@show'
     ]);
 
     Route::post('/',[
