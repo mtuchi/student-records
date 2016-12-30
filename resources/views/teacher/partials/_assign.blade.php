@@ -1,3 +1,4 @@
+
 <div class="row">
 		<!-- Nav tabs -->
 		<ul class="nav nav-tabs" role="tablist" style="margin-bottom:1em;">
@@ -8,32 +9,56 @@
 	<!-- Tab panes -->
 	<div class="tab-content">
 		<div role="tabpanel" class="tab-pane active" id="classteacher">
-			<div class="panel panel-default">
-				<div class="panel-heading">Assign Class Teacher Role to <strong>{{ $user->name }}</strong></div>
-				<div class="panel-body">
-					<form class="form-horizontal" role="form" method="post" action="{{ route('assign.class', $user->id) }}">
-						{{ csrf_field() }}
+			@if (count($user->grade) === 1)
+				<div class="panel panel-default">
+					<div class="panel-heading"><strong>{{ $user->name }}</strong> is already class teacher at <b>{{ $user->grade->name }}</b></div>
+					<div class="panel-body">
+						<form class="form-horizontal" role="form" method="post" action="{{ route('assign.class', $user->id) }}">
+							{{ csrf_field() }}
 
-						<div class="form-group {{ $errors->has('stream') ? 'has-error' : ''}}">
-							<label for="assignclassteacher" class="col-md-4 control-label">Assign Class</label>
-							@include('layouts.partials._gradelist')
-						</div>
-
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary btn-block">
-									Add Records
-								</button>
+							<div class="form-group {{ $errors->has('stream') ? 'has-error' : ''}}">
+								<label for="assignclassteacher" class="col-md-4 control-label">Change Class</label>
+								@include('layouts.partials._gradelist')
 							</div>
-						</div>
-					</form>
+
+							<div class="form-group">
+								<div class="col-md-6 col-md-offset-4">
+									<button type="submit" class="btn btn-primary btn-block">
+										Save Records
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
-			</div>
+			@else
+				<div class="panel panel-default">
+					<div class="panel-heading">Assign Class Teacher Role to <strong>{{ $user->name }}</strong></div>
+					<div class="panel-body">
+						<form class="form-horizontal" role="form" method="post" action="{{ route('assign.class', $user->id) }}">
+							{{ csrf_field() }}
+
+							<div class="form-group {{ $errors->has('stream') ? 'has-error' : ''}}">
+								<label for="assignclassteacher" class="col-md-4 control-label">Assign Class</label>
+								@include('layouts.partials._gradelist')
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-6 col-md-offset-4">
+									<button type="submit" class="btn btn-primary btn-block">
+										Add Records
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			@endif
 		</div>
 		<div role="tabpanel" class="tab-pane" id="teacher">
-			@if (count($user->subjects) === 1)
+			@if (count($user->teacher) === 1)
 				<div class="panel panel-default">
-					@foreach ($user->subjects as $subject)
+					@foreach ($user->teacher as $subject)
 						<div class="panel-heading"><strong>{{ $user->name }}</strong> Teaches {{ $subject->slug }} </div>
 					@endforeach
 					<div class="panel-body">
@@ -41,14 +66,24 @@
 							{{ csrf_field() }}
 
 							<div class="form-group{{ $errors->has('class') ? 'has-error' : ''}}">
-								<label for="" class="col-md-4 control-label">Assign Class</label>
+								<label for="" class="col-md-4 control-label">Change Class</label>
 								@include('layouts.partials._gradelist')
 							</div>
 
 							<div class="form-group{{ $errors->has('subject') ? 'has-error' : ''}}">
-								<label for="teacher_subject" class="col-md-4 control-label">Assign Subject</label>
+								<label for="teacher_subject" class="col-md-4 control-label">Change Subject</label>
 								@include('layouts.partials._subjectlist')
 							</div>
+
+							<div class="form-group">
+						    <div class="col-md-6 col-md-offset-4 col-sm-offset-2 col-sm-10">
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" name="new_teacher">New Teacher Role
+										</label>
+									</div>
+						    </div>
+						  </div>
 
 							<div class="form-group">
 								<div class="col-md-6 col-md-offset-4">
