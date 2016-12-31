@@ -67,7 +67,9 @@
 												@if ($role->name == "admin")
 													<span class="badge" data-toggle="tooltip" data-placement="top" title="School Admin"> A </span>
 												@elseif ($role->name == "teacher")
-													<span class="badge" data-toggle="tooltip" data-placement="top" title="Subject Teacher">T</span>
+													<button class="btn btn-xs bg-muted" type="button" data-toggle="tooltip" data-placement="top" title="Subject Teacher">
+													 T <span class="badge">{{ count($teacher->teacher) }}</span>
+													</button>
 												@elseif ($role->name == "class_teacher")
 													<span class="badge" data-toggle="tooltip" data-placement="top" title="Class Teacher">C T</span>
 												@elseif ($role->name == "registrar")
