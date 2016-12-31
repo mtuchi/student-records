@@ -133,6 +133,11 @@ Route::group(['middleware' => 'auth'], function () {
 		'as' => 'assign.admin',
 		'uses' =>'AssignRoleController@admin'
 		]);
+  # delete assign teacher
+  Route::delete('/{id}', [
+		'as' => 'assign.destroy',
+		'uses' => 'AssignRoleController@destroy'
+	]);
   #show profile
 	Route::get('/{id}/show', [
 		'as' => 'teacher.show',
