@@ -64,6 +64,28 @@
 									</p>
 								</div>
 							</div>
+							@if (count($user->teacher) >= 1)
+							<div class="form-group">
+								<label for="gender" class="col-md-4 control-label">Teaches</label>
+									<div class="col-md-6">
+										@foreach ($user->teacher as $teacher)
+											<p class="form-control-static">
+												{{ $teacher->slug }}
+											</p>
+										@endforeach
+									</div>
+							</div>
+							@endif
+							@if ($user->grade)
+							<div class="form-group">
+								<label for="gender" class="col-md-4 control-label">Class Teacher</label>
+									<div class="col-md-6">
+										<p class="form-control-static">
+											@ {{ $user->grade->slug }}
+										</p>
+									</div>
+							</div>
+							@endif
 					</div>
 				</div>
 			</div>
