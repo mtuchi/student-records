@@ -71,7 +71,7 @@ class AssignRoleController extends Controller
 				return redirect($id.'/edit')
 	             ->withInput();
 			} else {
-				$user->makeTeacher('class_teacher');
+				$user->attachRole('class_teacher');
 
 				$grade->update([
 					'user_id' => $id,
@@ -110,37 +110,195 @@ class AssignRoleController extends Controller
 		$subject = Subject::where('name', $subjectname)->first();
 		$grade = Grade::where('slug', $classslug)->first();
 
+		$teacher = Teacher::where([
+								['grade_id' ,'=', $grade->id],
+								['subject_id' ,'=', $subject->id],
+								])->with('teacher','subject')->first();
+
 		if ($grade) {
-			if ($user->teacher) {
-					$user->update([
-						'grade_id' => $grade->id,
-						'subject_id' => $subject->id,
-						'slug' => $subject->name."-".$classslug,
-					]);
-					$user->teacher->makeTeacher('teacher');
-					notify()->flash($user->teacher->name." is assigned to a class as .' $subjectname '. teacher", 'success');
+			# Checking if the record is unique through out the teachers table
+			if ($teacher) {
+				# Teacher record already exist choose another class
+				notify()->flash($teacher->teacher->name." is already assigned to this class as ".$teacher->subject->name." teacher, choose another class", 'danger');
 
 				return redirect($id.'/edit')
 							 ->withInput();
 			}else {
-				$newUser = Teacher::create([
-					'user_id' => $id,
-					'grade_id' => $grade->id,
-					'subject_id' => $subject->id,
-					'slug' => $subject->name."-".$classslug,
-				]);
-				$newUser->teacher->makeTeacher('teacher');
+				if ($user) {
+					# Manuel checkup if this teacher record is does not exist in Teacher table
+					# just realized you can teach the same subject but in different class
+					if ($user->grade_id != $grade->id) {
+						# Check if the new teacher role is checked to add another teacher role to the $user->teacher
+						if (isset($request->update)) {
+							# Change the current class or subject of the teacher
+							$user->update([
+								'grade_id' => $grade->id,
+								'subject_id' => $subject->id,
+								'slug' => $subject->name."-".$classslug,
+							]);
 
-				notify()->flash($newUser->name." is  assigned to a class as .' $subjectname '. teacher", 'success');
-				return redirect('teachers');
+							notify()->flash($user->teacher->name." is  assigned to a class as .' $subjectname '. teacher", 'success');
+							return redirect('teachers');
+						}else {
+							$newUser = Teacher::create([
+								'user_id' => $id,
+								'grade_id' => $grade->id,
+								'subject_id' => $subject->id,
+								'slug' => $subject->name."-".$classslug,
+							]);
+							# Theory suggest that is not necessary to add a teacher role to this user since s/he already a teacher
+							# $newUser->teacher->attachRole('teacher');
+
+							notify()->flash($newUser->name." is  assigned to a class as .' $subjectname '. teacher", 'success');
+							return redirect('teachers');
+						}
+					}else {
+						# Teacher record already exist choose another class
+						notify()->flash($user->teacher->name." is already assigned to this class as .' $subjectname '. teacher, choose another class", 'danger');
+
+						return redirect($id.'/edit')
+									 ->withInput();
+					}
+
+				}else {
+					# This is a new teacher
+					$newUser = User::find($id);
+					#checking if s/he has a Teacher role
+					if ($newUser->hasRole('teacher')) {
+						$newUser->teacher()->create([
+							'user_id' => $id,
+							'grade_id' => $grade->id,
+							'subject_id' => $subject->id,
+							'slug' => $subject->name."-".$classslug,
+						]);
+
+						notify()->flash($newUser->name." is  assigned to a class as .' $subjectname '. teacher", 'success');
+						return redirect('teachers');
+
+					}else {
+						# this user already have a s/he role
+						$newUser->teacher()->create([
+							'user_id' => $id,
+							'grade_id' => $grade->id,
+							'subject_id' => $subject->id,
+							'slug' => $subject->name."-".$classslug,
+						]);
+						$newUser->attachRole('teacher');
+
+						notify()->flash($newUser->name." is  assigned to a class as .' $subjectname '. teacher", 'success');
+						return redirect('teachers');
+					}
+
+				}
+
 			}
-		}else {
+
+		}
+		 else {
+			# The class chooesed does not have exist yet in grades table
 			notify()->flash("This class is not assigned to a class teacher yet, choose another class", 'danger');
 
 			return redirect($id.'/edit')
 						 ->withInput();
 		}
 
+	}
+
+	public function admin($id)
+	{
+		$user = User::find($id);
+		# check if the user is arleady an admin
+		if ($user->hasRole('admin')) {
+			# already assigned an administrator role
+			notify()->flash($user->name." is already assigned an administrator role, choose another user", 'danger');
+
+			return redirect($id.'/edit')
+						 ->withInput();
+		}else {
+			$user->attachRole('admin');
+
+			activity('attach-admin')
+			->causedBy(Auth::user())
+			->performedOn($user)
+			->log($user->name." Is assigned administrator role by ". Auth::user()->name);
+
+			notify()->flash($user->name." Is assigned administrator role by ". Auth::user()->name, 'success');
+
+			return redirect('teachers');
+		}
+	}
+
+	public function destroy($id, Request $request)
+	{
+		# Check what role to delete
+		# Check request->delete to delete data
+		switch($request->role)
+		{
+			 case 'teacher':
+			 {
+				 $teacher = Teacher::where([
+					 'slug'=> $request->delete,
+					 'user_id' => $id,
+				 ])->first();
+
+				 $user = User::find($id);
+
+				if (count($user->teacher()->where("user_id",$id)->get()) > 1) {
+						$teacher->delete();
+
+						activity('deleted-subject-teacher')
+				 		->causedBy(Auth::user())
+				 		->log("Records has been deleted successful by ". Auth::user()->name);
+
+				 		notify()->flash("Records has been deleted successful by ". Auth::user()->name, 'success');
+
+				 		return redirect('teachers');
+				}else {
+					$teacher->delete();
+
+					$user->detachRole('teacher');
+
+					activity('detach-teacher-role')
+					->causedBy(Auth::user())
+					->performedOn($user)
+					->log($user->name." Records has been detached successful by ". Auth::user()->name);
+
+					notify()->flash($user->name. "Subject teacher record detached", 'success');
+
+					return redirect('teachers');
+				}
+
+			 }
+			 case 'class_teacher':
+			 {
+				 	$user = User::find($id);
+					$user->detachRole('class_teacher');
+
+					activity('detach-class_teacher-role')
+					->causedBy(Auth::user())
+					->performedOn($user)
+					->log($user->name." Records has been detached successful by ". Auth::user()->name);
+
+					notify()->flash($user->name. "Class teacher record detached", 'success');
+
+					return redirect('teachers');
+			 }
+			 case 'admin':
+			 {
+				 $user = User::find($id);
+				 $user->detachRole('admin');
+
+				 activity('detach-admin-role')
+				 ->causedBy(Auth::user())
+				 ->performedOn($user)
+				 ->log($user->name." Records has been detached successful by ". Auth::user()->name);
+
+				 notify()->flash($user->name. "Administrator record detached", 'success');
+
+				 return redirect('teachers');
+			 }
+			 default:break;
+		}
 	}
 
 }
