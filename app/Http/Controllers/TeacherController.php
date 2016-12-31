@@ -80,7 +80,7 @@ class TeacherController extends Controller
 	{
 		$users = User::with(['roles' => function($q){
 			$q->whereIn('name', ['teacher','class_teacher','admin']);
-		}])->get();
+		},'teacher'])->get();
 
 		return view('teacher.index',[
 			'teachers' => $users
@@ -139,7 +139,7 @@ class TeacherController extends Controller
 
 		$user->onlyTrashed()->where('id', $id)->first();
 
-		activity('deleted-teacher')
+		activity('deleted-teacher-user')
 		->causedBy(Auth::user())
 		->performedOn($user)
 		->withProperties([
