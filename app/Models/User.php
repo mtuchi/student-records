@@ -98,7 +98,7 @@ class User extends Authenticatable
     /**
     * Add roles to user
     */
-    public function makeTeacher($title)
+    public function attachRole($title)
     {
         $assigned_roles = [];
         $roles = Role::all()->keyBy('id')->toArray();
@@ -123,6 +123,33 @@ class User extends Authenticatable
        }
 
        $this->roles()->attach($assigned_roles);
+    }
+
+    public function detachRole($title)
+    {
+        $assigned_roles = [];
+        $roles = Role::all()->keyBy('id')->toArray();
+
+       switch ($title)
+       {
+           case 'class_teacher':
+               $assigned_roles[] = $this->getIdInArray($roles, 'class_teacher');
+               break;
+
+           case 'teacher':
+               $assigned_roles[] = $this->getIdInArray($roles, 'teacher');
+               break;
+           case 'admin':
+               $assigned_roles[] = $this->getIdInArray($roles, 'admin');
+               break;
+           case 'registrar':
+               $assigned_roles[] = $this->getIdInArray($roles, 'registrar');
+               break;
+           default:
+               throw new \Exception("The teacher status entered does not exist");
+       }
+
+       $this->roles()->detach($assigned_roles);
     }
 
     public function avatar($options = [])
