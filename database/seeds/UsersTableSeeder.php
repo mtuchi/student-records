@@ -59,7 +59,7 @@ class UsersTableSeeder extends Seeder
 			        'phone' => $arr[0]['phone'],
           ]);
 
-          $firstUser->makeTeacher('teacher');
+          $firstUser->attachRole('teacher');
 
           $secondUser = factory(User::class)->create([
               'email' => $arr[1]['email'],
@@ -70,8 +70,8 @@ class UsersTableSeeder extends Seeder
 			        'phone' => $arr[1]['phone'],
           ]);
 
-          $secondUser->makeTeacher('class_teacher');
-          $secondUser->makeTeacher('teacher');
+          $secondUser->attachRole('class_teacher');
+          $secondUser->attachRole('teacher');
 
           $thirdUser = factory(User::class)->create([
               'email' => $arr[2]['email'],
@@ -82,8 +82,8 @@ class UsersTableSeeder extends Seeder
 			        'phone' => $arr[2]['phone'],
           ]);
 
-          $thirdUser->makeTeacher('class_teacher');
-          $thirdUser->makeTeacher('teacher');
+          $thirdUser->attachRole('class_teacher');
+          $thirdUser->attachRole('teacher');
 
 					$fourthUser = factory(User::class)->create([
               'email' => $arr[3]['email'],
@@ -94,7 +94,7 @@ class UsersTableSeeder extends Seeder
 			        'phone' => $arr[3]['phone'],
           ]);
 
-          $fourthUser->makeTeacher('admin');
+          $fourthUser->attachRole('admin');
 
     }
 }
