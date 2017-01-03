@@ -54,13 +54,39 @@
 											</div>
 										</td>
 										<td class="col-md-3">
-											<span class="text-muted">Not Assigned</span>
+											@if ($grade->user)
+												{{ $grade->user->name }}
+												@else
+											@endif
 										</td>
 										<td class="col-md-3">
-											<span class="text-muted">Not assign</span>
+											@if (count($grade->subject) == 0)
+												@else
+												<span class="badge" data-toggle="tooltip" data-placement="top"
+												title="Click the caret to see subject list">
+													{{ count($grade->subject) }}
+													<div class="dropdown pull-right">
+													  <a href="#" id="subjectList" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+													    <span class="caret"></span>
+													  </a>
+													  <ul class="dropdown-menu" aria-labelledby="subjectList">
+													    <li class="dropdown-header">Subject List</li>
+															<li>
+																@foreach ($grade->subject as $subject)
+																	<a href="#">{{ $subject->name }} </a>
+																@endforeach
+															</li>
+
+													  </ul>
+													</div>
+												</span>
+											@endif
 										</td>
 										<td class="col-md-3">
-											<span class="text-muted">Not assign</span>
+											@if (count($grade->student) == 0)
+												@else
+													<span class="badge">{{ count($grade->student) }}</span>
+											@endif
 										</td>
 									</tr>
 								@endforeach

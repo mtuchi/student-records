@@ -2,7 +2,7 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<div class="row">
-				<h5 class="col-md-8 text-left text-capitalize text-muted">Change {{ $grade->user[0]->name }} as <b>{{ $grade->name }} class teacher</b> </h5>
+				<h5 class="col-md-8 text-left text-capitalize text-muted">Change {{ $grade->user->name }} as <b>{{ $grade->name }} class teacher</b> </h5>
 				<div class="col-md-4">
 					<div class="btn-group pull-right" role="group">
 						<a href="#" class="btn btn-sm btn-primary">Use Excel</a>
@@ -23,9 +23,9 @@
 							@foreach ($users as $user)
 								<option value="{{ $user->id }}">{{ $user->name }}</option>
 							@endforeach
-							@foreach ($grade->user as $user)
-								<option value="{{ $user->id }}" selected="">{{ $user->name }}</option>
-							@endforeach
+							@if ($grade->user)
+									<option value="{{ $grade->user->id }}" selected="">{{ $grade->user->name }}</option>
+							@endif
 						</select>
 					</div>
 				</div>

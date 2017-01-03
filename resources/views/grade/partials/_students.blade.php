@@ -20,7 +20,7 @@
 					</tr>
 			</thead>
 			<tbody style="position:relative;">
-				@foreach ($students as $student)
+				@foreach ($grade->student as $student)
 					<tr>
 						<td class="col-md-3">
 							{{ $student->name }}

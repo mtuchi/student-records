@@ -19,13 +19,17 @@
 					</tr>
 			</thead>
 			<tbody style="position:relative;">
-				@foreach ($subjects as $subject)
+				@foreach ($grade->teacher as $teacher)
 					<tr>
 						<td class="col-md-3">
-							{{ $subject->name }}
+							{{ $teacher->subject->name }}
 						</td>
 						<td class="col-md-3">
-							<span class="badge pull-right" data-tooltip="Not Processed" title="Not Processed">NP</span>
+							@if ($teacher->user)
+								{{ $teacher->user->name }}
+								@else
+									<span class="badge pull-right" data-tooltip="Not Processed" title="Not Processed">NP</span>
+							@endif
 						</td>
 						<td class="col-md-2">
 							<span class="badge pull-right" data-tooltip="Not Processed" title="Not Processed">NP</span>
