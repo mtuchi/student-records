@@ -19,7 +19,7 @@ class Student extends Model
 
 	public function grade()
 	{
-		return $this->belongsToMany(Grade::class);
+		return $this->belongsTo(Grade::class);
 	}
 
 	public function age()
