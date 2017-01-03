@@ -13,14 +13,15 @@
 
 $factory->define(\App\Models\User::class, function (Faker\Generator $faker) {
     static $password;
+		$gender = $faker->boolean ? 'f':'m';
 
     return [
         'name' => $faker->name,
         'username' => $faker->username,
         'email' => $faker->safeEmail,
-        'DOB' => '1989-12-12',
-        'gender' => 'm',
-        'phone' => '+255754876876',
+        'DOB' => $faker->dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = date_default_timezone_get()),
+        'gender' => $gender,
+        'phone' => $faker->e164PhoneNumber,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
     ];
