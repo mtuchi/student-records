@@ -12,7 +12,7 @@ class GradesTableSeeder extends Seeder
      */
     public function run()
     {
-			$grades = ['Pre','I','II','III','IV','V','VI','VII'];
+			$grades = ['Pre','I','II','III'];
 			$streams = ['A','B'];
 			$i = 0;
 			foreach ($grades as $grade) {
