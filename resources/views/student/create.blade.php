@@ -7,11 +7,11 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 	          <div class="row">
-	            <h4 class="col-md-8 text-center text-uppercase text-muted">Add Student Records</h4>
+	            <h5 class="col-md-8 text-left text-capitilize text-muted">Add Student Records</h5>
 	            <div class="col-md-4">
 	              <div class="btn-group pull-right" role="group">
-	                <a href="#" class="btn btn-primary">Use Excel</a>
-	                <a href="{{ url('/students') }}" class="btn btn-default">Go Back</a>
+	                <a href="#" class="btn btn-sm btn-primary">Use Excel</a>
+	                <a href="{{ url('/students') }}" class="btn btn-sm btn-default">Go Back</a>
 	              </div>
 	            </div>
 	          </div>
