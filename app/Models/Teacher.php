@@ -18,9 +18,9 @@ class Teacher extends Model
     return $query->orderBy('created_at','desc');
   }
 
-  public function teacher()
+  public function user()
   {
-    return $this->belongsTo(User::class, 'user_id');
+    return $this->belongsTo(User::class,'user_id');
   }
 
   public function subject()
@@ -33,37 +33,4 @@ class Teacher extends Model
     return $this->belongsToMany(Grade::class);
   }
 
-  private function getIdInArray($array, $term)
-  {
-   foreach ($array as $key => $value)
-   {
-       if ($value['name'] == $term)
-       {
-           return $key;
-       }
-   }
-  }
-
-
-  public function makeGrade($title)
-  {
-    $assaigned_grade = [];
-    $grades = Grade::all()->keyBy('id')->toArray();
-
-     switch ($title)
-     {
-       case 'IV A':
-           $assaigned_grade[] = $this->getIdInArray($grades, 'IV A');
-           break;
-
-       case 'II B':
-           $assaigned_grade[] = $this->getIdInArray($grades, 'II B');
-           break;
-       default:
-           throw new \Exception("The grade status entered does not exist");
-     }
-
-     $this->grade()->attach($assaigned_grade);
-   }
-
-  }
+}
