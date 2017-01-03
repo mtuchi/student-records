@@ -43,7 +43,7 @@ class StudentController extends Controller
 
 		public function edit($id)
 		{
-			$student = Student::where('id', $id)->with('grade')->firstOrFail();
+			$student = Student::where('id', $id)->with('grade')->first();
 			return view('student.edit',['student' => $student,'id' => $id]);
 		}
 
@@ -93,16 +93,14 @@ class StudentController extends Controller
 			$grade = Grade::where('slug', $slug)->first();
 
 			if ($grade) {
+        # check if the student already assigned grade
 				if ($student->grade->count()) {
-
-					$student->grade()->sync([$grade->id => [ 'student_id' => $id] ], false);
-					// $student->grade()->updateExistingPivot($grade->id,['student_id' => $id]);
-
+          # Change current student grade
+					# If you use false the record will be re-created when use true, the record wll be update
+					# reference http://stackoverflow.com/questions/26059593/sync-or-updateexistingpivot-with-laravel-how-to-fill-based-on-a-3rd-critria#26059963
+					$student->grade()->sync([$grade->id => [ 'student_id' => $id] ], true);
+					# flash a success message
 					notify()->flash($student->name." has been assigned to $grade->name ", 'success');
-
-						// foreach ($student->grade as $grade) {
-						// 	notify()->flash($student->name." is already assigned to $grade->name ", 'warning');
-						// }
 		 		  return redirect('students');
 
 				} else {
