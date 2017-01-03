@@ -30,8 +30,7 @@ class GradeController extends Controller
 
 	public function index()
 	{
-		$grades = Grade::with('user')->get();
-		// dd($grades);
+		$grades = Grade::with(['user','subject','student'])->get();
 		return view('grade.index',['grades' => $grades]);
 	}
 
@@ -84,6 +83,7 @@ class GradeController extends Controller
 		}
 
 	}
+
 	public function edit($slug)
 	{
 		$grade = Grade::where('slug', $slug)->with('user')->first();
@@ -94,23 +94,90 @@ class GradeController extends Controller
 		return view('grade.edit',['grade' => $grade,'users'=>$users, 'slug' => $slug]);
 	}
 
+	public function update($slug,Request $request)
+	{
+		$user = User::where('id', $request->teacher)->with('grade')->first();
+		$grade = Grade::where('slug', $slug)->with('user')->first();
+
+		# check if class has class teacher
+		if ($grade->user) {
+				# remove teacher role for this user
+				$grade->user->detachRole('class_teacher');
+
+				activity('detach-class_teacher-role')
+				->causedBy(Auth::user())
+				->performedOn($grade->user)
+				->log($grade->user->name." Records has been detached successful by ". Auth::user()->name);
+
+				notify()->flash($grade->user->name." Records has been detached successful by ".Auth::user()->name, 'success');
+
+				# delete user in grade table
+				$grade->update([
+					'user_id' => $request->teacher
+				]);
+				# assign class_teacher role to the new user
+				// $user->grade->update([
+				// 	'user_id' => $request->id
+				// ]);
+
+				// activity('assign-class')
+				// ->causedBy(Auth::user())
+				// ->performedOn($user->grade)
+				// ->log($user->name." Class teacher role has been assigned successfull by ". Auth::user()->name);
+				//
+				// notify()->flash($user->name." class teacher role has been assigned successfull", 'success');
+
+				return redirect('teachers');
+
+		}else {
+			# check if user is arleady a class teacher
+			if ($user->hasRole('class_teacher')) {
+				# assign class_teacher role to the new user in grade table
+				$user->grade->update([
+					'user_id' => $request->teacher
+				]);
+
+				activity('assign-class')
+				->causedBy(Auth::user())
+				->performedOn($user->grade)
+				->log($user->name." Class teacher role has been assigned successfull by ". Auth::user()->name);
+
+				notify()->flash($user->name." class teacher role has been assigned successfull", 'success');
+
+				return redirect('teachers');
+			}else {
+				# attach class_teacher role
+				$user->attachRole('class_teacher');
+				# assign class_teacher role to the new user in grade table
+				dd($user->grade);
+				if ($user->grade) {
+					# code...
+				}
+				$user->grade->update([
+					'user_id' => $request->teacher
+				]);
+
+				activity('assign-class')
+				->causedBy(Auth::user())
+				->performedOn($user->grade)
+				->log($user->name." Class teacher role has been assigned successfull by ". Auth::user()->name);
+
+				notify()->flash($user->name." class teacher role has been assigned successfull", 'success');
+
+				return redirect('teachers');
+			}
+
+		}
+
+	}
+
   public function show($slug)
   {
-		$grade = Grade::where('slug', $slug)->firstOrFail();
-		$students = Student::whereHas('grade', function($q) use($grade){
-			$q->where('id', $grade->id);
-		})->get();
-
-		$subjects = Subject::whereHas('grade', function($q) use($grade){
-			$q->where('id', $grade->id);
-		})->get();
-
+		$grade = Grade::where('slug', $slug)->with('student','subject','teacher')->first();
 
 		return view('grade.show',[
 			'grade' => $grade,
 			'slug' => $slug,
-			'students' => $students,
-			'subjects' => $subjects
 		]);
   }
 }
