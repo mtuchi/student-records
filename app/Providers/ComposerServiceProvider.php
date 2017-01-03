@@ -25,24 +25,16 @@ class ComposerServiceProvider extends ServiceProvider
       view()->composer('layouts.partials.sidebar', function($view){
         if (Auth::user()->hasRole('teacher'))
         {
-          return $view->with('subjects', Auth::user()->subjects()->with('subject','grade','teacher')->get());
+					// dd(Auth::user()->teacher()->with('grade')->get());
+          return $view->with('teachers', Auth::user()->grade()->get());
         }
       });
 
       view()->composer('layouts.partials.sidebar', function($view){
         if (Auth::user()->hasRole('class_teacher'))
         {
-          $grade = Grade::where('user_id', Auth::user()->id)->first();
-          return $view->with('getgrade', $grade);
-        }
-      });
-
-      view()->composer('layouts.partials.sidebar', function($view){
-        if (Auth::user()->hasRole('class_teacher'))
-        {
-          $grade = Grade::where('user_id', Auth::user()->id)->first();
-          $teachers = Teacher::where('grade_id', $grade->id)->with('subject','teacher')->get();
-          return $view->with('teachers', $teachers);
+          $grade = Grade::where('user_id', Auth::user()->id)->with('teacher.user')->first();
+          return $view->with('grade', $grade);
         }
       });
 
