@@ -40,7 +40,7 @@ class AssignRoleController extends Controller
 			return redirect($id.'/edit')
              ->withInput();
 		} else {
-			if ($user->grade) {
+			if (count($user->grade) != 0) {
 					$user->grade->update([
 						'user_id' => null,
 					]);
@@ -101,7 +101,7 @@ class AssignRoleController extends Controller
 
 	public function teacher($id, Request $request)
 	{
-		$user = Teacher::where('user_id', $id)->with('teacher','subject')->first();
+		$user = Teacher::where('user_id', $id)->with('user','subject')->first();
 
 		$classslug = $request->class."-".$request->stream;
 		$classname = $request->class." ".$request->stream;
@@ -113,13 +113,13 @@ class AssignRoleController extends Controller
 		$teacher = Teacher::where([
 								['grade_id' ,'=', $grade->id],
 								['subject_id' ,'=', $subject->id],
-								])->with('teacher','subject')->first();
+								])->first();
 
 		if ($grade) {
 			# Checking if the record is unique through out the teachers table
-			if ($teacher) {
+			if ($teacher->user_id) {
 				# Teacher record already exist choose another class
-				notify()->flash($teacher->teacher->name." is already assigned to this class as ".$teacher->subject->name." teacher, choose another class", 'danger');
+				notify()->flash($teacher->user->name." is already assigned to this class as ".$teacher->subject->name." teacher, choose another class", 'danger');
 
 				return redirect($id.'/edit')
 							 ->withInput();
@@ -128,7 +128,7 @@ class AssignRoleController extends Controller
 					# Manuel checkup if this teacher record is does not exist in Teacher table
 					# just realized you can teach the same subject but in different class
 					if ($user->grade_id != $grade->id) {
-						# Check if the new teacher role is checked to add another teacher role to the $user->teacher
+						# Check if the new teacher role is checked to add another teacher role to the $user->user
 						if (isset($request->update)) {
 							# Change the current class or subject of the teacher
 							$user->update([
@@ -137,7 +137,7 @@ class AssignRoleController extends Controller
 								'slug' => $subject->name."-".$classslug,
 							]);
 
-							notify()->flash($user->teacher->name." is  assigned to a class as .' $subjectname '. teacher", 'success');
+							notify()->flash($user->user->name." is  assigned to a class as .' $subjectname '. teacher", 'success');
 							return redirect('teachers');
 						}else {
 							$newUser = Teacher::create([
@@ -154,7 +154,7 @@ class AssignRoleController extends Controller
 						}
 					}else {
 						# Teacher record already exist choose another class
-						notify()->flash($user->teacher->name." is already assigned to this class as .' $subjectname '. teacher, choose another class", 'danger');
+						notify()->flash($user->user->name." is already assigned to this class as .' $subjectname '. teacher, choose another class", 'danger');
 
 						return redirect($id.'/edit')
 									 ->withInput();
@@ -165,15 +165,15 @@ class AssignRoleController extends Controller
 					$newUser = User::find($id);
 					#checking if s/he has a Teacher role
 					if ($newUser->hasRole('teacher')) {
-						$newUser->teacher()->create([
-							'user_id' => $id,
-							'grade_id' => $grade->id,
-							'subject_id' => $subject->id,
-							'slug' => $subject->name."-".$classslug,
-						]);
+							$newUser->teacher()->create([
+								'user_id' => $id,
+								'grade_id' => $grade->id,
+								'subject_id' => $subject->id,
+								'slug' => $subject->name."-".$classslug,
+							]);
 
-						notify()->flash($newUser->name." is  assigned to a class as .' $subjectname '. teacher", 'success');
-						return redirect('teachers');
+							notify()->flash($newUser->name." is  assigned to a class as .' $subjectname '. teacher", 'success');
+							return redirect('teachers');
 
 					}else {
 						# this user already have a s/he role
@@ -243,7 +243,7 @@ class AssignRoleController extends Controller
 
 				 $user = User::find($id);
 
-				if (count($user->teacher()->where("user_id",$id)->get()) > 1) {
+				if (count($user->user()->where("user_id",$id)->get()) > 1) {
 						$teacher->delete();
 
 						activity('deleted-subject-teacher')
