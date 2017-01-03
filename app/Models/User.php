@@ -45,7 +45,7 @@ class User extends Authenticatable
 
     public function grade()
     {
-        return $this->hasOne(Grade::class);
+        return $this->belongsToMany(Grade::class);
     }
 
 		public function teacher()
