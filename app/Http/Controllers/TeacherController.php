@@ -24,7 +24,7 @@ class TeacherController extends Controller
 
 	public function edit($id)
 	{
-		$user = User::where('id', $id)->with('grade','teacher')->first();
+		$user = User::where('id', $id)->with('grade','teacher.subject')->first();
 		// dd($user);
 		return view('teacher.edit',['user' => $user,'id' => $id]);
 	}
