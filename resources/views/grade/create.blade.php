@@ -10,7 +10,7 @@
 	            <h5 class="col-md-8 text-left text-capitalize text-muted">Add Grade Records</h5>
 	            <div class="col-md-4">
 	              <div class="btn-group pull-right" role="group">
-	                <a href="#" class="btn btn-primary btn-sm">Use Excel</a>
+	                {{-- <a href="#" class="btn btn-primary btn-sm">Use Excel</a> --}}
 	                <a href="{{ url('/grades') }}" class="btn btn-default btn-sm">Go Back</a>
 	              </div>
 	            </div>
