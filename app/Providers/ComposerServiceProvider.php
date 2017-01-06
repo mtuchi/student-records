@@ -26,7 +26,7 @@ class ComposerServiceProvider extends ServiceProvider
         if (Auth::user()->hasRole('teacher'))
         {
 					// dd(Auth::user()->teacher()->with('grade')->get());
-          return $view->with('teachers', Auth::user()->grade()->get());
+          return $view->with('teachers', Auth::user()->teacher()->with('grade')->get());
         }
       });
 
