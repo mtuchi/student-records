@@ -118,25 +118,36 @@ Route::group(['middleware' => 'auth'], function () {
 
 
   #assign class teacher role
-  Route::post('/{id}/class', [
-		'as' => 'assign.class',
-		'uses' =>'AssignRoleController@class'
+	Route::post('/{id}/class', [
+		'as' => 'assignclass.update',
+		'uses' =>'AssignRole\ClassTeacherController@update'
 		]);
+
+  # delete class teacher
+  Route::delete('/{id}/class', [
+		'as' => 'assignclass.destroy',
+		'uses' => 'AssignRole\ClassTeacherController@destroy'
+	]);
 	#assign teacher role
 	Route::post('/{id}/teacher', [
-		'as' => 'assign.teacher',
-		'uses' =>'AssignRoleController@teacher'
+		'as' => 'assignteacher.update',
+		'uses' =>'AssignRole\TeacherController@update'
 		]);
+	# delete assign teacher
+  Route::delete('/{id}/teacher', [
+		'as' => 'assignteacher.destroy',
+		'uses' => 'AssignRole\TeacherController@destroy'
+	]);
 
 	#assign admin role
 	Route::post('/{id}/admin', [
-		'as' => 'assign.admin',
-		'uses' =>'AssignRoleController@admin'
+		'as' => 'assignadmin.update',
+		'uses' =>'AssignRole\AdminController@update'
 		]);
   # delete assign teacher
-  Route::delete('/{id}', [
-		'as' => 'assign.destroy',
-		'uses' => 'AssignRoleController@destroy'
+  Route::delete('/{id}/admin', [
+		'as' => 'assignadmin.destroy',
+		'uses' => 'AssignRole\AdminController@destroy'
 	]);
   #show profile
 	Route::get('/{id}/show', [
