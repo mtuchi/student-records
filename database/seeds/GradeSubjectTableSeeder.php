@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\Grade;
 use App\Models\Subject;
+use App\Models\Teacher;
 
 class GradeSubjectTableSeeder extends Seeder
 {
@@ -22,21 +23,19 @@ class GradeSubjectTableSeeder extends Seeder
 
 			foreach ($grades as $grade) {
 				# get the grade name
-				$name = $grade->slug;
-				$name = explode('-',$name);
-
-				switch ($name[0]) {
+				switch ($grade->name) {
 					case 'Pre':
 						$subjects = Subject::whereIn('id', $Pre)->get();
 						$grade->subject()->attach($Pre);
 						# pull subjects
 						foreach ($subjects as $subject) {
 							# firstOrCreate subject records in teachers table without teacher record
-							$grade->teacher()->firstOrCreate([
+							$teacher = Teacher::firstOrCreate([
 								'grade_id' => $grade->id,
 								'subject_id' => $subject->id,
 								'slug' => $subject->name."-".$grade->slug
 							]);
+							$teacher->grade()->attach($grade->id);
 						}
 
 						break;
@@ -45,11 +44,13 @@ class GradeSubjectTableSeeder extends Seeder
 					$grade->subject()->attach($I);
 
 					foreach ($subjects as $subject) {
-						$grade->teacher()->firstOrCreate([
+						$teacher = Teacher::firstOrCreate([
 							'grade_id' => $grade->id,
 							'subject_id' => $subject->id,
 							'slug' => $subject->name."-".$grade->slug
 						]);
+						$teacher->grade()->attach($grade->id);
+
 					}
 						break;
 					case 'II':
@@ -57,11 +58,13 @@ class GradeSubjectTableSeeder extends Seeder
 					$grade->subject()->attach($II);
 
 					foreach ($subjects as $subject) {
-						$grade->teacher()->firstOrCreate([
+						$teacher = Teacher::firstOrCreate([
 							'grade_id' => $grade->id,
 							'subject_id' => $subject->id,
 							'slug' => $subject->name."-".$grade->slug
 						]);
+						$teacher->grade()->attach($grade->id);
+
 					}
 						break;
 					case 'III':
@@ -69,11 +72,13 @@ class GradeSubjectTableSeeder extends Seeder
 						$grade->subject()->attach($III);
 
 						foreach ($subjects as $subject) {
-							$grade->teacher()->firstOrCreate([
+							$teacher = Teacher::firstOrCreate([
 								'grade_id' => $grade->id,
 								'subject_id' => $subject->id,
 								'slug' => $subject->name."-".$grade->slug
 							]);
+							$teacher->grade()->attach($grade->id);
+
 						}
 						break;
 

@@ -2,6 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
+use App\Models\Student;
+use App\Models\Grade;
+
 class GradeStudentTableSeeder extends Seeder
 {
     /**
@@ -11,24 +14,19 @@ class GradeStudentTableSeeder extends Seeder
      */
     public function run()
     {
-      foreach (range(6,10) as $student)
+			$first = Student::where('id','<=', 5)->get();
+			$second = Student::where('id','>', 5)->get();
+			$firstGrade = Grade::find(1);
+			$secondGrade = Grade::find(2);
+
+      foreach ($first as $student)
       {
-          DB::table('grade_student')->insert(
-            [
-              'student_id' => $student,
-              'grade_id' => 1,
-            ]
-          );
+				$firstGrade->student()->attach($student->id);
       }
 
-      foreach (range(1,5) as $student)
+      foreach ($second as $student)
       {
-          DB::table('grade_student')->insert(
-            [
-              'student_id' => $student,
-              'grade_id' => 2,
-            ]
-          );
+				$secondGrade->student()->attach($student->id);
       }
     }
 }

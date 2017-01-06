@@ -19,22 +19,29 @@ class GradesTableSeeder extends Seeder
 				foreach ($streams as $stream) {
 					$i++;
 					if ($i == 1) {
-						factory(Grade::class)->create([
+						$firstGrade = factory(Grade::class)->create([
 							'user_id' => 2,
-			        'name' => $grade." ".$stream,
+							'name' => $grade,
+							'stream' => $stream,
 			        'slug' => $grade."-".$stream,
 			      ]);
+						$firstGrade->user()->attach(2);
 					}
 					elseif ($i == 2) {
-						factory(Grade::class)->create([
+						$secondGrade = factory(Grade::class)->create([
 							'user_id' => 3,
-			        'name' => $grade." ".$stream,
+			        'name' => $grade,
+							'stream' => $stream,
 			        'slug' => $grade."-".$stream,
 			      ]);
+
+						$secondGrade->user()->attach(3);
+
 					} else {
 						factory(Grade::class)->create([
 							'user_id' => null,
-			        'name' => $grade." ".$stream,
+							'name' => $grade,
+							'stream' => $stream,
 			        'slug' => $grade."-".$stream,
 			      ]);
 					}
