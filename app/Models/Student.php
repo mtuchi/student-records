@@ -19,7 +19,8 @@ class Student extends Model
 
 	public function grade()
 	{
-		return $this->belongsTo(Grade::class);
+		// return $this->belongsTo(Grade::class);
+		return $this->morphTo(Grade::class,'gradeable');
 	}
 
 	public function age()
