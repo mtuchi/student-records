@@ -7,10 +7,10 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 	          <div class="row">
-	            <h4 class="col-md-8 text-center text-uppercase text-muted">Add Teacher Records</h4>
+	            <h5 class="col-md-8 text-capitalize text-muted">Add Teacher Records</h5>
 	            <div class="col-md-4">
 	              <div class="btn-group pull-right" role="group">
-	                <a href="#" class="btn btn-primary">Use Excel</a>
+	                {{-- <a href="#" class="btn btn-primary">Use Excel</a> --}}
 	                <a href="{{ url('/teachers') }}" class="btn btn-default">Go Back</a>
 	              </div>
 	            </div>
@@ -124,21 +124,7 @@
 				</div>
 			</div>
 	    <div class="col-xs-6 col-md-4 col-sm-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						School Management Section
-					</div>
-					<div class="panel-body">
-						<div class="boxed-group-inner">
-							<ul class="mini-class-list js-class-list">
-								<li><a href="">Teachers</a></li>
-								<li><a href="">Students</a></li>
-								<li><a href="">Grades</a></li>
-								<li><a href="">Subjects</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
+				@include('layouts.partials.sidebar')
 			</div>
 		</div>
 	</div>

@@ -76,14 +76,16 @@
 									</div>
 							</div>
 							@endif
-							@if ($user->grade)
+							@if (count($user->grade) != 0)
 							<div class="form-group">
 								<label for="gender" class="col-md-4 control-label">Class Teacher</label>
+								@foreach ($user->grade as $grade)
 									<div class="col-md-6">
 										<p class="form-control-static">
-											@ {{ $user->grade->slug }}
+											@ {{ $grade->slug }}
 										</p>
 									</div>
+								@endforeach
 							</div>
 							@endif
 					</div>

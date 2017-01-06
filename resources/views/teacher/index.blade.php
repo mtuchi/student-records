@@ -10,7 +10,7 @@
 						<div class="pull-left" style="margin-left:20px;">
 							<a href="{{ url('/teachers/create') }}" class="btn btn-default">+ Add Teacher</a>
 						</div>
-						<div class="pull-right" style="margin-right:20px;">
+						<div class="pull-right hidden" style="margin-right:20px;">
 							<a href="" class="btn btn-success">Download Sheet</a>
 							<a href="" class="btn btn-primary">Upload Worksheet <i class="fa fa-download"></i></a>
 						</div>
@@ -23,13 +23,13 @@
 								<th class="col-md-3">
 									Name
 								</th>
-								<th class="col-md-2">
+								<th class="col-md-1">
 									Gender
 								</th>
 								<th class="col-md-2">
 									DOB
 								</th>
-								<th class="col-md-2">
+								<th class="col-md-3">
 									Roles
 								</th>
 								<th class="col-md-2">
@@ -56,13 +56,13 @@
 												</ul>
 											</div>
 										</td>
-										<td class="col-md-2">
+										<td class="col-md-1">
 											{{ $teacher->gender }}
 										</td>
 										<td class="col-md-2">
 											{{ $teacher->dob }}
 										</td>
-										<td class="col-md-2">
+										<td class="col-md-3">
 											@foreach ($teacher->roles as $role)
 												@if ($role->name == "admin")
 													<span class="badge" data-toggle="tooltip" data-placement="top" title="School Admin"> A </span>
