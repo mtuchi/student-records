@@ -17,8 +17,9 @@ class CreateGradesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
 			      $table->foreign('user_id')->references('id')->on('users');
-            $table->string('name');
             $table->string('slug')->unique();
+						$table->string('name');
+						$table->string('stream');
             $table->timestamps();
         });
     }
