@@ -10,7 +10,7 @@
 						<div class="pull-left" style="margin-left:20px;">
 							<a href="{{ url('/grades/create') }}" class="btn btn-default">+ Add Grade</a>
 						</div>
-						<div class="pull-right" style="margin-right:20px;">
+						<div class="pull-right hidden" style="margin-right:20px;">
 							<a href="" class="btn btn-success">Download Sheet</a>
 							<a href="" class="btn btn-primary">Upload Worksheet <i class="fa fa-download"></i></a>
 						</div>
@@ -37,11 +37,12 @@
 						<tbody style="position:relative;">
 							@if ($grades->count())
 								@foreach ($grades as $grade)
+									{{-- {{ dd($grade)}} --}}
 									<tr class="record-row">
 										<td class="col-md-3">
 											<div class="dropdown">
 												<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-												{{ $grade->name }} <span class="caret"></span>
+												{{ $grade->slug }} <span class="caret"></span>
 												</a>
 												<ul class="dropdown-menu dropdown-menu-right" role="menu">
 													<li>
@@ -55,31 +56,33 @@
 										</td>
 										<td class="col-md-3">
 											@if ($grade->user)
-												{{ $grade->user->name }}
+												@foreach ($grade->user as $user)
+													{{ $user->name }}
+												@endforeach
 												@else
 											@endif
 										</td>
 										<td class="col-md-3">
 											@if (count($grade->subject) == 0)
 												@else
-												<span class="badge" data-toggle="tooltip" data-placement="top"
-												title="Click the caret to see subject list">
-													{{ count($grade->subject) }}
-													<div class="dropdown pull-right">
-													  <a href="#" id="subjectList" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-													    <span class="caret"></span>
-													  </a>
-													  <ul class="dropdown-menu" aria-labelledby="subjectList">
-													    <li class="dropdown-header">Subject List</li>
-															<li>
-																@foreach ($grade->subject as $subject)
-																	<a href="#">{{ $subject->name }} </a>
-																@endforeach
-															</li>
-
-													  </ul>
-													</div>
-												</span>
+													<div class="btn btn-xs bg-muted" type="button" data-toggle="tooltip" data-placement="top"	title="Click caret to see subject list">
+														 {{ count($grade->subject) }}
+														 <span class="badge">
+		 													<div class="dropdown pull-right">
+		 													  <a href="#" id="subjectList" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+		 													    <span class="caret"></span>
+		 													  </a>
+		 													  <ul class="dropdown-menu" aria-labelledby="subjectList">
+		 													    <li class="dropdown-header">Subject List</li>
+		 															<li>
+		 																@foreach ($grade->subject as $subject)
+		 																	<a href="#">{{ $subject->name }} </a>
+		 																@endforeach
+		 															</li>
+		 													  </ul>
+		 													</div>
+		 												</span>
+												</div>
 											@endif
 										</td>
 										<td class="col-md-3">
