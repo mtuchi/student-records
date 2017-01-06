@@ -30,7 +30,7 @@ class Teacher extends Model
 
   public function grade()
   {
-    return $this->belongsToMany(Grade::class);
+		return $this->morphToMany(Grade::class,'gradeable');
   }
 
 }
