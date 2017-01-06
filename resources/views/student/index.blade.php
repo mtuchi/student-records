@@ -10,7 +10,7 @@
 						<div class="pull-left" style="margin-left:20px;">
 							<a href="{{ url('/students/create') }}" class="btn btn-default">+ Add Student</a>
 						</div>
-						<div class="pull-right" style="margin-right:20px;">
+						<div class="pull-right hidden" style="margin-right:20px;">
 							<a href="" class="btn btn-success">Download Sheet</a>
 							<a href="" class="btn btn-primary">Upload Worksheet <i class="fa fa-download"></i></a>
 						</div>
