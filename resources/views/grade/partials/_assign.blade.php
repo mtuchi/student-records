@@ -2,10 +2,12 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<div class="row">
-				<h5 class="col-md-8 text-left text-capitalize text-muted">Change {{ $grade->user->name }} as <b>{{ $grade->name }} class teacher</b> </h5>
+				@foreach ($grade->user as $user)
+				<h5 class="col-md-8 text-left text-capitalize text-muted">Change <b>{{ $user->name }}</b> as <b>{{ $grade->name }}</b> class teacher</h5>
+				@endforeach
 				<div class="col-md-4">
 					<div class="btn-group pull-right" role="group">
-						<a href="#" class="btn btn-sm btn-primary">Use Excel</a>
+						{{-- <a href="#" class="btn btn-sm btn-primary">Use Excel</a> --}}
 						<a href="{{ url('/grades') }}" class="btn btn-sm btn-default">Go Back</a>
 					</div>
 				</div>
@@ -24,7 +26,7 @@
 								<option value="{{ $user->id }}">{{ $user->name }}</option>
 							@endforeach
 							@if ($grade->user)
-									<option value="{{ $grade->user->id }}" selected="">{{ $grade->user->name }}</option>
+									<option value="{{ $grade->user[0]->id }}" selected="">{{ $grade->user[0]->name }}</option>
 							@endif
 						</select>
 					</div>
