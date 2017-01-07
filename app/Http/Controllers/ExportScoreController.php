@@ -22,14 +22,13 @@ use Notify;
 
 class ExportScoreController extends Controller
 {
-  public function show($class, $subject)
+  public function show($slug, $subject)
   {
-    $subject = Auth::user()->subjects()->with('subject')->first();
-    $grade =  Grade::where('slug', $class)->first();
+    $user = Auth::user()->teacher()->with('subject')->first();
+    $grade =  Grade::where('slug', $slug)->first();
     $quarters = Quarter::isLive()->get();
-
     return view('quarters.score.export', [
-      'subject' => $subject,
+      'subject' => $user,
       'grade' => $grade,
       'quarters' => $quarters
     ]);
@@ -39,7 +38,7 @@ class ExportScoreController extends Controller
   {
     $file = $request->file('sheet');
     $subject_id = Subject::where('name', $subject)->pluck('id')->first();
-    $user = Auth::user()->subjects()->with('subject')->first();
+    $user = Auth::user()->teacher()->with('subject')->first();
 
     $SheetCollection = Excel::load($file)->ignoreEmpty();
     $rowCollection = $SheetCollection->all();
@@ -85,9 +84,10 @@ class ExportScoreController extends Controller
   public function all($class, $subject)
   {
     $id = Subject::where('name', $subject)->pluck('id')->first();
+		$grade = Grade::where('slug', $class)->with('student')->first();
 
-    $collections = Quarter::isLive()->with(['score' => function ($query) use($id) {
-        $query->with('student')->where('subject_id', $id);
+    $collections = Quarter::isLive()->with(['score' => function ($query) use($id, $grade) {
+        $query->where('subject_id', $id)->whereIn('student_id', $grade->student->pluck('id'));
     },'months'])->get();
 
 
@@ -95,7 +95,7 @@ class ExportScoreController extends Controller
       Convert each member of the returned collection into an array,
       and append it to the payments array.
       where would i need this
-      # $user = Auth::user()->subjects()->with('subject')->first();
+      # $user = Auth::user()->teacher()->with('subject')->first();
     */
 
 
