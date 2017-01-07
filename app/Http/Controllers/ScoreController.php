@@ -38,11 +38,11 @@ class ScoreController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function show($grade, $subject)
+  public function show($slug, $subject)
   {
     /*
       I have learn alot today 3 Nov 016,
-      About how touse groupBy in eloquent Models
+      About how to use groupBy in eloquent Models
       and how to use with (Constraining Eager Loads. ie from documentation)
       It made query and structuring the data really easy
       groupBy expample.
@@ -53,22 +53,18 @@ class ScoreController extends Controller
     // $this->authorize('view', $quarter);
 
     $id = Subject::where('name', $subject)->pluck('id')->first();
-    # $userSubject = Auth::user()->subjects()->with('subject')->first();
+
     $user = Auth::user()->username;
+		$grade = Grade::where('slug', $slug)->with('student')->first();
 
-    $quarters = Quarter::isLive()->with(['score' => function ($query) use($id) {
-        $query->where('subject_id', $id);
+    $quarters = Quarter::isLive()->with(['score' => function ($query) use($id, $grade) {
+        $query->where('subject_id', $id)->whereIn('student_id', $grade->student->pluck('id'));
     },'months'])->get();
-
-    $grade = Grade::where('slug', $grade)->first();
-
-    $students = Student::whereIn('id', json_decode($grade->students))->get();
 
     return view('quarters.score.index', [
       'user' => $user,
       'subject' => $subject,
       'quarters' => $quarters,
-      'students' => $students,
       'grade' => $grade
     ]);
   }
@@ -99,7 +95,7 @@ class ScoreController extends Controller
             ->where('quarter_id', Quarter::isLive()
             ->where('slug', $quarter)->pluck('id'))
             ->where('student_id', $id)->first();
-            
+
     activity($grade."-".$subject)
         ->causedBy(Auth::user())
         ->performedOn($score)
