@@ -16,13 +16,15 @@
       </strong>
     </h4>
     <ul class="nav nav-tabs col-xs-12 col-sm-8" role="tablist" style="margin-bottom:-2px;" id="quarter-tabs">
-      @foreach($quarters as $quarter)
-        @if($loop->first)
-          <li role="presentation" class="active"><a style="border-left:none;" href="#{{ $quarter->slug}}" aria-controls="{{ $quarter->slug}}" role="tab" data-toggle="tab">{{ $quarter->name }}</a></li>
-        @else
-          <li role="presentation"><a href="#{{ $quarter->slug }}" aria-controls="{{ $quarter->slug}}" role="tab" data-toggle="tab">{{ $quarter->name }}</a></li>
-        @endif
-      @endforeach
+			@if (is_array($quarters) || is_object($quarters))
+				@foreach($quarters as $quarter)
+					@if($loop->first)
+						<li role="presentation" class="active"><a style="border-left:none;" href="#{{ $quarter->slug}}" aria-controls="{{ $quarter->slug}}" role="tab" data-toggle="tab">{{ $quarter->name }}</a></li>
+					@else
+						<li role="presentation"><a href="#{{ $quarter->slug }}" aria-controls="{{ $quarter->slug}}" role="tab" data-toggle="tab">{{ $quarter->name }}</a></li>
+					@endif
+				@endforeach
+			@endif
     </ul>
   </div>
 </div>
@@ -74,14 +76,14 @@
                     </tr>
                   @endforeach
                 @else
-                  @foreach($students as $student)
+                  @foreach($grade->student as $student)
                     <tr>
                       <td class="col-md-3">{{ $student->name }}</td>
                       <td class="col-md-2">{{ $student->gender }}</td>
                     </tr>
                   @endforeach
                   <tr>
-                    <td style="position:absolute; width:55%; bottom:0; right:0.5em;">
+                    <td style="position:; width:55%; bottom:0; right:0.5em;">
                         <div class="panel-body">
                           <div class="alert alert-info" role="alert">
                             Heads up! <a href="{{ route('exportscore.show',[$grade->slug, $subject])}}" class="alert-link">Download Spreed Sheet</a>
@@ -141,14 +143,14 @@
                     </tr>
                   @endforeach
                 @else
-                  @foreach($students as $student)
+                  @foreach($grade->student as $student)
                     <tr>
                       <td class="col-md-3">{{ $student->name }}</td>
                       <td class="col-md-2">{{ $student->gender }}</td>
                     </tr>
                   @endforeach
                   <tr>
-                    <td style="position:absolute; width:55%; bottom:0; right:0.5em;">
+                    <td style="position:; width:55%; bottom:0; right:0.5em;">
                         <div class="panel-body">
                           <div class="alert alert-info" role="alert">
                             Heads up! <a href="{{ route('exportscore.show',[$grade->slug,$subject])}}" class="alert-link">Download Spreed Sheet</a>
