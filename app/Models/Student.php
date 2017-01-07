@@ -17,9 +17,13 @@ class Student extends Model
 	 */
 	protected $fillable = ['name', 'gender','dob','guardian','emergency_contact'];
 
+	public function score()
+	{
+		return $this->hasMany(Score::class);
+	}
+
 	public function grade()
 	{
-		// return $this->belongsTo(Grade::class);
 		return $this->morphTo(Grade::class,'gradeable');
 	}
 
