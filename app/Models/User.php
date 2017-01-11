@@ -5,8 +5,6 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Models\Subject;
-use App\Models\Quarter;
 
 class User extends Authenticatable
 {
