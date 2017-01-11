@@ -110,7 +110,7 @@ class StudentGradeController extends Controller
 					 });
 					}
 					if (Auth::user()->hasRole('teacher')) {
-						return Score::where('student_id', $id)->where('subject_id', Auth::user()->subjects->first()->subject_id)
+						return Score::where('student_id', $id)->where('subject_id', Auth::user()->teacher->first()->subject_id)
 						->with('subject','quarter.months')->get()->groupBy(function($key, $item) use($subject){
 						 return $subject->where('id', $key['subject_id'])->pluck('name')->first();
 					 });
