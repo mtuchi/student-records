@@ -28,12 +28,13 @@ class UserController extends Controller
 
   public function show($user)
   {
-    $data = Auth::user()->where('username', $user)->with('subjects.teacher','subjects.subject')->first();
+    $temp = Auth::user()->where('username', $user)->with('teacher')->first();
+    $data = Auth::user();
     $grade = Grade::where('user_id', Auth::user()->id)->first();
 
     $teachers = function() use($grade, $data){
       if (Auth::user()->hasRole('class_teacher','teacher')) {
-        return Teacher::where('grade_id', $grade->id)->with('subject', 'teacher')->get();
+        return Teacher::where('grade_id', $grade->id)->get();
       }
       if (Auth::user()->hasRole('teacher')) {
         return $data->subjects;
