@@ -310,11 +310,6 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     # grade routes
-    Route::get('/',[
-      'as' => 'grade.subject.show',
-      'uses' => 'GradeSubjectController@show'
-    ]);
-
     Route::post('/',[
       'as' => 'grade.back',
       function () {
