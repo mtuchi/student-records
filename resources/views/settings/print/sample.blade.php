@@ -1,30 +1,67 @@
-<div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <img src="http://s3.amazonaws.com/s3.codecourse.com/public/img/email/logo.png" alt="Codecourse logo" class="pull-right">
-                    <h3>Invoice #Replace me</h3>
-                    <h5>Amount due: <strong>£REPLACE_ME</strong></h5>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-6">
-                    <p>Billed to REPLACE_ME.</p>
 
-                    157 Never Road<br>
-                    London<br>
-                    NE7 3R0
-                </div>
-                <div class="col-md-6">
-                    <p class="text-muted">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima recusandae vel, error deleniti iste, odit excepturi aspernatur doloremque labore, hic tempore ratione provident dolorum dolore suscipit earum reiciendis perspiciatis necessitatibus iusto tenetur ab quibusdam quae. Aliquid veniam, perspiciatis incidunt dolorum! Distinctio, nostrum. Dignissimos, quae dolore, pariatur illum nostrum delectus unde!
-                    </p>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Send us your money to: 225000001 10-20-69.</p>
-                </div>
-            </div>
-        </div>
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<table class="table table-bordered">
+				<thead>
+					<tr role="row">
+						<th class="text-center" rowspan="1" colspan="10" style="vertical-align: middle;">Academic Progress Report</th>
+						<th rowspan="1">
+							<img src="http://s3.amazonaws.com/s3.codecourse.com/public/img/email/logo.png" alt="Codecourse logo" class="pull-">
+						</th>
+					</tr>
+				    <tr role="row">
+				        <th colspan="1" rowspan="2" style="vertical-align: middle;">Pupil's Name</th>
+				        <th colspan="8" rowspan="2" style="vertical-align: middle;">Jaden Smith Maeda</th>
+				        <th colspan="2" rowspan="1">Pre-Standard I A</th>
+				    </tr>
+
+					<tr>
+						<th rowspan="1">Absences:</th>
+						<th rowspan="1">N/A</th>
+					</tr>
+
+					<tr role="row">
+				        <th class="sorting" rowspan="1">Subject</th>
+				        <th class="sorting" rowspan="1" colspan="3">Teacher</th>
+				        <th class="sorting" rowspan="1">Q.1</th>
+				        <th class="sorting" rowspan="1">Q.2</th>
+						<th class="sorting" rowspan="1">Q.3</th>
+						<th class="sorting" rowspan="1">Q.4</th>
+				        <th class="sorting" rowspan="1">Term 1</th>
+						<th class="sorting" rowspan="1">Term 2</th>
+						<th class="sorting" rowspan="1">Cumm Avg.</th>
+				    </tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td rowspan="1">English</td>
+						<td rowspan="1" colspan="3">Jane Doe</td>
+						<td rowspan="1">98</td>
+						<td rowspan="1">79</td>
+						<td rowspan="1">89</td>
+						<td rowspan="1">91</td>
+						<td rowspan="1">12</td>
+						<td rowspan="1">12</td>
+						<td rowspan="1">54</td>
+					</tr>
+					<tr>
+						<td rowspan="1">Overall Average</td>
+						<td rowspan="1" colspan="3"></td>
+						<td rowspan="1">98</td>
+						<td rowspan="1">79</td>
+						<td rowspan="1">89</td>
+						<td rowspan="1">91</td>
+						<td rowspan="1">12</td>
+						<td rowspan="1">12</td>
+						<td rowspan="1">54</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+@endsection

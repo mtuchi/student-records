@@ -3,7 +3,7 @@
 @section('content')
   <div class="container">
 	    <div class="row">
-        <div class="col-xs-6 col-md-4 ">
+        <div class="col-xs-6 col-md-3">
           <div class="user-profile">
             <div class="user-profile-sticky-bar js-user-profile-sticky-bar hidden">
               <div class="user-profile-mini-vcard d-table">
@@ -61,10 +61,9 @@
                 </a>
             </div>
           </div>
-
         </div>
 
-        <div class="col-xs-12 col-sm-6 col-md-8">
+        <div class="col-xs-12 col-sm-6 col-md-6">
           <div class="user-profile-nav js-sticky">
             <nav class="underline-nav">
               <ul class="nav nav-tabs" role="tablist">
@@ -212,6 +211,9 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="col-md-3">
+          @include('layouts.partials.sidebar')
         </div>
       </div>
     </div>

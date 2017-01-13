@@ -1,5 +1,5 @@
 <div id="js-overview-activity" class="activity-listing overview-activity">
-  @if($overviewActivities->count())
+  @if($overviewActivities)
     @foreach($overviewActivities as $activity)
       <div class="overview-activity-listing col-md-12 pull-left">
         <div class="profile-timeline discussion-timeline width-full">
