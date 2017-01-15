@@ -232,6 +232,7 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
     # export routes for grade attendance
+	Route::resource('export', 'ExportAttendanceController');
     Route::get('/export',[
       'as' => 'exportattendance.show',
       'uses' => 'ExportAttendanceController@show'
