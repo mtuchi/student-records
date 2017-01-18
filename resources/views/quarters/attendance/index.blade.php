@@ -12,7 +12,7 @@
       </span>
       <span class="path-divider">@</span>
       <strong>
-      <a href="#">{{ $grade->name }}</a>
+      <a href="#">{{ $grade }}</a>
       </strong>
     </h4>
     <ul class="nav nav-tabs col-xs-12 col-sm-8" role="tablist" style="margin-bottom:-2px;">
@@ -35,8 +35,8 @@
       <div class="panel panel-default">
         <div class="panel-heading">Dashboard
           <div class="pull-right" style="margin-top:-7.5px;">
-            <a href="{{ route('exportattendance.show',$grade->slug)}}" class="btn btn-success">Download Sheet</a>
-            <a href="{{ route('uploadattendance.show',$grade->slug)}}" class="btn btn-primary">Upload Worksheet <i class="fa fa-download"></i></a>
+            <a href="{{ route('exportattendance.show',$grade)}}" class="btn btn-success">Download Sheet</a>
+            <a href="{{ route('uploadattendance.show',$grade)}}" class="btn btn-primary">Upload Worksheet <i class="fa fa-download"></i></a>
 
           </div>
         </div>
@@ -62,9 +62,9 @@
                           </a>
                           <ul class="dropdown-menu dropdown-menu-right" role="menu">
                             <li>
-                              <a href="{{ route('attendance.show', [$grade->slug,$quarter->slug,$attendance->student_id])}}">Edit</a>
+                              <a href="{{ route('attendance.show', [$grade,$quarter->slug,$attendance->student_id])}}">Edit</a>
                             </li>
-                            <li><a href="{{ route('student.grade.show', [$grade->slug,$attendance->student_id]) }}">Profile</a></li>
+                            <li><a href="{{ route('student.grade.show', [$grade,$attendance->student_id]) }}">Profile</a></li>
                           </ul>
                         </div>
                       </td>
@@ -106,8 +106,8 @@
       <div class="panel panel-default">
         <div class="panel-heading">Dashboard
           <div class="pull-right" style="margin-top:-7.5px;">
-            <a href="{{ route('exportattendance.show',$grade->slug)}}" class="btn btn-success">Download Sheet</a>
-            <a href="{{ route('uploadattendance.show',$grade->slug)}}" class="btn btn-primary">Upload Worksheet <i class="fa fa-download"></i></a>
+            <a href="{{ route('exportattendance.show',$grade)}}" class="btn btn-success">Download Sheet</a>
+            <a href="{{ route('uploadattendance.show',$grade)}}" class="btn btn-primary">Upload Worksheet <i class="fa fa-download"></i></a>
           </div>
         </div>
           <div class="panel-body">
@@ -132,9 +132,9 @@
                           </a>
                           <ul class="dropdown-menu dropdown-menu-right" role="menu">
                             <li>
-                              <a href="{{ route('attendance.show', [$grade->slug,$quarter->slug,$attendance->student_id])}}">Edit</a>
+                              <a href="{{ route('attendance.show', [$grade,$quarter->slug,$attendance->student_id])}}">Edit</a>
                             </li>
-                            <li><a href="{{ route('student.grade.show', [$grade->slug,$attendance->student_id]) }}">Profile</a></li>
+                            <li><a href="{{ route('student.grade.show', [$grade,$attendance->student_id]) }}">Profile</a></li>
                           </ul>
                         </div>
                       </td>
