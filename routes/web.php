@@ -276,7 +276,7 @@ Route::group(['middleware' => 'auth'], function () {
       ]);
       # get quarter scores routes
        Route::get('/',[
-         'as' => 'quarter.show',
+         'as' => 'score.quarter',
          'uses' => 'ScoreController@show'
        ]);
 
@@ -318,20 +318,26 @@ Route::group(['middleware' => 'auth'], function () {
       }
     ]);
 
+	# attendance routes
+	# get attendance scores
+	 Route::get('/',[
+	   'as' => 'attendance.quarter',
+	   'uses' => 'AttendanceController@quarter'
+	 ]);
+	Route::group(['prefix' => '{quarter}'], function(){
+		// Editing  student attendance
+	    Route::get('/{id}/edit', [
+	      'as' => 'attendance.show',
+	      'uses' => 'AttendanceController@show'
+	    ]);
 
-    // Editing  student attendance
-    Route::get('/{quarter}/{id}/edit', [
-      'as' => 'attendance.show',
-      'uses' => 'AttendanceController@show'
-    ]);
+	    Route::post('/{id}/edit', [
+	      'as' => 'attendance.update',
+	      'uses' => 'AttendanceController@update'
+	    ]);
+	});
 
-    Route::post('/{quarter}/{id}/edit', [
-      'as' => 'attendance.update',
-      'uses' => 'AttendanceController@update'
-    ]);
 
   });
-
-  // attendance arena
 
 });
