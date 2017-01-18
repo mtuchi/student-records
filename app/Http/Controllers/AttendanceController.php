@@ -29,16 +29,24 @@ class AttendanceController extends Controller
    */
   public function __construct()
   {
-      $this->middleware('auth');
+    $this->middleware('auth');
+  }
+
+  public function quarter($slug)
+  {
+	  $quarters = Quarter::isLive()->with(['attendance' => function ($query) use($slug) {
+          $query->where('grade_id', Grade::where('slug', $slug)->pluck('id')->first())
+                ->with('student');
+      },'months'])->get();
+
+	  return view('quarters.attendance.index',[
+		  'grade' => $slug,
+		  'quarters' => $quarters
+	  ]);
   }
 
   public function show($grade, $quarter, $id)
   {
-    // $attendance = Attendance::with('months')->where('quarter_id', Quarter::isLive()
-    //               ->where('slug', $quarter)->pluck('id')->first())
-    //               ->where('grade_id', Grade::where('slug', $grade)->pluck('id')->first())
-    //               ->where('student_id',$id )->get();
-
     $attendance = Quarter::isLive()->where('slug', $quarter)->with(['attendance' => function ($query) use($id, $grade) {
         $query->where('student_id', $id)
               ->where('grade_id', Grade::where('slug', $grade)->pluck('id')->first())
