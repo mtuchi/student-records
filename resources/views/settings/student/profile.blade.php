@@ -52,10 +52,16 @@
 									</div>
 								</div>
 								<div role="tabpanel" class="tab-pane" id="report">
-									<div class="boxed-group-inner col-md-12">
-										<h2 class="f4 mb-2 text-normal hidden">
+									<div class="boxed-group-inner">
+										<h2 class="f4 mb-2 text-normal">
 												{{ $student->name }} Report
 										</h2>
+										<a href="{{ route('pdf.print', $grade) }}" class="btn btn-sm">Print Report</a>
+										{{-- <form class="form-horizontal" action="{{ route('pdf.print', $grade) }}" method="POST" role="form">
+											{{ csrf_field() }}
+
+											<button type="submit" class="btn btn-sm">Print Report</button>
+										</form> --}}
 										@include('settings.student.partials._report')
 									</div>
 								</div>

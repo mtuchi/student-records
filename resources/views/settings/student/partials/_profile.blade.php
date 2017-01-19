@@ -55,8 +55,5 @@
 			<a href="{{ config('app.url') }}" aria-label="{{ config('app.name') }}" class="tooltipped tooltipped-n avatar-group-item" itemprop="follows">
 				<img alt="@{{ config('app.name') }}" class="avatar img-circle" src="{{ $student->avatar(['size'=> 35,'image' => 'retro']) }}" width="35" height="35">
 			</a>
-			<span>
-				<a href="{{ route('test')}}">Print</a>
-			</span>
 	</div>
 </div>
