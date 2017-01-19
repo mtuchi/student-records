@@ -56,12 +56,12 @@
 										<h2 class="f4 mb-2 text-normal">
 												{{ $student->name }} Report
 										</h2>
-										<a href="{{ route('pdf.print', $grade) }}" class="btn btn-sm">Print Report</a>
-										{{-- <form class="form-horizontal" action="{{ route('pdf.print', $grade) }}" method="POST" role="form">
+										{{-- <a href="{{ route('pdf.print') }}" class="btn btn-sm">Print Report</a> --}}
+										<form class="form-horizontal" action="{{ route('pdf.print') }}" method="GET" role="form">
 											{{ csrf_field() }}
-
+											<input type="hidden" name="grade" value="{{ $grade }}">
 											<button type="submit" class="btn btn-sm">Print Report</button>
-										</form> --}}
+										</form>
 										@include('settings.student.partials._report')
 									</div>
 								</div>
