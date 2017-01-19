@@ -19,11 +19,11 @@ require('./bootstrap');
  */
  require('../dropdowns-enhancement');
 
-Vue.component('example', require('./components/Example.vue'));
+// Vue.component('example', require('./components/Example.vue'));
 // Vue.component('teacher-form', require('./components/TeacherForm.vue'));
 // Vue.component('grade-list', require('./components/partials/Gradelist.vue'));
 // Vue.component('subject-list', require('./components/partials/Subjectlist.vue'));
 
-const app = new Vue({
-    el: '#app'
-});
+// const app = new Vue({
+//     el: '#app'
+// });
