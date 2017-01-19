@@ -176,10 +176,6 @@ Route::group(['middleware' => 'auth'], function () {
 	]);
 
   # user profile settings
-  Route::get('/pdf', [
-    'as' => 'test',
-    'uses' => 'StudentGradeController@print'
-  ]);
 
   Route::get('/',[
     'as' => 'home',
@@ -324,6 +320,12 @@ Route::group(['middleware' => 'auth'], function () {
 	   'as' => 'attendance.quarter',
 	   'uses' => 'AttendanceController@quarter'
 	 ]);
+
+	 Route::post('/pdf', [
+		 'as' => 'pdf.print',
+		 'uses' => 'StudentGradeController@print'
+	 ]);
+
 	Route::group(['prefix' => '{quarter}'], function(){
 		// Editing  student attendance
 	    Route::get('/{id}/edit', [
