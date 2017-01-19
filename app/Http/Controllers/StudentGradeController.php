@@ -10,6 +10,7 @@ use App\Models\Student;
 use App\Models\Score;
 use App\Models\Subject;
 use App\Models\Attendance;
+use App\Models\Quarter;
 
 use PDF;
 use Auth;
@@ -21,10 +22,10 @@ class StudentGradeController extends Controller
      *
      * @return void
      */
-        public function __construct()
-        {
-            $this->middleware('auth');
-        }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -63,58 +64,59 @@ class StudentGradeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-         public function show($class, $id)
-         {
-             $student = Student::where('id', $id)->with('grade')->first();
-             $grade = Grade::where('slug', $class)->first();
-             $subject = Subject::get();
+     public function show($class, $id)
+     {
+       $student = Student::where('id', $id)->with('grade')->first();
+       $grade = Grade::where('slug', $class)->first();
+       $subject = Subject::get();
 
 
-             $scores = function () use ($id, $subject) {
-                 if (Auth::user()->hasRole('class_teacher')) {
-                     return Score::where('student_id', $id)->with('subject', 'quarter.months')->get()->groupBy(function ($key, $item) use ($subject) {
-                         return $subject->where('id', $key['subject_id'])->pluck('name')->first();
-                     });
-                 }
-                 if (Auth::user()->hasRole('teacher')) {
-                     return Score::where('student_id', $id)->where('subject_id', Auth::user()->subjects->first()->subject_id)
-                        ->with('subject', 'quarter.months')->get()->groupBy(function ($key, $item) use ($subject) {
-                            return $subject->where('id', $key['subject_id'])->pluck('name')->first();
-                        });
-                 }
-             };
+       $scores = function () use ($id, $subject) {
+           if (Auth::user()->hasRole('class_teacher')) {
+               return Score::where('student_id', $id)->with('subject', 'quarter.months')->get()->groupBy(function ($key, $item) use ($subject) {
+                   return $subject->where('id', $key['subject_id'])->pluck('name')->first();
+               });
+           }
+           if (Auth::user()->hasRole('teacher')) {
+               return Score::where('student_id', $id)->where('subject_id', Auth::user()->subjects->first()->subject_id)
+                  ->with('subject', 'quarter.months')->get()->groupBy(function ($key, $item) use ($subject) {
+                      return $subject->where('id', $key['subject_id'])->pluck('name')->first();
+                  });
+           }
+       };
 
-             $attendance = Attendance::where('student_id', $id)->with('grade', 'quarter.months')->get()->groupBy(function ($key, $item) use ($grade) {
-                 return $grade->where('id', $key['grade_id'])->pluck('name')->first();
-             });
+       $attendance = Attendance::where('student_id', $id)->with('grade', 'quarter.months')->get()->groupBy(function ($key, $item) use ($grade) {
+           return $grade->where('id', $key['grade_id'])->pluck('name')->first();
+       });
 
 
-             return view('settings.student.profile', [
-                    'student' => $student,
-                    'scores' => $scores(),
-                    'attendance' => $attendance
-                ]);
-         }
+       return view('settings.student.profile', [
+              'student' => $student,
+              'scores' => $scores(),
+              'attendance' => $attendance,
+							'grade' => $class
+          ]);
+     }
 
     public function student($class, $id)
     {
-        $student = Student::where('id', $id)->first();
-        $grade = Grade::where('slug', $class)->first();
-        $subject = Subject::get();
+      $student = Student::where('id', $id)->first();
+      $grade = Grade::where('slug', $class)->first();
+      $subject = Subject::get();
 
 
-        $scores = function () use ($id, $subject) {
-            if (Auth::user()->hasRole('class_teacher')) {
-                return Score::where('student_id', $id)->with('subject', 'quarter.months')->get()->groupBy(function ($key, $item) use ($subject) {
-                    return $subject->where('id', $key['subject_id'])->pluck('name')->first();
-                });
-            }
-            if (Auth::user()->hasRole('teacher')) {
-                return Score::where('student_id', $id)->where('subject_id', Auth::user()->teacher->first()->subject_id)
-                        ->with('subject', 'quarter.months')->get()->groupBy(function ($key, $item) use ($subject) {
-                            return $subject->where('id', $key['subject_id'])->pluck('name')->first();
-                        });
-            }
+      $scores = function () use ($id, $subject) {
+          if (Auth::user()->hasRole('class_teacher')) {
+              return Score::where('student_id', $id)->with('subject', 'quarter.months')->get()->groupBy(function ($key, $item) use ($subject) {
+                  return $subject->where('id', $key['subject_id'])->pluck('name')->first();
+              });
+          }
+          if (Auth::user()->hasRole('teacher')) {
+              return Score::where('student_id', $id)->where('subject_id', Auth::user()->teacher->first()->subject_id)
+                      ->with('subject', 'quarter.months')->get()->groupBy(function ($key, $item) use ($subject) {
+                          return $subject->where('id', $key['subject_id'])->pluck('name')->first();
+                      });
+          }
         };
 
         return view('settings.student.single', [
@@ -157,11 +159,18 @@ class StudentGradeController extends Controller
         //
     }
 
-    public function print()
+    public function print(Request $request, $slug)
     {
-	    return view('settings.print.sample');
-     //    $data = ['Sanaa Tuu'];
-     //    $pdf = PDF::loadView('settings.print.sample');
-     //    return $pdf->download('invoice.pdf');
+			// $quarters = Quarter::isLive()->with(['attendance' => function ($query) use($slug) {
+	    //       $query->where('grade_id', Grade::where('slug', $slug)->pluck('id')->first())
+	    //             ->with('student');
+	    //   },'months'])->get();
+      $pdf = PDF::loadView('settings.print.sample');
+      return $pdf->download('invoice.pdf');
+
+		// 	return $request->user()->downloadInvoice($slug, [
+    //     'vendor'  => 'Your Company',
+    //     'product' => 'Your Product',
+    // ]);
     }
 }
