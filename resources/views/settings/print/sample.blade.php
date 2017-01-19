@@ -1,17 +1,18 @@
 
-@extends('layouts.app')
-
-@section('content')
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<!-- Latest compiled and minified CSS -->
+{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> --}}
+<link rel="stylesheet" href="css/app.css">
 <div class="container">
 	<div class="row">
-		<div class="col-lg-8 col-md-8">
+		<div class="col-lg-12 col-md-12">
 			<div class="row">
 				<table class="table table-bordered">
 					<thead>
 						<tr role="row">
 							<th class="text-center" rowspan="1" colspan="10" style="vertical-align: middle;">Academic Progress Report</th>
 							<th rowspan="1">
-								<img src="http://s3.amazonaws.com/s3.codecourse.com/public/img/email/logo.png" alt="Codecourse logo" class="pull-">
+								<img src="img/logo.png" alt="Codecourse logo" class="pull-">
 							</th>
 						</tr>
 						<tr role="row">
@@ -254,8 +255,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div>
-@endsection
