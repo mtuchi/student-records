@@ -202,6 +202,10 @@ Route::group(['middleware' => 'auth'], function () {
     'uses' => 'HomeController@tinker',
   ]);
 
+	Route::get('/pdf', [
+		'as' => 'pdf.print',
+		'uses' => 'StudentGradeController@print'
+	]);
 
   # grade group prefix routes
   Route::group(['prefix' => '{grade}'], function () {
@@ -319,11 +323,6 @@ Route::group(['middleware' => 'auth'], function () {
 	 Route::get('/',[
 	   'as' => 'attendance.quarter',
 	   'uses' => 'AttendanceController@quarter'
-	 ]);
-
-	 Route::post('/pdf', [
-		 'as' => 'pdf.print',
-		 'uses' => 'StudentGradeController@print'
 	 ]);
 
 	Route::group(['prefix' => '{quarter}'], function(){
