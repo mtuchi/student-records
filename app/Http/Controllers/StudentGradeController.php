@@ -159,18 +159,21 @@ class StudentGradeController extends Controller
         //
     }
 
-    public function print(Request $request, $slug)
+    public function print(Request $request)
     {
-			// $quarters = Quarter::isLive()->with(['attendance' => function ($query) use($slug) {
-	    //       $query->where('grade_id', Grade::where('slug', $slug)->pluck('id')->first())
-	    //             ->with('student');
-	    //   },'months'])->get();
-      $pdf = PDF::loadView('settings.print.sample');
-      return $pdf->download('invoice.pdf');
+			$slug = $request->grade;
+      if ($slug) {
+				$quarters = Quarter::isLive()->with(['attendance' => function ($query) use($slug) {
+		          $query->where('grade_id', Grade::where('slug', $slug)->pluck('id')->first())
+		                ->with('student');
+		      },'months'])->get();
 
-		// 	return $request->user()->downloadInvoice($slug, [
-    //     'vendor'  => 'Your Company',
-    //     'product' => 'Your Product',
-    // ]);
+					$pdf = PDF::loadView('settings.print.sample');
+
+					// dd(get_class_methods($pdf));
+		      return $pdf->download('invoice.pdf');
+      }else {
+      	return;
+      }
     }
 }
