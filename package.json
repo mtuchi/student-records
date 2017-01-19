@@ -12,11 +12,10 @@
     "laravel-elixir": "^6.0.0-14",
     "laravel-elixir-vue-2": "^0.2.0",
     "laravel-elixir-webpack-official": "^1.0.2",
-    "lodash": "^4.16.2",
-    "vue": "^2.0.1",
-    "vue-resource": "^1.0.3"
+    "lodash": "^4.16.2"
   },
   "dependencies": {
+    "font-awesome": "*",
     "gulp-install": "^0.6.0",
     "octicons": "^5.0.1"
   }
