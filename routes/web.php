@@ -29,6 +29,8 @@ Auth::routes();
 #Route::post('/addteacher','HomeController@store');
 
 Route::group(['middleware' => 'auth'], function () {
+  # subjects CRUD
+  Route::resource('subjects', 'SubjectsController');
   # group prefix for grades
   Route::group(['prefix' => '/grades'], function(){
     Route::get('/', 'GradeController@index');
