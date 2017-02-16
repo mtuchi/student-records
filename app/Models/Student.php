@@ -54,4 +54,9 @@ class Student extends Model
 		return $grades->contains($grade);
 	}
 
+	public function subject()
+	{
+		return $this->hasMany(Subject::class);
+	}
+
 }
