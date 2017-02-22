@@ -10,7 +10,7 @@
 		</div>
 	</div>
 	<div class="panel-body">
-		@if ($score)
+		@if (empty($check))
 			<div class="alert alert-warning">
 				<p class="form-control-static">
 					You can not delete <b>{{ $subject->name }}</b> subject, because it's already assinged to classes.

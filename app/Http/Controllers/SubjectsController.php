@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Subject;
 use App\Models\Score;
-use Repositories\Capture\Capture;
+use App\Repositories\Constraint;
 
 class SubjectsController extends Controller
 {
@@ -68,11 +68,12 @@ class SubjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Constraint $constraint)
     {
 			$subject = Subject::where('id', $id)->firstOrFail();
-			$score = Score::where('subject_id',$id)->first();
-			return view('subjects.edit',['subject' => $subject,'id' => $id,'score' => $score]);
+			$check = $constraint->check($id);
+
+			return view('subjects.edit',['subject' => $subject,'id' => $id,'check' => $check]);
     }
 
     /**
@@ -103,18 +104,12 @@ class SubjectsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Constraint $constraint)
     {
+
 			$subject = Subject::where('id', $id)->firstOrFail();
-			$score = Score::where('subject_id', $id)->first();
-			if ($score) {
-				notify()->flash($subject->name." was not deleted because it's already being used in scores", 'warning');
+			$subject->delete();
 
-				return redirect('subjects');
-			} else {
-				$subject->delete();
-
-				return redirect('subjects');
-			}
+			return redirect('subjects');
     }
 }
