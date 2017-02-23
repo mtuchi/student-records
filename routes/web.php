@@ -11,8 +11,27 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => 'role:admin'], function(){
+	Route::get('/admin',function(Illuminate\Http\Request $request){
+		return "admin panel";
+	});
+	Route::group(['middleware' => 'role:admin,revoke user'], function(){
+		Route::get('/admin/users', function(){
+			return "Delete Users";
+		});
+	});
+});
+
+Route::get('/welcome', function (Illuminate\Http\Request $request) {
+    $user = $request->user();
+		// dump($user->hasRole('admin','teacher'));
+		// dd($user->can('delete post'));
+
+		// $user->withDrawPermissionTo(['delete post','edit post']);
+		$user->refreshPermissions(['delete post','edit post']);
+    // return view('welcome');
+
+		return new \Illuminate\Http\Response('hello', 200);
 });
 
 Route::get('/notify', function () {
