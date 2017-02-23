@@ -170,6 +170,7 @@ return [
         Codecourse\Notify\NotifyServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -231,6 +232,7 @@ return [
 		    'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Notify' => Codecourse\Notify\Facades\Notify::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 
