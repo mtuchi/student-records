@@ -68,7 +68,7 @@
 									@else
 										<tr>
 											<td colspan="5" style="padding:;" class="alert alert-info text-center">
-												<a href="#">+ Add Subject Records</a>
+												<a href="{{ url('/subjects/create') }}">+ Add Subject Records</a>
 											</td>
 										</tr>
 									@endif

@@ -1,5 +1,9 @@
 /node_modules
 /public/storage
+/public/fonts/*
+/public/css/*
+/public/build/*
+/public/js/*
 /storage/*.key
 /storage/fonts/*
 /storage/debugbar/*

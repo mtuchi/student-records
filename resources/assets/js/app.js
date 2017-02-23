@@ -14,16 +14,17 @@ require('./bootstrap');
  */
 
  /*
-   Require dropdown
+   Require dropdowns-enhancement
    source:http://behigh.github.io/bootstrap_dropdowns_enhancement/
  */
- require('../dropdowns-enhancement');
+ require('../../../node_modules/bootstrap_dropdowns_enhancement/dist/js/dropdowns-enhancement');
 
-// Vue.component('example', require('./components/Example.vue'));
-// Vue.component('teacher-form', require('./components/TeacherForm.vue'));
-// Vue.component('grade-list', require('./components/partials/Gradelist.vue'));
-// Vue.component('subject-list', require('./components/partials/Subjectlist.vue'));
+ /*
+	 Require bootstrap-tagsinput
+ */
+ require('../../../node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput');
 
-// const app = new Vue({
-//     el: '#app'
-// });
+/*
+	Main js
+*/
+require('./main');

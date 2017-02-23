@@ -124,7 +124,7 @@
 				</div>
 			</div>
 	    <div class="col-xs-6 col-md-4 col-sm-6">
-				@include('layouts.partials.sidebar')
+				@include('layouts.partials._sidebar')
 			</div>
 		</div>
 	</div>

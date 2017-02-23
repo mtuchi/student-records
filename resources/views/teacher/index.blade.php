@@ -86,7 +86,7 @@
 									@else
 										<tr>
 											<td colspan="5" style="padding:;" class="alert alert-info text-center">
-												<a href="#">+ Add Teacher Records</a>
+												<a href="{{ url('/teachers/create') }}">+ Add Teacher Records</a>
 											</td>
 										</tr>
 									@endif
