@@ -20,7 +20,7 @@
 
   <div id="app">
     @include('layouts.partials._navigations')
-    @include('layouts.partials.notify')
+    @include('layouts.partials._notify')
     @yield('content')
   </div>
 
