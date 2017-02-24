@@ -13,8 +13,7 @@
     "lodash": "^4.16.2"
   },
   "dependencies": {
-    "bootstrap-tagsinput": "^0.7.1",
-    "bootstrap_dropdowns_enhancement": "^3.1.2",
+    "bootstrap-select": "^1.12.2",
     "cross-env": "^3.1.4",
     "gulp-install": "^0.6.0",
     "laravel-mix": "^0.8.4",
