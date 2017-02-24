@@ -13,16 +13,11 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
- /*
-   Require dropdowns-enhancement
-   source:http://behigh.github.io/bootstrap_dropdowns_enhancement/
- */
- require('../../../node_modules/bootstrap_dropdowns_enhancement/dist/js/dropdowns-enhancement');
 
  /*
-	 Require bootstrap-tagsinput
+	 Require bootstrap-select
  */
- require('../../../node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput');
+ require('../../../node_modules/bootstrap-select/dist/js/bootstrap-select');
 
 /*
 	Main js
