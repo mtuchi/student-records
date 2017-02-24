@@ -36,6 +36,18 @@
 							</div>
 
 							<div class="form-group">
+								<label for="tagsinput" class="col-md-4 control-label">Select Subjects</label>
+								<div class="col-md-6">
+									<input type="text" class="form-control tagsinput" value="Amsterdam,Washington" name="tagsinput" data-role="tagsinput" />
+									@if ($errors->has('tagsinput'))
+										<span class="help-block">
+											<strong>{{ $errors->first('tagsinput') }}</strong>
+										</span>
+									@endif
+								</div>
+							</div>
+
+							<div class="form-group">
 									<div class="col-md-6 col-md-offset-4">
 											<button type="submit" class="btn btn-primary">
 													Add Grade
