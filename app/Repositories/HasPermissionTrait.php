@@ -9,6 +9,29 @@ use App\Models\{Role, Permission};
  */
 trait HasPermissionTrait
 {
+	public function giveRole(...$roles)
+	{
+		// get roles Model
+		$roles = $this->getRoles(array_flatten($roles));
+		if ($roles === null) {
+			 return $this;
+		}
+
+		// saveMany to the users
+		$this->roles()->saveMany($roles);
+		return $this;
+	}
+
+	public function withDrawRole(...$roles)
+	{
+		// get roles Model
+		$roles = $this->getRoles(array_flatten($roles));
+
+		// detach to the users
+		$this->roles()->detach($roles);
+		return $this;
+	}
+
 	public function givePermissionTo(...$permissions)
 	{
 		// get permissions Model
@@ -73,6 +96,11 @@ trait HasPermissionTrait
 	protected function getPermissions(array $permissions)
 	{
 		return Permission::whereIn('name', $permissions)->get();
+	}
+
+	protected function getRoles(array $roles)
+	{
+		return Role::whereIn('name', $roles)->get();
 	}
 
 

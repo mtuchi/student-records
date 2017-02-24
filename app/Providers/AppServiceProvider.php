@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\User;
+use App\Events\UserRegistered;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-			//
+			User::created(function($user){
+
+        //  generating random token
+				$token = $user->activationToken()->updateOrCreate([
+					'token' => str_random(128),
+				]);
+
+				// Assign admin role
+				$user->giveRole('admin');
+
+       //  Sending an email
+       event(new UserRegistered($user));
+      });
     }
 
     /**

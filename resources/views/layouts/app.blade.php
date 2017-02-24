@@ -28,7 +28,7 @@
   <script src="{{ asset('/js/app.js')}}"></script>
   <script type="text/javascript">
 		window.setTimeout(function() {
-				$(".alert-message").fadeTo(500, 0).slideUp(500, function(){
+				$(".notify").fadeTo(5000, 0).slideUp(5000, function(){
 						$(this).remove();
 				});
 		}, {{ notify()->option('timer') ? notify()->option('timer') : 2000 }});

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -36,4 +38,19 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
+
+		/**
+		 * The user has been authenticated.
+		 * @param  Illuminate\Http\Request $request
+		 * @param  mixed  $user
+		 * @return mixed
+		 */
+		protected function authenticated(Request $request, $user)
+		{
+			if (!$user->active) {
+					Auth::logout();
+					return redirect('/login')->with('error','Please activate your account
+					<a href="'.route('auth.activate.resend'). '?email='. $user->email .'">Resend Activation Email</a>');
+			}
+		}
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -27,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/login';
 
     /**
      * Create a new controller instance.
@@ -51,9 +53,6 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-            'DOB' => 'required',
-            'gender' => 'required',
-            'phone' => 'required|regex:/(01)[0-9]{9}/',
         ]);
     }
 
@@ -69,9 +68,20 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'DOB' => $data[''],
-            'gender' => $data[''],
-            'phone' => $data[''],
+						'active' => false,
         ]);
     }
+
+		/**
+		 * The user has been registered.
+		 * @param  Illuminate\Http\Request $request
+		 * @param  mixed  $user
+		 * @return mixed
+		 */
+		protected function registered(Request $request, $user)
+		{
+			Auth::logout();
+
+			return redirect('/login')->with('info', 'Please now activate your account.');
+		}
 }
