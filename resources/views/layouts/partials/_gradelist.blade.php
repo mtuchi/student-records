@@ -1,27 +1,25 @@
-<div class="col-md-6 form-inline">
-	<div class="col-md-6"  style="padding-left:0;">
-		<select class="form-control col-md-12" name="class[0]" placeholder="Select Class" required>
-			<option value="">Select Class</option>
-			<option value="Pre">Pre</option>
-			<option value="I">I</option>
-			<option value="II">II</option>
-			<option value="III">III</option>
-			<option value="IV">IV</option>
-			<option value="V">V</option>
-			<option value="VI">VI</option>
-			<option value="VII">VII</option>
-		</select>
-	</div>
-  <div class="col-md-6">
-		<select class="form-control col-md-12" name="class[1]" placeholder="Select Stream">
-			<option value="">Select Stream</option>
-			<option value="A">A</option>
-			<option value="B">B</option>
-		</select>
-  </div>
-</div>
+<select class="selectpicker" multiple name="class" title="Select Class and Stream">
+	<optgroup label="Class" data-max-options="1">
+		<option value="Pre">Pre</option>
+		<option value="I">I</option>
+		<option value="II">II</option>
+		<option value="III">III</option>
+		<option value="IV">IV</option>
+		<option value="V">V</option>
+		<option value="VI">VI</option>
+		<option value="VII">VII</option>
+	</optgroup>
+	<optgroup label="Stream" data-max-options="1">
+		<option>A</option>
+		<option>B</option>
+		<option>C</option>
+		<option>D</option>
+		<option>E</option>
+		<option>F</option>
+	</optgroup>
+</select>
 @if ($errors->has('class'))
-		<span class="help-block">
-				<strong>{{ $errors->first('class') }}</strong>
-		</span>
+	<span class="help-block">
+			<strong>{{ $errors->first('class') }}</strong>
+	</span>
 @endif

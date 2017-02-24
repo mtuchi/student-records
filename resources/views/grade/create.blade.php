@@ -21,35 +21,33 @@
 							{{ csrf_field() }}
 							<div class="form-group">
 								<label for="name" class="col-md-4 control-label">Grade</label>
+								<div class="col-md-6">
 									@include('layouts.partials._gradelist')
+								</div>
 							</div>
 							<div class="form-group">
-								<label for="name" class="col-md-4 control-label"> Teacher</label>
+								<label for="name" class="col-md-4 control-label"> Class Teacher</label>
 								<div class="col-md-6">
-									<select class="form-control" name="teacher">
-										<option value="">Select Teacher</option>
+									<select class="selectpicker" name="teacher" multiple data-max-options="1" data-live-search="true"
+									 title="Choose a class teacher...">
 										@foreach ($users as $user)
-											<option value="{{ $user->id }}">{{ $user->name }}</option>
+										<option value="{{ $user->id }}" data-tokens="{{ $user->name }}">{{ $user->name }}</option>
 										@endforeach
 									</select>
+
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label for="tagsinput" class="col-md-4 control-label">Select Subjects</label>
 								<div class="col-md-6">
-									<input type="text" class="form-control tagsinput" value="Amsterdam,Washington" name="tagsinput" data-role="tagsinput" />
-									@if ($errors->has('tagsinput'))
-										<span class="help-block">
-											<strong>{{ $errors->first('tagsinput') }}</strong>
-										</span>
-									@endif
+									@include('layouts.partials._subjectlist')
 								</div>
 							</div>
 
 							<div class="form-group">
 									<div class="col-md-6 col-md-offset-4">
-											<button type="submit" class="btn btn-primary">
+											<button type="submit" class="btn btn-primary col-md-8">
 													Add Grade
 											</button>
 									</div>
