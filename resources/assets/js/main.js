@@ -1,5 +1,12 @@
 $(document).ready(function() {
-
+	$('input.tagsinput').tagsinput({
+	  typeaheadjs: {
+	    name: 'citynames',
+	    displayKey: 'name',
+	    valueKey: 'name',
+	    source: citynames.ttAdapter()
+	  }
+	});
 	/*
 		Bootstrap 3: Keep selected tab on page refresh
 		source:http://stackoverflow.com/questions/18999501/bootstrap-3-keep-selected-tab-on-page-refresh
