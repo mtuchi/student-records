@@ -30,6 +30,6 @@ class ResendActivationToken extends Mailable
      */
     public function build()
     {
-        return $this->subject('Resended Activation Email')->view('email.auth.activation');
+        return $this->subject('Resent Activation Email')->view('email.auth.activation');
     }
 }
