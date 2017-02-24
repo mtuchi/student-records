@@ -46,6 +46,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/activate/token/{token}','Auth\ActivationController@activate')->name('auth.activate');
+Route::get('/activate/resend','Auth\ActivationController@resend')->name('auth.activate.resend');
+
 Auth::routes();
 
 #vuejs test return
