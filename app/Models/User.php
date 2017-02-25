@@ -64,7 +64,7 @@ class User extends Authenticatable
       return 'http://www.gravatar.com/avatar/' .md5($this->email). '?s=' . $size . '&d='. $image;
     }
 
-    public function ActivationToken()
+    public function activationToken()
     {
       return $this->hasOne(ActivationToken::class);
     }
@@ -73,5 +73,10 @@ class User extends Authenticatable
     {
       return static::where('email',$email);
     }
+
+		public function invitationToken()
+		{
+			return $this->hasMany(Invitation::class);
+		}
 
 }

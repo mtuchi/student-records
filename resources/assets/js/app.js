@@ -19,7 +19,17 @@ require('./bootstrap');
  */
  require('../../../node_modules/bootstrap-select/dist/js/bootstrap-select');
 
+ /*
+	Require selectize
+ */
+ require('../../../node_modules/selectize/dist/js/selectize');
+
 /*
 	Main js
 */
 require('./main');
+
+/*
+	Selectize js
+*/
+require('./select');
