@@ -28,6 +28,6 @@ class ResendActivationEmail
      */
     public function handle(ResendActivation $event)
     {
-			Mail::to($event->user)->send(new ResendActivationToken($event->user->activationToken));
+			Mail::to($event->user)->queue(new ResendActivationToken($event->user->activationToken));
     }
 }

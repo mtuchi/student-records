@@ -30,6 +30,6 @@ class SendActivationEmail
 		public function handle($event)
     {
       // Sending Email to a registered user
-      Mail::to($event->user)->send(new SendActivationToken($event->user->activationToken));
+      Mail::to($event->user)->queue(new SendActivationToken($event->user->activationToken));
     }
 }
