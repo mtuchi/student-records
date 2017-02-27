@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Validator;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Grade;
@@ -94,11 +95,14 @@ class TeacherController extends Controller
 	public function store(Request $request)
 	{
 		$user = Auth::user();
-		// validation
-		$this->validate($request,[
-			'email' => 'required|email'
+
+		$validator = Validator::make($request->email, [
+				'email' => 'email|unique:users'
 		]);
-		dd($request->email);
+
+		if ($validator->fails()) {
+			return redirect()->back()->with('error', $validator);
+		}
 
 		foreach ($request->email as $email) {
 			$user->invitationToken()->updateOrCreate([
