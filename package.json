@@ -1,22 +1,24 @@
 {
   "private": true,
   "scripts": {
-    "prod": "gulp --production",
-    "dev": "gulp watch"
+    "dev": "cross-env NODE_ENV=development webpack --progress --hide-modules",
+    "watch": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules",
+    "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot",
+    "production": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "devDependencies": {
     "bootstrap-sass": "^3.3.7",
     "font-awesome": "^4.7.0",
-    "gulp": "^3.9.1",
     "jquery": "^3.1.0",
-    "laravel-elixir": "^6.0.0-14",
-    "laravel-elixir-vue-2": "^0.2.0",
-    "laravel-elixir-webpack-official": "^1.0.2",
     "lodash": "^4.16.2"
   },
   "dependencies": {
-    "font-awesome": "*",
+    "bootstrap-select": "^1.12.2",
+    "cross-env": "^3.1.4",
     "gulp-install": "^0.6.0",
-    "octicons": "^5.0.1"
+    "laravel-mix": "^0.8.4",
+    "octicons": "^5.0.1",
+    "selectize": "^0.12.4",
+    "webpack": "^2.2.1"
   }
 }

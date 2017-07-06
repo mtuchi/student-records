@@ -11,9 +11,28 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::group(['middleware' => 'role:admin'], function(){
+// 	Route::get('/admin',function(Illuminate\Http\Request $request){
+// 		return "admin panel";
+// 	});
+// 	Route::group(['middleware' => 'role:admin,revoke user'], function(){
+// 		Route::get('/admin/users', function(){
+// 			return "Delete Users";
+// 		});
+// 	});
+// });
+//
+// Route::get('/welcome', function (Illuminate\Http\Request $request) {
+//     $user = $request->user();
+// 		// dump($user->hasRole('admin','teacher'));
+// 		// dd($user->can('delete post'));
+//
+// 		// $user->withDrawPermissionTo(['delete post','edit post']);
+// 		$user->refreshPermissions(['delete post','edit post']);
+//     // return view('welcome');
+//
+// 		return new \Illuminate\Http\Response('hello', 200);
+// });
 
 Route::get('/notify', function () {
     // notify
@@ -23,12 +42,26 @@ Route::get('/notify', function () {
     return redirect()->back();
 });
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/activate/token/{token}','Auth\ActivationController@activate')->name('auth.activate');
+Route::get('/activate/resend','Auth\ActivationController@resend')->name('auth.activate.resend');
+
 Auth::routes();
 
 #vuejs test return
 #Route::post('/addteacher','HomeController@store');
 
 Route::group(['middleware' => 'auth'], function () {
+
+  Route::get('/home',[
+    'as' => 'home',
+    'uses'=>'HomeController@index'
+  ]);
+  # subjects CRUD
+  Route::resource('subjects', 'SubjectsController');
   # group prefix for grades
   Route::group(['prefix' => '/grades'], function(){
     Route::get('/', 'GradeController@index');
@@ -177,10 +210,6 @@ Route::group(['middleware' => 'auth'], function () {
 
   # user profile settings
 
-  Route::get('/',[
-    'as' => 'home',
-    'uses'=>'HomeController@index'
-  ]);
 
   Route::get('/settings/{user}', [
     'as' => 'user.show',

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Student;
 
 class StudentSubjectSeeder extends Seeder
 {
@@ -11,25 +12,18 @@ class StudentSubjectSeeder extends Seeder
      */
     public function run()
     {
+			$firstPatch = Student::whereIn('id', range(6,10))->get();
       //Seed quarter_subject table with 4 entries
-       foreach (range(6,10) as $student)
+       foreach ($firstPatch as $student)
        {
-           DB::table('student_subject')->insert(
-             [
-               'student_id' => $student,
-               'subject_id' => 1,
-             ]
-           );
+				 	$stundent->subject()->attach(1);
        }
 
-       foreach (range(1,5) as $student)
+			 $secondPatch = Student::whereIn('id', range(1,5))->get();
+
+       foreach ($secondPatch as $student)
        {
-           DB::table('student_subject')->insert(
-             [
-               'student_id' => $student,
-               'subject_id' => 2,
-             ]
-           );
+				 	$student->subject()->attach(2);
        }
     }
 }

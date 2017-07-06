@@ -99,6 +99,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+				'person.*.email' => [
+					'unique' => 'Each person must have a unique e-mail address',
+			]
     ],
 
     /*

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Role;
 
 class RolesTableSeeder extends Seeder
 {
@@ -11,15 +12,15 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-      $arr = [
+      $roles = [
         'class_teacher', 'teacher', 'admin', 'registrar',
       ];
 
-      foreach ($arr as $val)
+      foreach ($roles as $role)
       {
-        DB::table('roles')->insert([
-          'name' => $val
-        ]);
+				$insert = Role::updateOrCreate([
+					'name' => $role
+				]);
       }
     }
 }

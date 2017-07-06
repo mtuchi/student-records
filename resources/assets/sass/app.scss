@@ -8,11 +8,11 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
-// Fontawesome
-@import "node_modules/font-awesome/css/font-awesome";
+// bootstrap-select
+@import "node_modules/bootstrap-select/dist/css/bootstrap-select";
 
-//Dropdown enhancement
-@import "resources/assets/dropdowns-enhancement";
+// selectize with bootstrap 3 theme
+@import "node_modules/selectize/dist/css/selectize.bootstrap3";
 
 //Main css
 @import "resources/assets/css/main";

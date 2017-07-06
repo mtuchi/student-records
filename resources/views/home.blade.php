@@ -7,7 +7,7 @@
           @yield('main.content')
         </div>
 	      <div class="col-xs-6 col-md-4 ">
-          @include('layouts.partials.sidebar')
+          @include('layouts.partials._sidebar')
         </div>
 	    </div>
 	</div>

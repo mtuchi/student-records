@@ -13,17 +13,23 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
  /*
-   Require dropdown
-   source:http://behigh.github.io/bootstrap_dropdowns_enhancement/
+	 Require bootstrap-select
  */
- require('../dropdowns-enhancement');
+ require('../../../node_modules/bootstrap-select/dist/js/bootstrap-select');
 
-// Vue.component('example', require('./components/Example.vue'));
-// Vue.component('teacher-form', require('./components/TeacherForm.vue'));
-// Vue.component('grade-list', require('./components/partials/Gradelist.vue'));
-// Vue.component('subject-list', require('./components/partials/Subjectlist.vue'));
+ /*
+	Require selectize
+ */
+ require('../../../node_modules/selectize/dist/js/selectize');
 
-// const app = new Vue({
-//     el: '#app'
-// });
+/*
+	Main js
+*/
+require('./main');
+
+/*
+	Selectize js
+*/
+require('./select');
