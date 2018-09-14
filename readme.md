@@ -2,7 +2,7 @@
 
 > **Heads up!** This is work in progress.
 
-A platform for managing student records designed for Gonzaga Primary School. created by [@mtuchi](https://github.com/mtuchi) and [@joshuamabina](https://github.com/joshuamabina),and supervised by the [irabu team](https://irabu.co.tz).
+A platform for managing student records designed for Schools. created by [@mtuchi](https://github.com/mtuchi) and [@joshuamabina](https://github.com/joshuamabina),and supervised by the [irabu team](https://irabu.co.tz).
 
 To get started, check out <http://gonzaga.irabu.xyz>!
 
